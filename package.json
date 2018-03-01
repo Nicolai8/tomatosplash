@@ -1,19 +1,7 @@
 {
-	"name": "angular-electron",
-	"version": "3.0.0",
+	"name": "tomatosplash",
+	"version": "1.0.0",
 	"description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
-	"homepage": "https://github.com/maximegris/angular-electron",
-	"author": {
-		"name": "Maxime GRIS",
-		"email": "maxime.gris@gmail.com"
-	},
-	"keywords": [
-		"angular",
-		"angular 5",
-		"electron",
-		"typescript",
-		"sass"
-	],
 	"main": "main.js",
 	"private": true,
 	"scripts": {
