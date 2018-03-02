@@ -1,34 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Events } from '../../../../events';
 import { ElectronService } from '../../providers/electron.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-export type Config = {
-    [key: string]: any
-}
+import Config from '../models/config.model';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../ngrx/reducers';
+import * as config from '../ngrx/actions/config';
 
 @Injectable()
 export class ConfigurationService {
-    private config$: BehaviorSubject<Config> = new BehaviorSubject({});
+  constructor(
+    private store: Store<fromRoot.State>,
+    private electronService: ElectronService
+  ) {
+    this.electronService.ipcRenderer.on(Events.editConfigurationSuccess, (event: Electron.Event, newConfig: Config) => {
+      this.store.dispatch(new config.GetConfigSuccess(newConfig));
+    });
+  }
 
-    constructor(private electronService: ElectronService) {
-        this.electronService.ipcRenderer.on(Events.editConfigurationSuccess, (event: Electron.Event, config: Config) => {
-            this.config$.next(config);
-        });
-    }
+  loadConfiguration(): Promise<Config> {
+    return new Promise((resolve) => {
+      const newConfig = this.electronService.ipcRenderer.sendSync(Events.getConfiguration) || {};
+      this.store.dispatch(new config.GetConfigSuccess(newConfig));
+      resolve(newConfig);
+    });
+  }
 
-    get configuration$() {
-        return this.config$;
-    }
-
-    loadConfiguration(): Promise<Config> {
-        return new Promise((resolve) => {
-            this.config$.next(this.electronService.ipcRenderer.sendSync(Events.getConfiguration) || {});
-            resolve(this.config$);
-        });
-    }
-
-    setSetting(key: string, value: any) {
-        this.electronService.ipcRenderer.send(Events.editConfiguration, key, value);
-    }
+  setSetting(key: string, value: any) {
+    this.electronService.ipcRenderer.send(Events.editConfiguration, key, value);
+  }
 }
