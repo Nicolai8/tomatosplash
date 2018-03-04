@@ -13,7 +13,6 @@ export function reducer(state: State = initialState,
                         action: ExtendedAction): State {
   switch (action.type) {
     case ConfigActionTypes.GetConfigSuccess:
-    case ConfigActionTypes.SetConfigSuccess:
       return {
         config: action.config,
       };

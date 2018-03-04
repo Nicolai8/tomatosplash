@@ -1,5 +1,6 @@
 export const Events = {
-    getConfiguration: 'getConfiguration',
-    editConfiguration: 'editConfiguration',
-    editConfigurationSuccess: 'editConfigurationSuccess',
+  getConfiguration: 'getConfiguration',
+  editConfiguration: 'editConfiguration',
+  editMultipleConfiguration: 'editMultipleConfiguration',
+  editConfigurationSuccess: 'editConfigurationSuccess',
 };

@@ -1,0 +1,25 @@
+<form *ngIf="form" [formGroup]="form" class="form">
+  <mat-form-field>
+    <input matInput
+           [placeholder]="'PAGES.SETTINGS.CASH_MACHINE_ID' | translate"
+           formControlName="cashMachineId"
+           required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           [placeholder]="'PAGES.SETTINGS.DB_CONNECTION_STRING' | translate"
+           formControlName="dbConnectionString"
+           required>
+  </mat-form-field>
+</form>
+<div class="actions">
+  <button mat-raised-button
+          [disabled]="form.pristine || form.invalid"
+          (click)="save()"
+          color="primary">
+    {{'PAGES.SETTINGS.SAVE' | translate}}
+  </button>
+  <button mat-raised-button [routerLink]="['/']">
+    {{'PAGES.SETTINGS.DISMISS' | translate}}
+  </button>
+</div>

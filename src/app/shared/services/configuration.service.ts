@@ -28,4 +28,8 @@ export class ConfigurationService {
   setSetting(key: string, value: any) {
     this.electronService.ipcRenderer.send(Events.editConfiguration, key, value);
   }
+
+  setSettings(pairs: { [key: string]: any }) {
+    this.electronService.ipcRenderer.send(Events.editMultipleConfiguration, pairs);
+  }
 }

@@ -4,8 +4,8 @@ import { ExtendedAction } from './action';
 export enum ConfigActionTypes {
   GetConfig = '[Config] GetConfig',
   GetConfigSuccess = '[Config] GetConfigSuccess',
-  SetConfig = '[Config] SetConfig',
-  SetConfigSuccess = '[Config] SetConfigSuccess',
+  SetConfigKeys = '[Config] SetConfigKeys',
+  SetConfigKeysSuccess = '[Config] SetConfigKeysSuccess',
   SetConfigKey = '[Config] SetConfigKey',
   SetConfigKeySuccess = '[Config] SetConfigKeySuccess',
 }
@@ -21,15 +21,15 @@ export class GetConfigSuccess implements ExtendedAction {
   }
 }
 
-export class SetConfig implements ExtendedAction {
-  readonly type = ConfigActionTypes.SetConfig;
+export class SetConfigKeys implements ExtendedAction {
+  readonly type = ConfigActionTypes.SetConfigKeys;
 
-  constructor(public config: Config) {
+  constructor(public pairs: { [key: string]: any }) {
   }
 }
 
-export class SetConfigSuccess implements ExtendedAction {
-  readonly type = ConfigActionTypes.SetConfigSuccess;
+export class SetConfigKeysSuccess implements ExtendedAction {
+  readonly type = ConfigActionTypes.SetConfigKeysSuccess;
 
   constructor(public config: Config) {
   }

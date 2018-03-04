@@ -1,8 +1,14 @@
 {
   "PAGES": {
-      "HOME": {
-          "TITLE": "App works !"
-      }
+    "HOME": {
+      "TITLE": "App works !"
+    },
+    "SETTINGS": {
+      "CASH_MACHINE_ID": "Cash machine number",
+      "DB_CONNECTION_STRING": "DB connection string",
+      "DISMISS": "Dismiss",
+      "SAVE": "Save"
+    }
   },
   "MAIN": {
     "TOOLBAR": "Application Name"
