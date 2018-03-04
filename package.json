@@ -29,6 +29,7 @@
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
   "dependencies": {
+    "include-media": "^1.4.9",
     "ngrx-store-freeze": "^0.2.1"
   },
   "devDependencies": {

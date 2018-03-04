@@ -1,2 +1,14 @@
-
-<router-outlet></router-outlet>
+<header class="header">
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>{{'MAIN.TOOLBAR' | translate}}</span>
+    <span class="spacer"></span>
+    <button mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+</header>
+<div class="main">
+  <router-outlet></router-outlet>
+</div>

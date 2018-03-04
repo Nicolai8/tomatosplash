@@ -3,5 +3,8 @@
       "HOME": {
           "TITLE": "App works !"
       }
+  },
+  "MAIN": {
+    "TOOLBAR": "Application Name"
   }
 }
