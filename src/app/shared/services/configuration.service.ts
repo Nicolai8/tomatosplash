@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Events } from '../../../../events';
-import { ElectronService } from '../../providers/electron.service';
+import { ElectronService } from './electron.service';
 import Config from '../models/config.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../ngrx/reducers';
