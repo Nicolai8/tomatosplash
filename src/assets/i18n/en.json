@@ -12,5 +12,8 @@
   },
   "MAIN": {
     "TOOLBAR": "Application Name"
+  },
+  "MESSAGES": {
+    "EDIT_CONFIG_SUCCESS": "Settings have been saved"
   }
 }

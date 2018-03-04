@@ -5,6 +5,7 @@ import Config from '../models/config.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../ngrx/reducers';
 import * as config from '../ngrx/actions/config';
+import * as layout from '../ngrx/actions/layout';
 
 @Injectable()
 export class ConfigurationService {
@@ -14,6 +15,7 @@ export class ConfigurationService {
   ) {
     this.electronService.ipcRenderer.on(Events.editConfigurationSuccess, (event: Electron.Event, newConfig: Config) => {
       this.store.dispatch(new config.GetConfigSuccess(newConfig));
+      this.store.dispatch(new layout.ShowNotification('MESSAGES.EDIT_CONFIG_SUCCESS'));
     });
   }
 

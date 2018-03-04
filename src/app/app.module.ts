@@ -30,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ConfigEffects } from './shared/ngrx/effects/config';
 import { SettingsComponent } from './components/settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutEffects } from './shared/ngrx/effects/layout';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       name: 'NgRx Book Store DevTools',
       // logOnly: AppConfig.production,
     }),
-    EffectsModule.forRoot([ ConfigEffects ]),
+    EffectsModule.forRoot([ ConfigEffects, LayoutEffects ]),
     AppRoutingModule,
     SharedModule.forRoot(),
     TranslateModule.forRoot({

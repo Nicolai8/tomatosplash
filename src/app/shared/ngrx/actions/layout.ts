@@ -1,14 +1,12 @@
 import { ExtendedAction } from './action';
 
 export enum LayoutActionTypes {
-    OpenSidenav = '[Layout] Open Sidenav',
-    CloseSidenav = '[Layout] Close Sidenav',
+  ShowNotification = '[Layout] Open ShowNotification',
 }
 
-export class OpenSidenav implements ExtendedAction {
-    readonly type = LayoutActionTypes.OpenSidenav;
-}
+export class ShowNotification implements ExtendedAction {
+  readonly type = LayoutActionTypes.ShowNotification;
 
-export class CloseSidenav implements ExtendedAction {
-    readonly type = LayoutActionTypes.CloseSidenav;
+  constructor(public message: string, public translate: boolean = true) {
+  }
 }

@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConfigurationService } from './services/configuration.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ElectronService } from './services/electron.service';
+import { NotificationService } from './services/notification.service';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -90,6 +91,7 @@ export class SharedModule {
       providers: [
         ElectronService,
         ConfigurationService,
+        NotificationService,
         {
           provide: APP_INITIALIZER,
           useFactory: configurationServiceFactory,
