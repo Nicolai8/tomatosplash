@@ -15,7 +15,7 @@ export const configurationEvents = (ipcMain: Electron.IpcMain) => {
   });
 
   ipcMain.on(Events.editMultipleConfiguration, (event: Electron.Event, pairs: { [key: string]: any }) => {
-    for (let key in pairs) {
+    for (const key in pairs) {
       if (pairs.hasOwnProperty(key)) {
         settings.set(key, pairs[ key ]);
       }

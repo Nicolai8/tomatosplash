@@ -11,6 +11,18 @@
            formControlName="dbConnectionString"
            required>
   </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           [placeholder]="'PAGES.SETTINGS.DB_USERNAME' | translate"
+           formControlName="dbUserName"
+           required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           [placeholder]="'PAGES.SETTINGS.DB_PASSWORD' | translate"
+           formControlName="dbPassword"
+           required>
+  </mat-form-field>
 </form>
 <div class="actions">
   <button mat-raised-button

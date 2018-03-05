@@ -6,6 +6,8 @@
     "SETTINGS": {
       "CASH_MACHINE_ID": "Cash machine number",
       "DB_CONNECTION_STRING": "DB connection string",
+      "DB_USERNAME": "DB Username",
+      "DB_PASSWORD": "DB Password",
       "DISMISS": "Dismiss",
       "SAVE": "Save"
     }

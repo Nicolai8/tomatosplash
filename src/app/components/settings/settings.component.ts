@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import * as fromRoot from '../../shared/ngrx/reducers'
+import * as fromRoot from '../../shared/ngrx/reducers';
 import * as fromConfig from '../../shared/ngrx/selectors/config';
-import { SetConfigKey, SetConfigKeys } from '../../shared/ngrx/actions/config';
+import { SetConfigKeys } from '../../shared/ngrx/actions/config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Config from '../../shared/models/config.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -26,6 +26,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.form = new FormGroup({
           cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
           dbConnectionString: new FormControl(config.dbConnectionString || '', Validators.required),
+          dbUserName: new FormControl(config.dbUserName || '', Validators.required),
+          dbPassword: new FormControl(config.dbPassword || '', Validators.required),
         });
       });
   }
@@ -35,6 +37,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.store.dispatch(new SetConfigKeys(this.form.getRawValue()))
+    this.store.dispatch(new SetConfigKeys(this.form.getRawValue()));
   }
 }

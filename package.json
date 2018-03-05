@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "include-media": "^1.4.9",
-    "ngrx-store-freeze": "^0.2.1"
+    "ngrx-store-freeze": "^0.2.1",
+    "node-rest-client": "^3.1.0"
   },
   "devDependencies": {
     "@angular/animations": "5.2.5",

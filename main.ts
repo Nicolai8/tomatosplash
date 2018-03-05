@@ -4,6 +4,7 @@ import * as url from 'url';
 import * as os from 'os';
 import events from './electron/events';
 import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
+import { initApiCaller } from './electron/services/apiService';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -27,6 +28,7 @@ function createWindow() {
     height: size.height
   });
   win.setMenu(null);
+  initApiCaller(win.webContents);
 
   if (serve) {
     require('electron-reload')(__dirname, {});
