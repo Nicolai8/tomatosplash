@@ -1,8 +1,8 @@
 import { ItemActionTypes } from '../actions/item';
-import { ExtendedAction } from '../actions/action';
-import { Item } from '../../models/item.model';
+import { ExtendedAction } from '../../shared/actions/action';
+import { Item } from '../../../../models/item.model';
 import * as _ from 'lodash';
-import { removeFromArray, updateArray } from '../../utils';
+import { removeFromArray, updateArray } from '../../shared/utils';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State {
@@ -61,8 +61,3 @@ export const getItems = createSelector(
   getItemState,
   (state: State) => state.items
 );
-
-export default [
-  getItemState,
-  getItems,
-];

@@ -1,4 +1,3 @@
-import { LayoutActionTypes } from '../actions/layout';
 import { ExtendedAction } from '../actions/action';
 import { createFeatureSelector } from '@ngrx/store';
 

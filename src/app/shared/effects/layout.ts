@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import 'rxjs/add/operator/map';
 import { LayoutActionTypes, ShowNotification } from '../actions/layout';
-import { NotificationService } from '../../services/notification.service';
+import { NotificationService } from '../services/notification.service';
 
 @Injectable()
 export class LayoutEffects {

@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import * as fromRoot from '../../shared/ngrx/reducers';
-import * as fromConfig from '../../shared/ngrx/reducers/config';
-import { SetConfigKeys } from '../../shared/ngrx/actions/config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import Config from '../../shared/models/config.model';
+import { select, Store } from '@ngrx/store';
+
+import * as fromRoot from '../shared/reducers';
+import * as fromConfig from '../shared/reducers/config';
+import { SetConfigKeys } from '../shared/actions/config';
+import Config from '../../../models/config.model';
 import { Subscription } from 'rxjs/Subscription';
-import { isEmpty } from '../../shared/utils';
+import { isEmpty } from '../shared/utils';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

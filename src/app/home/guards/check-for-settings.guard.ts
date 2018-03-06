@@ -3,15 +3,15 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 
-import * as fromRoot from '../ngrx/reducers';
-import * as fromConfig from '../ngrx/reducers/config';
-import Config from '../models/config.model';
-import { isEmpty } from '../utils';
+import * as fromHome from '../reducers';
+import * as fromConfig from '../../shared/reducers/config';
+import Config from '../../../../models/config.model';
+import { isEmpty } from '../../shared/utils';
 
 @Injectable()
 export class CheckForSettingsGuard implements CanActivate {
   constructor(
-    private store: Store<fromRoot.State>,
+    private store: Store<fromHome.State>,
     private router: Router
   ) {
   }

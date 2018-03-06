@@ -18,20 +18,22 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 
 // NGRX
-import { metaReducers, reducers } from './shared/ngrx/reducers';
+import { metaReducers, reducers } from './shared/reducers';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { ConfigEffects } from './shared/ngrx/effects/config';
-import { SettingsComponent } from './components/settings/settings.component';
+import { ConfigEffects } from './shared/effects/config';
+import { SettingsComponent } from './settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutEffects } from './shared/ngrx/effects/layout';
-import { ItemEffects } from './shared/ngrx/effects/item';
+import { LayoutEffects } from './shared/effects/layout';
+import { ItemEffects } from './home/effects/item';
+import { SettingsModule } from './settings/settings.module';
+import { HomeModule } from './home/home.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -41,8 +43,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,15 +54,17 @@ export function HttpLoaderFactory(http: HttpClient) {
       stateKey: 'router',
     }),
     StoreDevtoolsModule.instrument({
-      name: 'NgRx Book Store DevTools',
+      name: 'NgRx Store DevTools',
       // logOnly: AppConfig.production,
     }),
     EffectsModule.forRoot([
       ConfigEffects,
       LayoutEffects,
-      ItemEffects ]),
+    ]),
     AppRoutingModule,
     SharedModule.forRoot(),
+    SettingsModule,
+    HomeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,0 +1,18 @@
+<mat-sidenav-container class="side-nav-container">
+  <mat-sidenav opened="true" mode="side">
+    <mat-list>
+      <mat-list-item matRipple routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        {{'PAGES.HOME.HOME_NAV' | translate}}
+      </mat-list-item>
+      <mat-list-item matRipple routerLink="/orders" routerLinkActive="active">
+        {{'PAGES.HOME.ORDERS_NAV' | translate}}
+      </mat-list-item>
+      <mat-list-item matRipple routerLink="/items" routerLinkActive="active">
+        {{'PAGES.HOME.ITEMS_NAV' | translate}}
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

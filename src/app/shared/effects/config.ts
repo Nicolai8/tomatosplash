@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ConfigActionTypes, SetConfigKey, SetConfigKeys } from '../actions/config';
-import { ConfigurationService } from '../../services/configuration.service';
+import { ConfigurationService } from '../services/configuration.service';
 
 @Injectable()
 export class ConfigEffects {

@@ -1,0 +1,28 @@
+@import "../variables";
+
+.side-nav-container {
+  height: 100%;
+  display: flex;
+  margin: 0 #{-$gutter};
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+.main-container {
+  padding: 15px $gutter;
+}
+
+.mat-list-item {
+  position: relative;
+
+  &:hover {
+    background: $hover-bg-color;
+    cursor: pointer;
+  }
+  &.active {
+    cursor: default;
+    background: $active-bg-color;
+  }
+}

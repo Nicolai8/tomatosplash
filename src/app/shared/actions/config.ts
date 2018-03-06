@@ -1,4 +1,4 @@
-import Config from '../../models/config.model';
+import Config from '../../../../models/config.model';
 import { ExtendedAction } from './action';
 
 export enum ConfigActionTypes {

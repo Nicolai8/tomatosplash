@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { AddItem, EditItem, ItemActionTypes, RemoveItem } from '../actions/item';
-import { ItemsService } from '../../services/items.service';
+import { ItemsService } from '../services/items.service';
 
 @Injectable()
 export class ItemEffects {

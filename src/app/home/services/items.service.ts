@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromRoot from '../ngrx/reducers';
-import { ElectronService } from './electron.service';
-import { Item } from '../models/item.model';
+import * as fromRoot from '../../shared/reducers/index';
+import { ElectronService } from '../../shared/services/electron.service';
+import { Item } from '../../../../models/item.model';
 import { Events } from '../../../../events';
-import { AddItemSuccess, EditItemSuccess, GetItemsSuccess, RemoveItemSuccess } from '../ngrx/actions/item';
+import { AddItemSuccess, EditItemSuccess, GetItemsSuccess, RemoveItemSuccess } from '../actions/item';
 
 @Injectable()
 export class ItemsService {
