@@ -19,6 +19,7 @@
     "electron:tsc": "tsc main.ts",
     "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
     "electron:debug": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve --inspect=21012",
+    "electron:debugNoWait": "npm run electron:tsc && electron . --serve --inspect=21012",
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",

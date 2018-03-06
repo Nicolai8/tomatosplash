@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .subscribe((config: Config) => {
         this.form = new FormGroup({
           cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
-          dbConnectionString: new FormControl(config.dbConnectionString || '', Validators.required),
+          dbConnectionString: new FormControl(config.dbConnectionString || '', [Validators.required, Validators.pattern(/https?:\/\/.+/)]),
           dbUserName: new FormControl(config.dbUserName || '', Validators.required),
           dbPassword: new FormControl(config.dbPassword || '', Validators.required),
         });

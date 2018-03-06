@@ -9,10 +9,15 @@ const apiUrl = settings.get('dbConnectionString');
 let webContents: Electron.WebContents = null;
 let isAuthorized = false;
 
-// set isAuthorized on load
-client.post(`${apiUrl}/api/login/isAuthenticated`, { headers }, (data) => {
-  isAuthorized = data;
-});
+if (apiUrl) {
+  // set isAuthorized on load
+  client.post(`${apiUrl}/api/login/isAuthenticated`, { headers }, (data) => {
+    isAuthorized = data;
+  }).on('error', (error) => {
+    console.warn(`an error occurred when was trying to check isAuthenticated ${error}`);
+    isAuthorized = false;
+  });
+}
 
 const login = (): Promise<boolean> => {
   const dbUsername = settings.get('dbUserName');
