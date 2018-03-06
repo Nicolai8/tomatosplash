@@ -1,4 +1,5 @@
 import { Events } from '../../events';
+import Config from '../../models/config.model';
 
 const settings = require('electron-settings');
 
@@ -14,7 +15,7 @@ export const configurationEvents = (ipcMain: Electron.IpcMain) => {
     }
   });
 
-  ipcMain.on(Events.editMultipleConfiguration, (event: Electron.Event, pairs: { [key: string]: any }) => {
+  ipcMain.on(Events.editMultipleConfiguration, (event: Electron.Event, pairs: Config) => {
     for (const key in pairs) {
       if (pairs.hasOwnProperty(key)) {
         settings.set(key, pairs[ key ]);
