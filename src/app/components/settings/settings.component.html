@@ -31,7 +31,7 @@
           color="primary">
     {{'PAGES.SETTINGS.SAVE' | translate}}
   </button>
-  <button mat-raised-button [routerLink]="['/']">
+  <button mat-raised-button [routerLink]="['/']" *ngIf="!isConfigEmpty">
     {{'PAGES.SETTINGS.DISMISS' | translate}}
   </button>
 </div>

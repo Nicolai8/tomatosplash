@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ConfigActionTypes, SetConfigKey, SetConfigKeys } from '../actions/config';
 import { ConfigurationService } from '../../services/configuration.service';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ConfigEffects {
