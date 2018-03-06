@@ -27,6 +27,7 @@ function createWindow() {
     width: size.width,
     height: size.height
   });
+  win.maximize();
   win.setMenu(null);
   initApiCaller(win.webContents);
 
