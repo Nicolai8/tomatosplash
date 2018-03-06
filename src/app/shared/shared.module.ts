@@ -27,6 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ElectronService } from './services/electron.service';
 import { NotificationService } from './services/notification.service';
 import { CheckForSettingsGuard } from './guards/check-for-settings.guard';
+import { ItemsService } from './services/items.service';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -91,6 +92,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         ElectronService,
+        ItemsService,
         ConfigurationService,
         NotificationService,
         {

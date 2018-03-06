@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromRoot from '../../shared/ngrx/reducers';
-import * as fromConfig from '../../shared/ngrx/selectors/config';
+import * as fromConfig from '../../shared/ngrx/reducers/config';
 import { SetConfigKeys } from '../../shared/ngrx/actions/config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Config from '../../shared/models/config.model';

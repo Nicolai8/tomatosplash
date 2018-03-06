@@ -8,9 +8,9 @@ export const itemsEvents = (ipcMain: Electron.IpcMain) => {
     });
   });
 
-  ipcMain.on(Events.setItem, (event: Electron.Event, item: any) => {
+  ipcMain.on(Events.addItem, (event: Electron.Event, item: any) => {
     apiCaller('/api/item/', 'post', { data: item }, (createdItem) => {
-      event.sender.send(Events.setItemSuccess, createdItem);
+      event.sender.send(Events.addItemSuccess, createdItem);
     });
   });
 
@@ -22,7 +22,7 @@ export const itemsEvents = (ipcMain: Electron.IpcMain) => {
 
   ipcMain.on(Events.removeItem, (event: Electron.Event, id: string) => {
     apiCaller('/api/item/${id}', 'delete', { path: { id } }, () => {
-      event.sender.send(Events.removeItemSuccess);
+      event.sender.send(Events.removeItemSuccess, id);
     });
   });
 };

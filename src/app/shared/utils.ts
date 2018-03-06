@@ -35,3 +35,18 @@ export class CustomRouterStateSerializer
 }
 
 export const isEmpty: (obj: Object) => boolean = (obj: Object) => Object.keys(obj).length === 0;
+
+export function updateArray<T>(array: T[], index: number, value: T): T[] {
+  return [
+    ...array.slice(0, index),
+    value,
+    ...array.slice(index + 1)
+  ];
+}
+
+export function removeFromArray<T>(array: T[], index: number): T[] {
+  return [
+    ...array.slice(0, index),
+    ...array.slice(index + 1)
+  ];
+}

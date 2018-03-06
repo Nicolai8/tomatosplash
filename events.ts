@@ -6,8 +6,8 @@ export const Events = {
 
   getItems: 'getItems',
   getItemsSuccess: 'getItemsSuccess',
-  setItem: 'setItem',
-  setItemSuccess: 'setItemSuccess',
+  addItem: 'addItem',
+  addItemSuccess: 'addItemSuccess',
   editItem: 'editItem',
   editItemSuccess: 'editItemSuccess',
   removeItem: 'removeItem',

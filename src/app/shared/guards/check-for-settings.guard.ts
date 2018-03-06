@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 
 import * as fromRoot from '../ngrx/reducers';
-import { getConfig } from '../ngrx/selectors/config';
+import * as fromConfig from '../ngrx/reducers/config';
 import Config from '../models/config.model';
 import { isEmpty } from '../utils';
 
@@ -20,7 +20,7 @@ export class CheckForSettingsGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.pipe(select(getConfig))
+    return this.store.pipe(select(fromConfig.getConfig))
       .mergeMap((config: Config) => {
         const configIsSet = !isEmpty(config);
         if (!configIsSet) {

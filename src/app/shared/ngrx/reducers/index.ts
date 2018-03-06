@@ -17,16 +17,19 @@ import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromLayout from './layout';
 import * as fromConfig from './config';
+import * as fromItem from './item';
 
 export interface State {
   layout: fromLayout.State;
   config: fromConfig.State;
+  item: fromItem.State;
   router: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<any> = {
   layout: fromLayout.reducer,
   config: fromConfig.reducer,
+  item: fromItem.reducer,
   router: fromRouter.routerReducer,
 };
 

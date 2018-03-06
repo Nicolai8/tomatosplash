@@ -1,5 +1,6 @@
 import { ConfigActionTypes } from '../actions/config';
 import { ExtendedAction } from '../actions/action';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State {
   config: { [key: string]: any };
@@ -21,3 +22,15 @@ export function reducer(state: State = initialState,
       return state;
   }
 }
+
+export const getConfigState = createFeatureSelector<State>('config');
+
+export const getConfig = createSelector(
+  getConfigState,
+  (state: State) => state.config
+);
+
+export default [
+  getConfigState,
+  getConfig,
+];
