@@ -12,6 +12,8 @@ mat-sidenav {
 
 .main-container {
   padding: 15px $gutter;
+  width: calc(100vw - 250px - 16px*2);
+  height: calc(100% - 15px*2);
 }
 
 .mat-list-item {

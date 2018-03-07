@@ -1,0 +1,15 @@
+.concat-icons {
+  position: relative;
+
+  /deep/ .mat-icon:nth-child(2) {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    font-size: 15px;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    background: white;
+    border-radius: 50%;
+  }
+}

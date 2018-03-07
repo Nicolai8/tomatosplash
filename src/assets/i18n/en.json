@@ -1,7 +1,11 @@
 {
   "PAGES": {
     "HOME": {
-      "TITLE": "App works !"
+      "CREATE_NEW_ORDER": "Create New Order",
+      "DAILY_REPORT": "Daily Report",
+      "HOME_NAV": "Home",
+      "ORDERS_NAV": "Orders",
+      "ITEMS_NAV": "Items"
     },
     "SETTINGS": {
       "CASH_MACHINE_ID": "Cash machine number",
