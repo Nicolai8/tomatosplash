@@ -1,3 +1,33 @@
 <button mat-icon-button [title]="'PAGES.HOME.CREATE_NEW_ITEM' | translate">
   <mat-icon>add_box</mat-icon>
 </button>
+
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element._id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+  </ng-container>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.type}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [length]="(pager$ | async).total"
+               [pageIndex]="(pager$ | async).pageNumber"
+               [pageSize]="(pager$ | async).pageSize"
+               [pageSizeOptions]="[10, 25, 100]"></mat-paginator>

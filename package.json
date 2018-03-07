@@ -29,7 +29,10 @@
     "pree2e:protractor": "wait-on http-get://localhost:4200/ && protractor ./protractor.conf.js",
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/immutable": "^3.8.7",
+    "immutable": "^3.8.2"
+  },
   "devDependencies": {
     "@angular/animations": "5.2.5",
     "@angular/cdk": "5.2.3",

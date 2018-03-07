@@ -6,6 +6,7 @@ import { ElectronService } from '../../shared/services/electron.service';
 import { Item } from '../../../../models/item.model';
 import { Events } from '../../../../events';
 import { AddItemSuccess, EditItemSuccess, GetItemsSuccess, RemoveItemSuccess } from '../actions/item';
+import { Pager } from '../models/pager.model';
 
 @Injectable()
 export class ItemsService {
@@ -13,8 +14,8 @@ export class ItemsService {
     private electronService: ElectronService,
     private store: Store<fromRoot.State>
   ) {
-    this.electronService.ipcRenderer.on(Events.getItemsSuccess, (items: Item[]) => {
-      this.store.dispatch(new GetItemsSuccess(items));
+    this.electronService.ipcRenderer.on(Events.getItemsSuccess, (items: Item[], pager: Pager) => {
+      this.store.dispatch(new GetItemsSuccess(items, pager));
     });
     this.electronService.ipcRenderer.on(Events.addItemSuccess, (createdItem: Item) => {
       this.store.dispatch(new AddItemSuccess(createdItem));

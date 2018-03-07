@@ -1,51 +1,54 @@
 import { ItemActionTypes } from '../actions/item';
 import { ExtendedAction } from '../../shared/actions/action';
-import { Item } from '../../../../models/item.model';
 import * as _ from 'lodash';
 import { removeFromArray, updateArray } from '../../shared/utils';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Map } from 'immutable';
 
-export interface State {
-  items: Item[];
-}
+export type State = Map<string, any>;
 
-const initialState: State = {
+const initialState: State = Map({
   items: [],
-};
+  isLoading: false,
+  pager: {
+    pageNumber: 1,
+    pageSize: 25,
+    total: 0,
+  }
+});
 
 export function reducer(
   state: State = initialState,
   action: ExtendedAction
 ): State {
   switch (action.type) {
+    case ItemActionTypes.GetItems:
+      return state.set('isLoading', true);
     case ItemActionTypes.GetItemsSuccess:
-      return {
-        items: action.items,
-      };
+      return state.set('items', action.items)
+        .set('isLoading', false)
+        .setIn([ 'pager', 'pageNumber' ], action.pager.pageNumber)
+        .setIn([ 'pager', 'pageSize' ], action.pager.pageSize)
+        .setIn([ 'pager', 'total' ], action.total);
+    case ItemActionTypes.GetItemsError:
+      return state.set('isLoading', false);
 
     case ItemActionTypes.AddItemSuccess:
-      return {
-        items: [ ...state.items, action.item ]
-      };
+      return state.set('items', [ ...state.get('items'), action.item ]);
 
     case ItemActionTypes.EditItemSuccess: {
-      const itemIndex = _.findIndex(state.items, { _id: action.item._id });
+      const items = state.get('items');
+      const itemIndex = _.findIndex(items, { _id: action.item._id });
       if (itemIndex >= 0) {
-        return {
-          items: updateArray(state.items, itemIndex, action.item)
-        };
+        return state.set('items', updateArray(items, itemIndex, action.item));
       }
-      return {
-        items: [ ...state.items, action.item ]
-      };
+      return state.set('items', [ ...items, action.item ]);
     }
 
     case ItemActionTypes.RemoveItemSuccess: {
-      const itemIndex = _.findIndex(state.items, { _id: action.item._id });
+      const items = state.get('items');
+      const itemIndex = _.findIndex(items, { _id: action.item._id });
       if (itemIndex >= 0) {
-        return {
-          items: removeFromArray(state.items, itemIndex)
-        };
+        return state.set('items', removeFromArray(items, itemIndex));
       }
       return state;
     }
@@ -55,9 +58,8 @@ export function reducer(
   }
 }
 
-export const getItemState = createFeatureSelector<State>('item');
+export const getItems = (state: State) => state.get('items');
 
-export const getItems = createSelector(
-  getItemState,
-  (state: State) => state.items
-);
+export const getIsLoading = (state: State) => state.get('isLoading');
+
+export const getPager = (state: State) => state.get('pager');
