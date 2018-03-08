@@ -2,19 +2,33 @@ import { Events } from '../../events';
 
 const Client = require('node-rest-client').Client;
 const client = new Client();
-const headers = { 'Content-Type': 'application/json' };
+const headers = {
+  'Content-Type': 'application/json',
+  'x-requested-with': 'XMLHttpRequest'
+};
 const settings = require('electron-settings');
 let webContents: Electron.WebContents = null;
 
+const checkForStatus = (callback: (data) => void, reject?: (message: string) => void) => {
+  return (data, response) => {
+    if (response.statusCode === 200) {
+      callback && callback(data);
+    } else {
+      reject && reject(data.message || response.statusMessage);
+    }
+  }
+};
+
 const apiUrl = settings.get('dbConnectionString');
-let isAuthorized = false;
+let isAuthenticated = false;
 if (apiUrl) {
   // set isAuthorized on load
-  client.post(`${apiUrl}/api/login/isAuthenticated`, { headers }, (data) => {
-    isAuthorized = data;
-  }).on('error', (error) => {
+  client.post(`${apiUrl}/api/login/isAuthenticated`, { headers },
+    checkForStatus((data) => {
+      isAuthenticated = data.isAuthenticated;
+    })
+  ).on('error', (error) => {
     console.warn(`an error occurred when was trying to check isAuthenticated ${error}`);
-    isAuthorized = false;
   });
 }
 
@@ -24,18 +38,20 @@ const login = (): Promise<boolean> => {
   const dbPassword = settings.get('dbPassword');
 
   return new Promise<boolean>((resolve, reject) => {
-    client.post(`${apiUrl}/api/login`, {
-      headers,
-      data: {
-        username: dbUsername,
-        password: dbPassword,
-      }
-    }, (data) => {
-      isAuthorized = data.isAuthenticated;
-      isAuthorized ? resolve(true) : reject('user is not authorized');
-    }).on('error', (error) => {
-      reject(error);
-    });
+    client
+      .post(`${apiUrl}/api/login`, {
+        headers,
+        data: {
+          username: dbUsername,
+          password: dbPassword,
+        }
+      }, checkForStatus(() => {
+        isAuthenticated = true;
+        resolve(true);
+      }, reject))
+      .on('error', (error) => {
+        reject(error);
+      });
   });
 };
 
@@ -43,19 +59,26 @@ const errorHandler = (error) => {
   webContents.send(Events.error, error);
 };
 
-const apiCaller = (url: string, type: string, args: { [key: string]: any }, callback: (data, response) => void): void => {
-  if (!isAuthorized) {
+const apiCaller = (
+  url: string, type: string,
+  args: { [key: string]: any },
+  callback: (data) => void,
+  reject?: (error) => void
+): void => {
+  reject = reject || errorHandler;
+
+  if (!isAuthenticated) {
     login().then(() => {
-      apiCaller(url, type, args, callback);
-    }, errorHandler);
+      apiCaller(url, type, args, callback, reject);
+    }, reject);
 
     return;
   }
 
   args.headers = headers;
   const apiUrl = settings.get('dbConnectionString');
-  client[ type ](`${apiUrl}${url}`, args, callback)
-    .on('error', errorHandler);
+  client[ type ](`${apiUrl}${url}`, args, checkForStatus(callback, reject))
+    .on('error', reject);
 };
 
 export const initApiCaller = (contents: Electron.WebContents) => {
