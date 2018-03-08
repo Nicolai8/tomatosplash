@@ -29,9 +29,11 @@
           [disabled]="form.pristine || form.invalid"
           (click)="save()"
           color="primary">
+    <mat-icon>save</mat-icon>
     {{'PAGES.SETTINGS.SAVE' | translate}}
   </button>
   <button mat-raised-button [routerLink]="['/']" *ngIf="!isConfigEmpty">
-    {{'PAGES.SETTINGS.DISMISS' | translate}}
+    <mat-icon>cancel</mat-icon>
+    {{'PAGES.SETTINGS.CANCEL' | translate}}
   </button>
 </div>

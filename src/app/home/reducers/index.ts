@@ -25,4 +25,6 @@ export const getHomeItemState = createSelector(
 
 export const getItems = createSelector(getHomeItemState, fromItem.getItems);
 export const getIsLoading = createSelector(getHomeItemState, fromItem.getIsLoading);
+export const getIsSaving = createSelector(getHomeItemState, fromItem.getIsSaving);
+export const getIsSaved = createSelector(getHomeItemState, fromItem.getIsSaved);
 export const getPager = createSelector(getHomeItemState, fromItem.getPager);

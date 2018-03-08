@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { ItemsListViewComponent } from './components/items-list-view/items-list-view.component';
 import { MainActionsComponent } from './components/main-actions/main-actions.component';
 import { OrdersListViewComponent } from './components/orders-list-view/orders-list-view.component';
+import { ItemDialogComponent } from './components/item-dialog/item-dialog.component';
 
 @NgModule({
   imports: [
@@ -31,11 +32,15 @@ import { OrdersListViewComponent } from './components/orders-list-view/orders-li
     ItemsListViewComponent,
     MainActionsComponent,
     OrdersListViewComponent,
+    ItemDialogComponent,
   ],
   providers: [
     ItemsService,
     CheckForSettingsGuard,
   ],
+  bootstrap: [
+    ItemDialogComponent,
+  ]
 })
 export class HomeModule {
 }

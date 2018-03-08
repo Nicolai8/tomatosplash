@@ -26,6 +26,7 @@ import { ConfigurationService } from './services/configuration.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ElectronService } from './services/electron.service';
 import { NotificationService } from './services/notification.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -81,8 +82,11 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     MatSortModule,
     MatPaginatorModule,
     FlexLayoutModule,
+    SpinnerComponent,
   ],
-  declarations: []
+  declarations: [
+    SpinnerComponent,
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

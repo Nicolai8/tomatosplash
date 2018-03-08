@@ -5,14 +5,21 @@
       "DAILY_REPORT": "Daily Report",
       "HOME_NAV": "Home",
       "ORDERS_NAV": "Orders",
-      "ITEMS_NAV": "Items"
+      "ITEMS_NAV": "Items",
+      "SAVE": "Save",
+      "CANCEL": "Cancel",
+      "ITEM_DIALOG": {
+        "NAME_FIELD": "Name",
+        "PRICE_FIELD": "Price",
+        "TYPE_FIELD": "Type"
+      }
     },
     "SETTINGS": {
       "CASH_MACHINE_ID": "Cash machine number",
       "DB_CONNECTION_STRING": "DB connection string",
       "DB_USERNAME": "DB Username",
       "DB_PASSWORD": "DB Password",
-      "DISMISS": "Dismiss",
+      "CANCEL": "Cancel",
       "SAVE": "Save"
     }
   },

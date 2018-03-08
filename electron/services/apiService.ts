@@ -4,11 +4,10 @@ const Client = require('node-rest-client').Client;
 const client = new Client();
 const headers = { 'Content-Type': 'application/json' };
 const settings = require('electron-settings');
+let webContents: Electron.WebContents = null;
 
 const apiUrl = settings.get('dbConnectionString');
-let webContents: Electron.WebContents = null;
 let isAuthorized = false;
-
 if (apiUrl) {
   // set isAuthorized on load
   client.post(`${apiUrl}/api/login/isAuthenticated`, { headers }, (data) => {
@@ -20,6 +19,7 @@ if (apiUrl) {
 }
 
 const login = (): Promise<boolean> => {
+  const apiUrl = settings.get('dbConnectionString');
   const dbUsername = settings.get('dbUserName');
   const dbPassword = settings.get('dbPassword');
 
@@ -53,6 +53,7 @@ const apiCaller = (url: string, type: string, args: { [key: string]: any }, call
   }
 
   args.headers = headers;
+  const apiUrl = settings.get('dbConnectionString');
   client[ type ](`${apiUrl}${url}`, args, callback)
     .on('error', errorHandler);
 };

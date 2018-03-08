@@ -1,4 +1,6 @@
-<button mat-icon-button [title]="'PAGES.HOME.CREATE_NEW_ITEM' | translate">
+<button mat-icon-button
+        [title]="'PAGES.HOME.CREATE_NEW_ITEM' | translate"
+        (click)="addNew()">
   <mat-icon>add_box</mat-icon>
 </button>
 
@@ -17,10 +19,21 @@
     <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
   </ng-container>
-  <!-- Symbol Column -->
+
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.type}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="table-actions" *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell class="table-actions" *matCellDef="let element">
+      <button mat-icon-button color="warn"
+              matTooltip="Edit"
+              (click)="edit(element)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

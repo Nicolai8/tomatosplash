@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material';
+import { MatDialog, MatPaginator, PageEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import { DataSource } from '@angular/cdk/collections';
 
 import * as fromHome from '../../reducers';
 import { Item } from '../../../../../models/item.model';
-import { GetItems } from '../../actions/item';
+import { GetItems, RemoveItem } from '../../actions/item';
 import { ItemDataSource } from '../../data-sources/item.datasource';
 import { Pager } from '../../models/pager.model';
+import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 
 @Component({
   selector: 'app-items-list-view',
@@ -18,14 +19,17 @@ import { Pager } from '../../models/pager.model';
 export class ItemsListViewComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  public displayedColumns = [ '_id', 'name', 'price', 'type' ];
+  public displayedColumns = [ '_id', 'name', 'price', 'type', 'actions' ];
   public dataSource: DataSource<Item>;
 
   public isLoadingResults$: Observable<boolean>;
   public pager$: Observable<Pager>;
   public items$: Observable<Item[]>;
 
-  constructor(private store: Store<fromHome.State>) {
+  constructor(
+    private store: Store<fromHome.State>,
+    private matDialog: MatDialog
+  ) {
     this.items$ = this.store.pipe(select(fromHome.getItems));
     this.isLoadingResults$ = this.store.pipe(select(fromHome.getIsLoading));
     this.pager$ = this.store.pipe(select(fromHome.getPager));
@@ -40,5 +44,27 @@ export class ItemsListViewComponent implements OnInit {
     });
 
     this.dataSource = new ItemDataSource(this.items$);
+  }
+
+  addNew() {
+    this.matDialog.open(ItemDialogComponent, {
+      minWidth: '400px',
+      maxWidth: '800px',
+      data: {},
+      disableClose: true,
+    });
+  }
+
+  edit(item: Item) {
+    this.matDialog.open(ItemDialogComponent, {
+      minWidth: '400px',
+      maxWidth: '800px',
+      data: item,
+      disableClose: true,
+    });
+  }
+
+  remove(id: string) {
+    this.store.dispatch(new RemoveItem(id));
   }
 }
