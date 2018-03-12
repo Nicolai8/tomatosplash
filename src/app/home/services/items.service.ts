@@ -9,8 +9,8 @@ import {
   AddItemError, AddItemSuccess, EditItemError, EditItemSuccess, GetItemsError, GetItemsSuccess, RemoveItemError,
   RemoveItemSuccess
 } from '../actions/item';
-import { Pager } from '../models/pager.model';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Pagination } from '../../../../models/pagination.model';
 
 @Injectable()
 export class ItemsService {
@@ -21,8 +21,8 @@ export class ItemsService {
   ) {
     // get
     this.electronService.ipcRenderer.on(Events.getItemsSuccess, (
-      event: Electron.Event, items: Item[], pager: Pager) => {
-      this.store.dispatch(new GetItemsSuccess(items, pager));
+      event: Electron.Event, data: Pagination<Item>) => {
+      this.store.dispatch(new GetItemsSuccess(data.docs, data));
     });
     this.electronService.ipcRenderer.on(Events.getItemsError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new GetItemsError());
@@ -54,8 +54,8 @@ export class ItemsService {
     });
   }
 
-  public get(): void {
-    this.electronService.ipcRenderer.send(Events.getItems);
+  public get(page: number, limit: number): void {
+    this.electronService.ipcRenderer.send(Events.getItems, page, limit);
   }
 
   public add(item: Item): void {

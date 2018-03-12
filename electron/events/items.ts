@@ -1,11 +1,12 @@
 import { Events } from '../../events';
 import apiCaller from '../services/apiService';
 import { Item } from '../../models/item.model';
+import { Pagination } from '../../models/pagination.model';
 
 export const itemsEvents = (ipcMain: Electron.IpcMain) => {
-  ipcMain.on(Events.getItems, (event: Electron.Event) => {
-    apiCaller('/api/item/', 'get', {}, (items: Item[]) => {
-      event.sender.send(Events.getItemsSuccess, items);
+  ipcMain.on(Events.getItems, (event: Electron.Event, page: number, limit: number) => {
+    apiCaller(`/api/item/?page=${page + 1}&limit=${limit}`, 'get', {}, (data: Pagination<Item>) => {
+      event.sender.send(Events.getItemsSuccess, data);
     }, (error) => {
       event.sender.send(Events.getItemsError, error);
     });

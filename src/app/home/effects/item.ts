@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { AddItem, EditItem, ItemActionTypes, RemoveItem } from '../actions/item';
+import { AddItem, EditItem, GetItems, ItemActionTypes, RemoveItem } from '../actions/item';
 import { ItemsService } from '../services/items.service';
 
 @Injectable()
@@ -8,8 +8,8 @@ export class ItemEffects {
   @Effect({ dispatch: false })
   getItems$ = this.actions$
     .ofType(ItemActionTypes.GetItems)
-    .map(() => {
-      this.itemsService.get();
+    .map((action: GetItems) => {
+      this.itemsService.get(action.pager.page, action.pager.limit);
       return null;
     });
 

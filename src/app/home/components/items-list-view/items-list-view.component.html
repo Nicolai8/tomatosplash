@@ -40,7 +40,7 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 
-<mat-paginator [length]="(pager$ | async).total"
-               [pageIndex]="(pager$ | async).pageNumber"
-               [pageSize]="(pager$ | async).pageSize"
+<mat-paginator [length]="(pager$ | async).pages"
+               [pageIndex]="(pager$ | async).page"
+               [pageSize]="(pager$ | async).limit"
                [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
