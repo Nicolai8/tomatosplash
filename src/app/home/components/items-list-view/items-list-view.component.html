@@ -7,32 +7,37 @@
 
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="_id">
-    <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element._id}}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.NO' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element._id}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.NAME' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="price">
-    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.PRICE' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.price}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="type">
-    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.type}}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.TYPE' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="table-actions" *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-header-cell class="table-actions" *matHeaderCellDef>{{'PAGES.HOME.ACTIONS' | translate}}</mat-header-cell>
     <mat-cell class="table-actions" *matCellDef="let element">
-      <button mat-icon-button color="warn"
-              matTooltip="Edit"
+      <button mat-icon-button color=""
+              [title]="'PAGES.HOME.EDIT' | translate"
               (click)="edit(element)">
         <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn"
+              [title]="'PAGES.HOME.REMOVE' | translate"
+              (click)="remove(element._id)">
+        <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
