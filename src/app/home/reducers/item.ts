@@ -16,6 +16,7 @@ const initialState: State = fromJS({
     limit: 10,
     total: 0,
     pages: 1,
+    thisPageLength: 0,
   }
 });
 
@@ -34,7 +35,8 @@ export function reducer(
         .setIn([ 'pager', 'page' ], action.pager.page - 1)
         .setIn([ 'pager', 'limit' ], action.pager.limit)
         .setIn([ 'pager', 'total' ], action.pager.total)
-        .setIn([ 'pager', 'pages' ], action.pager.pages);
+        .setIn([ 'pager', 'pages' ], action.pager.pages)
+        .setIn([ 'pager', 'thisPageLength' ], action.items.length);
     case ItemActionTypes.GetItemsError:
       return state
         .set('isLoading', false);
@@ -66,10 +68,7 @@ export function reducer(
           .set('isSaving', false)
           .set('isSaved', true);
       }
-      return state
-        .set('items', [ ...items, action.item ])
-        .set('isSaving', false)
-        .set('isSaved', true);
+      return state;
     }
     case ItemActionTypes.EditItemError:
       return state
@@ -78,21 +77,14 @@ export function reducer(
 
     case ItemActionTypes.RemoveItem:
       return state
-        .set('isSaving', false)
-        .set('isSaved', false);
+        .set('isSaving', true);
     case ItemActionTypes.RemoveItemSuccess: {
-      const items = state.get('items');
-      const itemIndex = _.findIndex(items, { _id: action.item._id });
-      if (itemIndex >= 0) {
-        return state
-          .set('items', removeFromArray(items, itemIndex));
-      }
-      return state;
+      return state
+        .set('isSaving', false);
     }
     case ItemActionTypes.RemoveItemError:
       return state
-        .set('isSaving', false)
-        .set('isSaved', false);
+        .set('isSaving', false);
 
     default:
       return state;
@@ -101,6 +93,6 @@ export function reducer(
 
 export const getItems = (state: State) => state.get('items');
 export const getIsLoading = (state: State) => state.get('isLoading');
-export const getIsSaved = (state: State) => state.get('isLoaded');
+export const getIsSaved = (state: State) => state.get('isSaved');
 export const getIsSaving = (state: State) => state.get('isSaving');
 export const getPager = (state: State) => state.get('pager').toJS();

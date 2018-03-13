@@ -21,13 +21,13 @@
 </form>
 <div class="actions">
   <button mat-raised-button
-          [disabled]="form.pristine || form.invalid"
+          [disabled]="form.pristine || form.invalid || (isSaving$ | async)"
           (click)="save()"
           color="primary">
     <mat-icon>save</mat-icon>
     {{'PAGES.HOME.SAVE' | translate}}
   </button>
-  <button mat-raised-button (click)="cancel()">
+  <button mat-raised-button (click)="cancel($event)">
     <mat-icon>cancel</mat-icon>
     {{'PAGES.HOME.CANCEL' | translate}}
   </button>

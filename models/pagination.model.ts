@@ -3,6 +3,7 @@ export interface PagerData {
   page: number;
   pages?: number;
   total?: number;
+  thisPageLength?: number;
 }
 
 export interface Pagination<T> extends PagerData {

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { AddItem, EditItem, GetItems, ItemActionTypes, RemoveItem } from '../actions/item';
 import { ItemsService } from '../services/items.service';
+import { select, Store } from '@ngrx/store';
+import * as fromHome from '../reducers';
+import { PagerData } from '../../../../models/pagination.model';
 
 @Injectable()
 export class ItemEffects {
@@ -29,6 +32,17 @@ export class ItemEffects {
       return null;
     });
 
+  @Effect()
+  removeItemSuccess$ = this.actions$
+    .ofType(ItemActionTypes.RemoveItemSuccess)
+    .withLatestFrom(this.store$.pipe(select(fromHome.getPager)))
+    .map(([ action, pagerData ]) => {
+      if (pagerData.thisPageLength - 1 <= 0 && pagerData.page !== 0) {
+        pagerData.page--;
+      }
+      return new GetItems(pagerData);
+    });
+
   @Effect({ dispatch: false })
   editItem$ = this.actions$
     .ofType(ItemActionTypes.EditItem)
@@ -40,6 +54,7 @@ export class ItemEffects {
   constructor(
     private actions$: Actions,
     private itemsService: ItemsService,
+    private store$: Store<fromHome.State>,
   ) {
   }
 }

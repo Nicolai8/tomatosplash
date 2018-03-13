@@ -14,10 +14,10 @@ import * as fromHome from './reducers';
 export class HomeComponent implements OnInit {
   public isItemSaving$: Observable<boolean>;
 
-  constructor(private store: Store<fromHome.State>) {
+  constructor(private store$: Store<fromHome.State>) {
   }
 
   ngOnInit() {
-    this.isItemSaving$ = this.store.pipe(select(fromHome.getIsSaving));
+    this.isItemSaving$ = this.store$.pipe(select(fromHome.getIsSaving));
   }
 }
