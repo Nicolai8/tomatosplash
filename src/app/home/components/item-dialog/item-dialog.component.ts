@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -21,6 +21,7 @@ export class ItemDialogComponent implements OnInit {
   constructor(
     private store: Store<fromHome.State>,
     private dialogRef: MatDialogRef<ItemDialogComponent>,
+    private ngZone: NgZone,
     @Inject(MAT_DIALOG_DATA) private item: Item,
   ) {
   }
@@ -46,6 +47,8 @@ export class ItemDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.dialogRef.close();
+    this.ngZone.run(() => {
+      this.dialogRef.close();
+    });
   }
 }
