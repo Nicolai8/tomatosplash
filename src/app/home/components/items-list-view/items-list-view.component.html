@@ -1,8 +1,14 @@
-<button mat-icon-button
-        [title]="'PAGES.HOME.CREATE_NEW_ITEM' | translate"
-        (click)="addNew()">
-  <mat-icon>add_box</mat-icon>
-</button>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-button
+            [title]="'PAGES.HOME.CREATE_NEW_ITEM' | translate"
+            (click)="addNew()">
+      <mat-icon>add_box</mat-icon>
+      {{'PAGES.HOME.ITEMS.ADD_NEW_ITEM' | translate}}
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <app-spinner [show]="isLoadingResults$ | async"></app-spinner>
 
 <mat-table #table [dataSource]="dataSource">

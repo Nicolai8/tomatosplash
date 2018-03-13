@@ -1,14 +1,21 @@
-<button mat-icon-button [title]="'PAGES.HOME.VISUALIZE' | translate">
-  <mat-icon>open_in_new</mat-icon>
-</button>
-<button mat-icon-button [title]="'PAGES.HOME.PRINT' | translate">
-  <mat-icon>print</mat-icon>
-</button>
-<button mat-icon-button [title]="'PAGES.HOME.CREATE_NEW_ORDER' | translate">
-  <mat-icon>note_add</mat-icon>
-</button>
-<button mat-icon-button class="concat-icons" [title]="'PAGES.HOME.PRINT_AND_CREATE' | translate">
-  <mat-icon>print</mat-icon>
-  <mat-icon>add_circle</mat-icon>
-</button>
-
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-button [title]="'PAGES.HOME.ORDERS.VISUALIZE' | translate">
+      <mat-icon>open_in_new</mat-icon>
+      {{'PAGES.HOME.ORDERS.VISUALIZE' | translate}}
+    </button>
+    <button mat-button [title]="'PAGES.HOME.ORDERS.PRINT' | translate">
+      <mat-icon>print</mat-icon>
+      {{'PAGES.HOME.ORDERS.PRINT' | translate}}
+    </button>
+    <button mat-button [title]="'PAGES.HOME.CREATE_NEW_ORDER' | translate">
+      <mat-icon>note_add</mat-icon>
+      {{'PAGES.HOME.CREATE_NEW_ORDER' | translate}}
+    </button>
+    <button mat-button class="concat-icons" [title]="'PAGES.HOME.ORDERS.PRINT_AND_CREATE' | translate">
+      <mat-icon>print</mat-icon>
+      <mat-icon>add_circle</mat-icon>
+      {{'PAGES.HOME.ORDERS.ADD_NEW_ITEM' | translate}}
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

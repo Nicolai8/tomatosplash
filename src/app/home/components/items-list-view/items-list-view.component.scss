@@ -4,9 +4,11 @@
   flex-flow: column;
 }
 
-
-
 .mat-table {
   overflow: auto;
   flex: 1;
+}
+
+.table-actions {
+  max-width: 100px;
 }
