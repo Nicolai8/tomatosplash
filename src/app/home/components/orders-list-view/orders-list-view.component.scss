@@ -1,7 +1,7 @@
 .concat-icons {
   position: relative;
 
-  /deep/ .mat-icon:nth-child(2) {
+  ::ng-deep .mat-icon:nth-child(2) {
     position: absolute;
     right: 3px;
     bottom: 3px;

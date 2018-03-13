@@ -11,9 +11,9 @@ mat-sidenav {
 }
 
 .main-container {
+  display: flex;
   padding: 15px $gutter;
-  width: calc(100vw - 250px - 16px*2);
-  height: calc(100% - 15px*2);
+  flex: 1;
 }
 
 .mat-list-item {
@@ -27,4 +27,9 @@ mat-sidenav {
     cursor: default;
     background: $active-bg-color;
   }
+}
+
+:root .mat-drawer-content {
+  display: flex;
+  flex: 1;
 }

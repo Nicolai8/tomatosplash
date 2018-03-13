@@ -13,7 +13,7 @@ const initialState: State = fromJS({
   isSaved: false,
   pager: {
     page: 0,
-    limit: 25,
+    limit: 10,
     total: 0,
     pages: 1,
   }

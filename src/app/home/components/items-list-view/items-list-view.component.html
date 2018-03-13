@@ -3,6 +3,7 @@
         (click)="addNew()">
   <mat-icon>add_box</mat-icon>
 </button>
+<app-spinner [show]="isLoadingResults$ | async"></app-spinner>
 
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="_id">
@@ -40,7 +41,7 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 
-<mat-paginator [length]="(pager$ | async).pages"
+<mat-paginator [length]="(pager$ | async).total"
                [pageIndex]="(pager$ | async).page"
                [pageSize]="(pager$ | async).limit"
                [pageSizeOptions]="[10, 25, 100]"></mat-paginator>

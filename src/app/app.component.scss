@@ -22,6 +22,6 @@
   }
 }
 
-/deep/ :focus {
+::ng-deep :focus {
   outline: none !important;
 }
