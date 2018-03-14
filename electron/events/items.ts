@@ -13,7 +13,7 @@ export const itemsEvents = (ipcMain: Electron.IpcMain) => {
   });
 
   ipcMain.on(Events.addItem, (event: Electron.Event, item: Item) => {
-    apiCaller('/api/item/', 'post', { data: item }, (createdItem) => {
+    apiCaller('/api/item/', 'put', { data: item }, (createdItem) => {
       event.sender.send(Events.addItemSuccess, createdItem);
     }, (error) => {
       event.sender.send(Events.addItemError, error);
@@ -21,7 +21,7 @@ export const itemsEvents = (ipcMain: Electron.IpcMain) => {
   });
 
   ipcMain.on(Events.editItem, (event: Electron.Event, id: string, item: Item) => {
-    apiCaller('/api/item/${id}', 'put', { path: { id }, data: item }, (updatedItem) => {
+    apiCaller('/api/item/${id}', 'post', { path: { id }, data: item }, (updatedItem) => {
       event.sender.send(Events.editItemSuccess, updatedItem);
     }, (error) => {
       event.sender.send(Events.editItemError, error);
