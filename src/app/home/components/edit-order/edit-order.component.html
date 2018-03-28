@@ -10,7 +10,7 @@
   </h2>
 </div>
 
-<button mat-button (click)="addItemInOrder()">
+<button mat-raised-button (click)="addItemInOrder()">
   <mat-icon>add_box</mat-icon>
   {{'PAGES.HOME.EDIT_ORDER.ADD_ITEM_IN_ORDER' | translate}}
 </button>
@@ -20,9 +20,13 @@
 <form *ngIf="form && order" [formGroup]="form">
   <div *ngFor="let controlName of controlNames" class="app-edit-order__item">
     <app-edit-order-item [items]="items" [formControlName]="controlName"></app-edit-order-item>
-    <button mat-button (click)="removeItemInOrder(controlName)">
-      <mat-icon>remove</mat-icon>
-      {{'PAGES.HOME.EDIT_ORDER.REMOVE_ITEM_IN_ORDER' | translate}}
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="removeItemInOrder(controlName)"
+      [title]="'PAGES.HOME.EDIT_ORDER.REMOVE_ITEM_IN_ORDER' | translate"
+    >
+      <mat-icon>delete</mat-icon>
     </button>
   </div>
 </form>

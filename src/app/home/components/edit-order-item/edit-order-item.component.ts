@@ -49,7 +49,7 @@ export class EditOrderItemComponent implements ControlValueAccessor, Validator, 
         this.propagateChange(data);
       });
       this.form.setValue({
-        count: value && value.count || 0,
+        count: value && value.count || '',
         itemId: value && value.itemId || '',
       });
     }
