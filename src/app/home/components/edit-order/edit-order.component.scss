@@ -1,0 +1,18 @@
+:host {
+  flex: 1;
+}
+
+.app-edit-order {
+  &__item {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+
+    &:hover {
+      background: rgba(0, 0, 0, .05);
+    }
+  }
+
+  &__item-control {
+  }
+}

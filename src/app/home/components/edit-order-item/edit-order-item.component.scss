@@ -1,0 +1,25 @@
+@import "../../../mixin";
+
+:host {
+  flex: 1;
+}
+
+.app-edit-order-item {
+  display: flex;
+  flex-flow: column;
+
+  mat-form-field {
+    flex: 1;
+  }
+
+  @include media(">=medium") {
+    flex-flow: row nowrap;
+
+    mat-form-field {
+      &:first-child {
+        margin: 0 20px 0 0;
+      }
+    }
+  }
+}
+
