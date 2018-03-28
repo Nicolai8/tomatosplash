@@ -10,16 +10,19 @@
   </h2>
 </div>
 
-<button mat-raised-button (click)="addItemInOrder()">
-  <mat-icon>add_box</mat-icon>
-  {{'PAGES.HOME.EDIT_ORDER.ADD_ITEM_IN_ORDER' | translate}}
-</button>
+<div>
+  <button mat-raised-button (click)="addItemInOrder()">
+    <mat-icon>add_box</mat-icon>
+    {{'PAGES.HOME.EDIT_ORDER.ADD_ITEM_IN_ORDER' | translate}}
+  </button>
+</div>
 
 <h3>{{'PAGES.HOME.EDIT_ORDER.ITEMS_IN_ORDER' | translate}}</h3>
 
 <form *ngIf="form && order" [formGroup]="form" class="app-edit-order__items">
   <div *ngFor="let controlName of controlNames" class="app-edit-order__item">
-    <app-edit-order-item [items]="items" [formControlName]="controlName" class="app-edit-order__item-control"></app-edit-order-item>
+    <app-edit-order-item [items]="items" [formControlName]="controlName"
+                         class="app-edit-order__item-control"></app-edit-order-item>
     <button
       mat-icon-button
       color="warn"

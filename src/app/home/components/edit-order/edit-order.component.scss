@@ -1,5 +1,9 @@
+@import "../../../mixin";
+
 :host {
   flex: 1;
+  display: flex;
+  flex-flow: column;
 }
 
 .app-edit-order {
@@ -7,12 +11,17 @@
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
-
-    &:hover {
-      background: rgba(0, 0, 0, .05);
-    }
   }
 
-  &__item-control {
+  &__items {
+    overflow: auto;
+  }
+
+  @include media(">=medium") {
+    &__item {
+      &:hover {
+        background: rgba(0, 0, 0, .05);
+      }
+    }
   }
 }
