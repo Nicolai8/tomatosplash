@@ -19,3 +19,60 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
+
+<app-spinner [show]="isLoadingResults$ | async"></app-spinner>
+
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.NO' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element._id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="items">
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.ITEMS' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">items</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.TYPE' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-icon *ngIf="element.type === orderType.NEW">check_box_outline_blank</mat-icon>
+      <mat-icon *ngIf="element.type === orderType.PROCESSED">check_box</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.CREATED' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.created}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="processed">
+    <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.PROCESSED' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.processed}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="table-actions" *matHeaderCellDef>{{'PAGES.HOME.ACTIONS' | translate}}</mat-header-cell>
+    <mat-cell class="table-actions" *matCellDef="let element">
+      <button mat-icon-button color=""
+              [matTooltip]="'PAGES.HOME.EDIT' | translate"
+              (click)="edit(element)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn"
+              [matTooltip]="'PAGES.HOME.REMOVE' | translate"
+              (click)="remove(element._id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [length]="(pager$ | async).total"
+               [pageIndex]="(pager$ | async).page"
+               [pageSize]="(pager$ | async).limit"
+               [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+

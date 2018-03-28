@@ -19,15 +19,12 @@ export enum ItemActionTypes {
 
 export class GetItems implements ExtendedAction {
   readonly type = ItemActionTypes.GetItems;
-
-  constructor(public pager: PagerData) {
-  }
 }
 
 export class GetItemsSuccess implements ExtendedAction {
   readonly type = ItemActionTypes.GetItemsSuccess;
 
-  constructor(public items: Item[], public pager: PagerData) {
+  constructor(public items: Item[]) {
   }
 }
 

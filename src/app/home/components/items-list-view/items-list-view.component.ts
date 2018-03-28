@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatPaginator, PageEvent } from '@angular/material';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import { DataSource } from '@angular/cdk/collections';
@@ -9,7 +9,6 @@ import { Item } from '../../../../../models/item.model';
 import { GetItems, RemoveItem } from '../../actions/item';
 import { ItemDataSource } from '../../data-sources/item.datasource';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
-import { PagerData } from '../../../../../models/pagination.model';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -19,13 +18,10 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: [ 'items-list-view.component.scss' ],
 })
 export class ItemsListViewComponent implements OnInit, OnDestroy {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   public displayedColumns = [ '_id', 'name', 'price', 'type', 'actions' ];
   public dataSource: DataSource<Item>;
 
   public isLoadingResults$: Observable<boolean>;
-  public pager$: Observable<PagerData>;
   public items$: Observable<Item[]>;
   private dialogRef: MatDialogRef<ItemDialogComponent>;
   private subscription: Subscription;
@@ -35,26 +31,14 @@ export class ItemsListViewComponent implements OnInit, OnDestroy {
     private matDialog: MatDialog
   ) {
     this.items$ = this.store$.pipe(select(fromHome.getItems));
-    this.isLoadingResults$ = this.store$.pipe(select(fromHome.getIsLoading));
-    this.pager$ = this.store$.pipe(select(fromHome.getPager));
-
-    this.pager$.first().subscribe((pagerData: PagerData) => {
-      pagerData.page = 0;
-      this.store$.dispatch(new GetItems(pagerData));
-    });
+    this.isLoadingResults$ = this.store$.pipe(select(fromHome.getItemsIsLoading));
   }
 
   ngOnInit() {
-    this.paginator.page.subscribe((pageEvent: PageEvent) => {
-      this.store$.dispatch(new GetItems({
-        page: pageEvent.pageIndex,
-        limit: pageEvent.pageSize
-      }));
-    });
-
+    this.store$.dispatch(new GetItems());
     this.dataSource = new ItemDataSource(this.items$);
 
-    this.subscription = this.store$.pipe(select(fromHome.getIsSaved))
+    this.subscription = this.store$.pipe(select(fromHome.getItemsIsSaved))
       .subscribe((isSaved: boolean) => {
         if (this.dialogRef && isSaved) {
           this.dialogRef.componentInstance.cancel();

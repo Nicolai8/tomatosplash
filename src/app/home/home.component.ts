@@ -18,6 +18,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isItemSaving$ = this.store$.pipe(select(fromHome.getIsSaving));
+    this.isItemSaving$ = this.store$.pipe(select(fromHome.getItemsIsSaving));
   }
 }

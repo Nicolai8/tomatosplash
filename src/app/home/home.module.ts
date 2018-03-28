@@ -15,6 +15,8 @@ import { ItemsListViewComponent } from './components/items-list-view/items-list-
 import { MainActionsComponent } from './components/main-actions/main-actions.component';
 import { OrdersListViewComponent } from './components/orders-list-view/orders-list-view.component';
 import { ItemDialogComponent } from './components/item-dialog/item-dialog.component';
+import { OrderEffects } from './effects/order';
+import { OrdersService } from './services/orders.service';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { ItemDialogComponent } from './components/item-dialog/item-dialog.compon
     TranslateModule,
     StoreModule.forFeature('home', reducers),
     EffectsModule.forFeature([
-      ItemEffects
+      ItemEffects,
+      OrderEffects,
     ]),
     HomeRoutingModule,
   ],
@@ -36,6 +39,7 @@ import { ItemDialogComponent } from './components/item-dialog/item-dialog.compon
   ],
   providers: [
     ItemsService,
+    OrdersService,
     CheckForSettingsGuard,
   ],
   bootstrap: [

@@ -27,7 +27,7 @@ export class ItemDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isSaving$ = this.store.pipe(select(fromHome.getIsSaving));
+    this.isSaving$ = this.store.pipe(select(fromHome.getItemsIsSaving));
 
     this.form = new FormGroup({
       _id: new FormControl(this.item._id || ''),

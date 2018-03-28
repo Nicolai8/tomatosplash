@@ -17,5 +17,18 @@ export const Events = {
   removeItemSuccess: 'removeItemSuccess',
   removeItemError: 'removeItemError',
 
+  getOrders: 'getOrders',
+  getOrdersSuccess: 'getOrdersSuccess',
+  getOrdersError: 'getOrdersError',
+  addOrder: 'addOrder',
+  addOrderSuccess: 'addOrderSuccess',
+  addOrderError: 'addOrderError',
+  editOrder: 'editOrder',
+  editOrderSuccess: 'editOrderSuccess',
+  editOrderError: 'editOrderError',
+  removeOrder: 'removeOrder',
+  removeOrderSuccess: 'removeOrderSuccess',
+  removeOrderError: 'removeOrderError',
+
   error: 'error',
 };

@@ -1,7 +1,7 @@
 import { ItemActionTypes } from '../actions/item';
 import { ExtendedAction } from '../../shared/actions/action';
 import * as _ from 'lodash';
-import { removeFromArray, updateArray } from '../../shared/utils';
+import { updateArray } from '../../shared/utils';
 import { fromJS, Map } from 'immutable';
 
 export type State = Map<string, any>;
@@ -11,13 +11,6 @@ const initialState: State = fromJS({
   isLoading: false,
   isSaving: false,
   isSaved: false,
-  pager: {
-    page: 0,
-    limit: 10,
-    total: 0,
-    pages: 1,
-    thisPageLength: 0,
-  }
 });
 
 export function reducer(
@@ -31,12 +24,7 @@ export function reducer(
     case ItemActionTypes.GetItemsSuccess:
       return state
         .set('items', action.items)
-        .set('isLoading', false)
-        .setIn([ 'pager', 'page' ], action.pager.page - 1)
-        .setIn([ 'pager', 'limit' ], action.pager.limit)
-        .setIn([ 'pager', 'total' ], action.pager.total)
-        .setIn([ 'pager', 'pages' ], action.pager.pages)
-        .setIn([ 'pager', 'thisPageLength' ], action.items.length);
+        .set('isLoading', false);
     case ItemActionTypes.GetItemsError:
       return state
         .set('isLoading', false);
@@ -95,4 +83,3 @@ export const getItems = (state: State) => state.get('items');
 export const getIsLoading = (state: State) => state.get('isLoading');
 export const getIsSaved = (state: State) => state.get('isSaved');
 export const getIsSaving = (state: State) => state.get('isSaving');
-export const getPager = (state: State) => state.get('pager').toJS();

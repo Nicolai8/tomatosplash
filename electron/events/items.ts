@@ -4,8 +4,8 @@ import { Item } from '../../models/item.model';
 import { Pagination } from '../../models/pagination.model';
 
 export const itemsEvents = (ipcMain: Electron.IpcMain) => {
-  ipcMain.on(Events.getItems, (event: Electron.Event, page: number, limit: number) => {
-    apiCaller(`/api/item/?page=${page + 1}&limit=${limit}`, 'get', {}, (data: Pagination<Item>) => {
+  ipcMain.on(Events.getItems, (event: Electron.Event) => {
+    apiCaller('/api/item/', 'get', {}, (data: Item[]) => {
       event.sender.send(Events.getItemsSuccess, data);
     }, (error) => {
       event.sender.send(Events.getItemsError, error);

@@ -6,11 +6,16 @@ import { ElectronService } from '../../shared/services/electron.service';
 import { Item } from '../../../../models/item.model';
 import { Events } from '../../../../events';
 import {
-  AddItemError, AddItemSuccess, EditItemError, EditItemSuccess, GetItemsError, GetItemsSuccess, RemoveItemError,
+  AddItemError,
+  AddItemSuccess,
+  EditItemError,
+  EditItemSuccess,
+  GetItemsError,
+  GetItemsSuccess,
+  RemoveItemError,
   RemoveItemSuccess
 } from '../actions/item';
 import { NotificationService } from '../../shared/services/notification.service';
-import { Pagination } from '../../../../models/pagination.model';
 
 @Injectable()
 export class ItemsService {
@@ -21,8 +26,8 @@ export class ItemsService {
   ) {
     // get
     this.electronService.ipcRenderer.on(Events.getItemsSuccess, (
-      event: Electron.Event, data: Pagination<Item>) => {
-      this.store.dispatch(new GetItemsSuccess(data.docs, data));
+      event: Electron.Event, data: Item[]) => {
+      this.store.dispatch(new GetItemsSuccess(data));
     });
     this.electronService.ipcRenderer.on(Events.getItemsError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new GetItemsError());
@@ -54,8 +59,8 @@ export class ItemsService {
     });
   }
 
-  public get(page: number, limit: number): void {
-    this.electronService.ipcRenderer.send(Events.getItems, page, limit);
+  public get(): void {
+    this.electronService.ipcRenderer.send(Events.getItems);
   }
 
   public add(item: Item): void {
