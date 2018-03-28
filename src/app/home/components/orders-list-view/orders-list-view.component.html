@@ -8,14 +8,9 @@
       <mat-icon>print</mat-icon>
       {{'PAGES.HOME.ORDERS.PRINT' | translate}}
     </button>
-    <button mat-button [title]="'PAGES.HOME.CREATE_NEW_ORDER' | translate">
+    <button mat-button [title]="'PAGES.HOME.CREATE_NEW_ORDER' | translate" [routerLink]="['/order/add/']">
       <mat-icon>note_add</mat-icon>
       {{'PAGES.HOME.CREATE_NEW_ORDER' | translate}}
-    </button>
-    <button mat-button class="concat-icons" [title]="'PAGES.HOME.ORDERS.PRINT_AND_CREATE' | translate">
-      <mat-icon>print</mat-icon>
-      <mat-icon>add_circle</mat-icon>
-      {{'PAGES.HOME.ORDERS.ADD_NEW_ITEM' | translate}}
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

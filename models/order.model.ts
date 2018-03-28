@@ -1,8 +1,11 @@
-import { Item } from './item.model';
-
 export enum OrderType {
   NEW = 'NEW',
   PROCESSED = 'PROCESSED',
+}
+
+export interface ItemInOrder {
+  count: number;
+  itemId: string;
 }
 
 export interface Order {
@@ -11,5 +14,5 @@ export interface Order {
   processedOrderItems: string[];
   created: Date;
   processed: Date;
-  _items: string | Item;
+  items: ItemInOrder[];
 }

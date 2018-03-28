@@ -5,6 +5,7 @@ import { ItemsListViewComponent } from './components/items-list-view/items-list-
 import { HomeComponent } from './home.component';
 import { MainActionsComponent } from './components/main-actions/main-actions.component';
 import { OrdersListViewComponent } from './components/orders-list-view/orders-list-view.component';
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,14 @@ import { OrdersListViewComponent } from './components/orders-list-view/orders-li
           {
             path: 'orders',
             component: OrdersListViewComponent,
+          },
+          {
+            path: 'order/add',
+            component: EditOrderComponent,
+          },
+          {
+            path: 'order/edit/:id',
+            component: EditOrderComponent,
           }
         ]
       }

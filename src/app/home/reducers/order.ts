@@ -3,6 +3,7 @@ import { ExtendedAction } from '../../shared/actions/action';
 import * as _ from 'lodash';
 import { removeFromArray, updateArray } from '../../shared/utils';
 import { fromJS, Map } from 'immutable';
+import { Order } from '../../../../models/order.model';
 
 export type State = Map<string, any>;
 
@@ -96,3 +97,4 @@ export const getIsLoading = (state: State) => state.get('isLoading');
 export const getIsSaved = (state: State) => state.get('isSaved');
 export const getIsSaving = (state: State) => state.get('isSaving');
 export const getPager = (state: State) => state.get('pager').toJS();
+export const getOrderById = (id: string) => (orders: Order[]) => _.find(orders, (order: Order) => order._id === id);

@@ -17,6 +17,8 @@ import { OrdersListViewComponent } from './components/orders-list-view/orders-li
 import { ItemDialogComponent } from './components/item-dialog/item-dialog.component';
 import { OrderEffects } from './effects/order';
 import { OrdersService } from './services/orders.service';
+import { EditOrderItemComponent } from './components/edit-order-item/edit-order-item.component';
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { OrdersService } from './services/orders.service';
     MainActionsComponent,
     OrdersListViewComponent,
     ItemDialogComponent,
+    EditOrderItemComponent,
+    EditOrderComponent,
   ],
   providers: [
     ItemsService,

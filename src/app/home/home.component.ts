@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 
 import * as fromHome from './reducers';
+import { GetItems } from './actions/item';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store$.dispatch(new GetItems());
     this.isItemSaving$ = this.store$.pipe(select(fromHome.getItemsIsSaving));
   }
 }

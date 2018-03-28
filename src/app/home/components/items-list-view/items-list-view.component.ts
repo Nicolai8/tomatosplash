@@ -6,7 +6,7 @@ import { DataSource } from '@angular/cdk/collections';
 
 import * as fromHome from '../../reducers';
 import { Item } from '../../../../../models/item.model';
-import { GetItems, RemoveItem } from '../../actions/item';
+import { RemoveItem } from '../../actions/item';
 import { ItemDataSource } from '../../data-sources/item.datasource';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { Subscription } from 'rxjs/Subscription';
@@ -35,7 +35,6 @@ export class ItemsListViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store$.dispatch(new GetItems());
     this.dataSource = new ItemDataSource(this.items$);
 
     this.subscription = this.store$.pipe(select(fromHome.getItemsIsSaved))
