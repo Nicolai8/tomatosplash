@@ -1,9 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material';
-import { DataSource } from '@angular/cdk/collections';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { Order, OrderType } from '../../../../../models/order.model';
 import * as fromHome from '../../reducers';
-import { OrderDataSource } from '../../data-sources/order.datasource';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import { GetOrders, RemoveOrder, SelectOrder } from '../../actions/order';
@@ -19,41 +17,49 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public displayedColumns = [ '_id', 'type', 'created', 'updated', 'processed', 'actions' ];
-  public dataSource: DataSource<Order>;
+  public dataSource: MatTableDataSource = new MatTableDataSource<Order>();
   public orderType = OrderType;
 
   public isLoadingResults$: Observable<boolean>;
   public pager$: Observable<PagerData>;
   public orders$: Observable<Order[]>;
-  private subscription: Subscription;
+  private pagerSubscription: Subscription;
+  private onInitSubscription: Subscription;
+  private ordersSubscription: Subscription;
 
   constructor(
     private store$: Store<fromHome.State>,
     private ngZone: NgZone,
   ) {
-    this.orders$ = this.store$.pipe(select(fromHome.getOrders));
+    this.orders$ = this.store$.select(fromHome.getOrders);
     this.isLoadingResults$ = this.store$.pipe(select(fromHome.getOrdersIsLoading));
     this.pager$ = this.store$.pipe(select(fromHome.getOrdersPager));
 
-    this.pager$.first().subscribe((pagerData: PagerData) => {
+    this.onInitSubscription = this.pager$.first().subscribe((pagerData: PagerData) => {
       pagerData.page = 0;
       this.store$.dispatch(new GetOrders(pagerData));
     });
   }
 
   ngOnInit() {
-    this.subscription = this.paginator.page.subscribe((pageEvent: PageEvent) => {
+    this.ordersSubscription = this.orders$.subscribe((orders1) => {
+      this.ngZone.run(() => {
+        this.dataSource.data = orders1;
+      });
+    });
+
+    this.pagerSubscription = this.paginator.page.subscribe((pageEvent: PageEvent) => {
       this.store$.dispatch(new GetOrders({
         page: pageEvent.pageIndex,
         limit: pageEvent.pageSize
       }));
     });
-
-    this.dataSource = new OrderDataSource(this.orders$);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.pagerSubscription.unsubscribe();
+    this.onInitSubscription.unsubscribe();
+    this.ordersSubscription.unsubscribe();
   }
 
   addNew() {
@@ -61,14 +67,10 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   }
 
   edit(order: Order) {
-    this.ngZone.run(() => {
-      this.store$.dispatch(new SelectOrder(order));
-    });
+    this.store$.dispatch(new SelectOrder(order));
   }
 
   remove(id: string) {
-    this.ngZone.run(() => {
-      this.store$.dispatch(new RemoveOrder(id));
-    });
+    this.store$.dispatch(new RemoveOrder(id));
   }
 }
