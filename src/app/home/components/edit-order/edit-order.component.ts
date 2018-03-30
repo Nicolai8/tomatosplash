@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import * as fromHome from '../../reducers';
@@ -9,6 +9,7 @@ import { Item } from '../../../../../models/item.model';
 import { AddOrder, EditOrder } from '../../actions/order';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-edit-order',
   templateUrl: 'edit-order.component.html',
   styleUrls: [ 'edit-order.component.scss' ],
@@ -24,19 +25,21 @@ export class EditOrderComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<fromHome.State>,
+    private ngZone: NgZone,
+    private cdRef: ChangeDetectorRef,
   ) {
   }
 
-  private getItemFormControlsFromOrder(order: Order): void {
+  private getItemFormControlsFromOrder(formGroup: FormGroup, order: Order): void {
     if (order) {
       if (order.type === OrderType.NEW) {
         order.items.forEach((itemInOrder) => {
-          this.form.addControl(itemInOrder.itemId, new FormControl(itemInOrder));
+          formGroup.addControl(itemInOrder.itemId, new FormControl(itemInOrder));
         });
       } else if (order.type === OrderType.PROCESSED) {
         order.processedOrderItems.forEach((itemInOrderString: string) => {
           const itemInOrder = JSON.parse(itemInOrderString);
-          this.form.addControl(itemInOrder.itemId, new FormControl(itemInOrder));
+          formGroup.addControl(itemInOrder.itemId, new FormControl(itemInOrder));
         });
       }
     }
@@ -51,10 +54,16 @@ export class EditOrderComponent implements OnInit, OnDestroy {
     this.orderSubscription = this.store$.pipe(select(fromHome.getSelectedOrder))
       .subscribe((order: Order) => {
         Object.keys(this.form.controls).forEach((key) => this.form.removeControl(key));
-        this.getItemFormControlsFromOrder(order);
-        this.controlNames.length = 0;
-        this.controlNames.push(...Object.keys(this.form.controls));
-        this.order = order;
+        this.controlNames = [];
+        this.form.markAsPristine();
+        this.cdRef.detectChanges();
+
+        this.ngZone.run(() => {
+          this.getItemFormControlsFromOrder(this.form, order);
+          this.controlNames = Object.keys(this.form.controls);
+          this.order = order;
+          this.cdRef.detectChanges();
+        });
       });
   }
 
@@ -65,14 +74,14 @@ export class EditOrderComponent implements OnInit, OnDestroy {
 
   addItemInOrder() {
     this.form.addControl(`item_in_order_${Date.now()}`, new FormControl({}));
-    this.controlNames.length = 0;
-    this.controlNames.push(...Object.keys(this.form.controls));
+    this.form.markAsDirty();
+    this.controlNames = Object.keys(this.form.controls);
   }
 
   removeItemInOrder(controlName: string) {
-    this.controlNames.length = 0;
-    this.controlNames.push(...Object.keys(this.form.controls));
     this.form.removeControl(controlName);
+    this.form.markAsDirty();
+    this.controlNames = Object.keys(this.form.controls);
   }
 
   save() {

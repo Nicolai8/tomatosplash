@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Order, OrderType } from '../../../../../models/order.model';
@@ -29,6 +29,7 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<fromHome.State>,
+    private ngZone: NgZone,
   ) {
     this.orders$ = this.store$.pipe(select(fromHome.getOrders));
     this.isLoadingResults$ = this.store$.pipe(select(fromHome.getOrdersIsLoading));
@@ -60,10 +61,14 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   }
 
   edit(order: Order) {
-    this.store$.dispatch(new SelectOrder(order));
+    this.ngZone.run(() => {
+      this.store$.dispatch(new SelectOrder(order));
+    });
   }
 
   remove(id: string) {
-    this.store$.dispatch(new RemoveOrder(id));
+    this.ngZone.run(() => {
+      this.store$.dispatch(new RemoveOrder(id));
+    });
   }
 }
