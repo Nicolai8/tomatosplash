@@ -30,5 +30,7 @@ export const Events = {
   removeOrderSuccess: 'removeOrderSuccess',
   removeOrderError: 'removeOrderError',
 
+  showDevConsole: 'showDevConsole',
+
   error: 'error',
 };

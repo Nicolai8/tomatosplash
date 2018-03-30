@@ -3,7 +3,7 @@ import Config from '../../models/config.model';
 
 const settings = require('electron-settings');
 
-export const configurationEvents = (ipcMain: Electron.IpcMain) => {
+export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebContents) => {
   ipcMain.on(Events.getConfiguration, (event: Electron.Event) => {
     event.returnValue = settings.getAll();
   });
@@ -23,5 +23,12 @@ export const configurationEvents = (ipcMain: Electron.IpcMain) => {
     }
 
     event.sender.send(Events.editConfigurationSuccess, settings.getAll());
+  });
+
+  ipcMain.on(Events.showDevConsole, (event: Electron.Event) => {
+    if (!contents.isDevToolsOpened()) {
+      contents.openDevTools();
+    }
+    event.returnValue = true;
   });
 };

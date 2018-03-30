@@ -34,4 +34,8 @@ export class ConfigurationService {
   setSettings(pairs: { [key: string]: any }) {
     this.electronService.ipcRenderer.send(Events.editMultipleConfiguration, pairs);
   }
+
+  showDevConsole() {
+    this.electronService.ipcRenderer.sendSync(Events.showDevConsole);
+  }
 }

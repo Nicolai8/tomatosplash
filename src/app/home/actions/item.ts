@@ -1,6 +1,5 @@
 import { Item } from '../../../../models/item.model';
 import { ExtendedAction } from '../../shared/actions/action';
-import { PagerData } from '../../../../models/pagination.model';
 
 export enum ItemActionTypes {
   GetItems = '[Item] GetItems',

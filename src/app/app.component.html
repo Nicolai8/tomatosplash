@@ -3,6 +3,9 @@
   <mat-toolbar-row>
     <span>{{'MAIN.TOOLBAR' | translate}}</span>
     <span class="spacer"></span>
+    <button mat-icon-button (click)="showDevTools()">
+      <mat-icon>developer_mode</mat-icon>
+    </button>
     <button mat-icon-button [routerLink]="['/settings']">
       <mat-icon>settings</mat-icon>
     </button>

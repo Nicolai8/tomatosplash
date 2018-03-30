@@ -20,11 +20,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public isConfigEmpty = true;
   private subscription: Subscription;
 
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(private store$: Store<fromRoot.State>) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.store.pipe(select(fromConfig.getConfig))
+    this.subscription = this.store$.pipe(select(fromConfig.getConfig))
       .subscribe((config: Config) => {
         this.isConfigEmpty = isEmpty(config);
 
@@ -43,6 +43,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.store.dispatch(new SetConfigKeys(this.form.getRawValue()));
+    this.store$.dispatch(new SetConfigKeys(this.form.getRawValue()));
   }
 }

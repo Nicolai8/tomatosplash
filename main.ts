@@ -16,8 +16,6 @@ try {
 }
 
 function createWindow() {
-  events.forEach((eventHandler: (ipcMain: Electron.IpcMain) => void) => eventHandler(ipcMain));
-
   const size = screen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
@@ -30,6 +28,8 @@ function createWindow() {
   win.maximize();
   win.setMenu(null);
   initApiCaller(win.webContents);
+
+  events.forEach((eventHandler) => eventHandler(ipcMain, win.webContents));
 
   if (serve) {
     require('electron-reload')(__dirname, {});
