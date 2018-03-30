@@ -1,3 +1,5 @@
+@import '../../../extensions';
+
 :host {
   display: flex;
   flex: 1;
@@ -9,8 +11,12 @@
   flex: 1;
 }
 
+.mat-header-row {
+  @extend %sticky-mat-table-header;
+}
+
 .table-actions {
-  max-width: 100px;
+  max-width: 175px;
 }
 
 .concat-icons {
@@ -24,7 +30,7 @@
     height: 16px;
     width: 16px;
     line-height: 16px;
-    background: white;
+    background: #fff;
     border-radius: 50%;
   }
 }

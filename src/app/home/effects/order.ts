@@ -4,6 +4,7 @@ import { AddOrder, EditOrder, GetOrders, OrderActionTypes, RemoveOrder } from '.
 import { OrdersService } from '../services/orders.service';
 import { select, Store } from '@ngrx/store';
 import * as fromHome from '../reducers';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class OrderEffects {
@@ -46,7 +47,15 @@ export class OrderEffects {
   editOrder$ = this.actions$
     .ofType(OrderActionTypes.EditOrder)
     .map((action: EditOrder) => {
-      this.ordersService.edit(action.id, action.order);
+      this.ordersService.edit(action.order._id, action.order);
+      return null;
+    });
+
+  @Effect({ dispatch: false })
+  selectOrder$ = this.actions$
+    .ofType(OrderActionTypes.SelectOrder)
+    .map(() => {
+      this.router.navigate([ '/order/edit' ]);
       return null;
     });
 
@@ -54,6 +63,7 @@ export class OrderEffects {
     private actions$: Actions,
     private ordersService: OrdersService,
     private store$: Store<fromHome.State>,
+    private router: Router,
   ) {
   }
 }

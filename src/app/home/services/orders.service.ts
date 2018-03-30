@@ -28,7 +28,7 @@ export class OrdersService {
     // get
     this.electronService.ipcRenderer.on(Events.getOrdersSuccess, (
       event: Electron.Event, data: Pagination<Order>) => {
-      this.store.dispatch(new GetOrdersSuccess(data.docs, data));
+      this.store.dispatch(new GetOrdersSuccess(data.docs.map((doc) => new Order(doc)), data));
     });
     this.electronService.ipcRenderer.on(Events.getOrdersError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new GetOrdersError());
@@ -36,7 +36,7 @@ export class OrdersService {
     });
     // add
     this.electronService.ipcRenderer.on(Events.addOrderSuccess, (event: Electron.Event, createdOrder: Order) => {
-      this.store.dispatch(new AddOrderSuccess(createdOrder));
+      this.store.dispatch(new AddOrderSuccess(new Order(createdOrder)));
     });
     this.electronService.ipcRenderer.on(Events.addOrderError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new AddOrderError());
@@ -44,7 +44,7 @@ export class OrdersService {
     });
     // edit
     this.electronService.ipcRenderer.on(Events.editOrderSuccess, (event: Electron.Event, updatedOrder: Order) => {
-      this.store.dispatch(new EditOrderSuccess(updatedOrder));
+      this.store.dispatch(new EditOrderSuccess(new Order(updatedOrder)));
     });
     this.electronService.ipcRenderer.on(Events.editOrderError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new EditOrderError());

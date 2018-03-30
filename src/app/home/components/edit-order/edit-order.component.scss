@@ -17,6 +17,12 @@
     overflow: auto;
   }
 
+  &__actions {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
   @include media(">=medium") {
     &__item {
       &:hover {

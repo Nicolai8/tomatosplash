@@ -6,7 +6,6 @@ import * as fromHome from './reducers';
 import { GetItems } from './actions/item';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: [ './home.component.scss' ],

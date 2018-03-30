@@ -1,0 +1,8 @@
+@import "variables";
+
+%sticky-mat-table-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}

@@ -1,3 +1,5 @@
+@import '../../../extensions';
+
 :host {
   display: flex;
   flex: 1;
@@ -7,6 +9,10 @@
 .mat-table {
   overflow: auto;
   flex: 1;
+}
+
+.mat-header-row {
+  @extend %sticky-mat-table-header;
 }
 
 .table-actions {

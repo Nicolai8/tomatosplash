@@ -1,7 +1,6 @@
 import { OrderActionTypes } from '../actions/order';
 import { ExtendedAction } from '../../shared/actions/action';
 import * as _ from 'lodash';
-import { removeFromArray, updateArray } from '../../shared/utils';
 import { fromJS, Map } from 'immutable';
 import { Order } from '../../../../models/order.model';
 
@@ -18,7 +17,8 @@ const initialState: State = fromJS({
     total: 0,
     pages: 1,
     thisPageLength: 0,
-  }
+  },
+  selected: new Order(),
 });
 
 export function reducer(
@@ -48,9 +48,9 @@ export function reducer(
         .set('isSaved', false);
     case OrderActionTypes.AddOrderSuccess:
       return state
-        .set('orders', [ ...state.get('orders'), action.order ])
         .set('isSaving', false)
-        .set('isSaved', true);
+        .set('isSaved', true)
+        .set('selected', action.order);
     case OrderActionTypes.AddOrderError:
       return state
         .set('isSaving', false)
@@ -61,15 +61,10 @@ export function reducer(
         .set('isSaving', true)
         .set('isSaved', false);
     case OrderActionTypes.EditOrderSuccess: {
-      const orders = state.get('orders');
-      const orderIndex = _.findIndex(orders, { _id: action.order._id });
-      if (orderIndex >= 0) {
-        return state
-          .set('orders', updateArray(orders, orderIndex, action.order))
-          .set('isSaving', false)
-          .set('isSaved', true);
-      }
-      return state;
+      return state
+        .set('isSaving', false)
+        .set('isSaved', true)
+        .set('selected', action.order);
     }
     case OrderActionTypes.EditOrderError:
       return state
@@ -87,6 +82,10 @@ export function reducer(
       return state
         .set('isSaving', false);
 
+    case OrderActionTypes.SelectOrder:
+      return state
+        .set('selected', action.order);
+
     default:
       return state;
   }
@@ -98,3 +97,4 @@ export const getIsSaved = (state: State) => state.get('isSaved');
 export const getIsSaving = (state: State) => state.get('isSaving');
 export const getPager = (state: State) => state.get('pager').toJS();
 export const getOrderById = (id: string) => (orders: Order[]) => _.find(orders, (order: Order) => order._id === id);
+export const getSelectedOrder = (state: State) => state.get('selected');

@@ -1,8 +1,8 @@
 <div *ngIf="order && order._id" class="add-edit-order__header">
   <h2>{{'PAGES.HOME.EDIT_ORDER.EDITING_ORDER' | translate}}{{order._id}}</h2>
-  <span>{{order.type}}</span>
-  <span>{{order.created | date}}</span>
-  <span *ngIf="order.type === orderType.PROCESSED">{{order.processed | date}}</span>
+  <p>{{order.type}}</p>
+  <p>{{order.created | date:'MMMM d, y, HH:mm:ss'}}</p>
+  <p *ngIf="order.type === orderType.PROCESSED">{{order.processed | date}}</p>
 </div>
 <div *ngIf="!order || !order._id" class="add-edit-order__header">
   <h2>
@@ -10,15 +10,22 @@
   </h2>
 </div>
 
-<div>
+<div class="app-edit-order__actions">
   <button mat-raised-button (click)="addItemInOrder()">
     <mat-icon>add_box</mat-icon>
     {{'PAGES.HOME.EDIT_ORDER.ADD_ITEM_IN_ORDER' | translate}}
   </button>
+  <button
+    mat-raised-button
+    (click)="save()"
+    color="warn"
+    [disabled]="form?.pristine || form?.invalid"
+  >
+    <mat-icon>save</mat-icon>
+    {{'PAGES.HOME.EDIT_ORDER.SAVE' | translate}}
+  </button>
 </div>
-
 <h3>{{'PAGES.HOME.EDIT_ORDER.ITEMS_IN_ORDER' | translate}}</h3>
-
 <form *ngIf="form && order" [formGroup]="form" class="app-edit-order__items">
   <div *ngFor="let controlName of controlNames" class="app-edit-order__item">
     <app-edit-order-item [items]="items" [formControlName]="controlName"
@@ -31,5 +38,8 @@
     >
       <mat-icon>delete</mat-icon>
     </button>
+  </div>
+  <div *ngIf="controlNames.length === 0">
+    {{'PAGES.HOME.EDIT_ORDER.NO_ITEMS_IN_ORDER' | translate}}
   </div>
 </form>

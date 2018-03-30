@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatPaginator, PageEvent } from '@angular/material';
+import { MatPaginator, PageEvent } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Order, OrderType } from '../../../../../models/order.model';
 import * as fromHome from '../../reducers';
-// import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 import { OrderDataSource } from '../../data-sources/order.datasource';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
-import { GetOrders, RemoveOrder } from '../../actions/order';
+import { GetOrders, RemoveOrder, SelectOrder } from '../../actions/order';
 import { Subscription } from 'rxjs/Subscription';
 import { PagerData } from '../../../../../models/pagination.model';
 
@@ -19,19 +18,17 @@ import { PagerData } from '../../../../../models/pagination.model';
 export class OrdersListViewComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  public displayedColumns = [ '_id', 'items', 'type', 'created', 'processed', 'actions' ];
+  public displayedColumns = [ '_id', 'type', 'created', 'updated', 'processed', 'actions' ];
   public dataSource: DataSource<Order>;
   public orderType = OrderType;
 
   public isLoadingResults$: Observable<boolean>;
   public pager$: Observable<PagerData>;
   public orders$: Observable<Order[]>;
-  // private dialogRef: MatDialogRef<OrderDialogComponent>;
   private subscription: Subscription;
 
   constructor(
     private store$: Store<fromHome.State>,
-    private matDialog: MatDialog
   ) {
     this.orders$ = this.store$.pipe(select(fromHome.getOrders));
     this.isLoadingResults$ = this.store$.pipe(select(fromHome.getOrdersIsLoading));
@@ -44,7 +41,7 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.paginator.page.subscribe((pageEvent: PageEvent) => {
+    this.subscription = this.paginator.page.subscribe((pageEvent: PageEvent) => {
       this.store$.dispatch(new GetOrders({
         page: pageEvent.pageIndex,
         limit: pageEvent.pageSize
@@ -52,13 +49,6 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
     });
 
     this.dataSource = new OrderDataSource(this.orders$);
-
-    this.subscription = this.store$.pipe(select(fromHome.getOrdersIsSaved))
-      .subscribe((isSaved: boolean) => {
-        /*if (this.dialogRef && isSaved) {
-          this.dialogRef.componentInstance.cancel();
-        }*/
-      });
   }
 
   ngOnDestroy() {
@@ -66,21 +56,11 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   }
 
   addNew() {
-/*    this.dialogRef = this.matDialog.open(OrderDialogComponent, {
-      minWidth: '400px',
-      maxWidth: '800px',
-      data: {},
-      disableClose: true,
-    });*/
+    this.store$.dispatch(new SelectOrder(new Order()));
   }
 
   edit(order: Order) {
-    /*this.dialogRef = this.matDialog.open(OrderDialogComponent, {
-      minWidth: '400px',
-      maxWidth: '800px',
-      data: Object.assign({}, order),
-      disableClose: true,
-    });*/
+    this.store$.dispatch(new SelectOrder(order));
   }
 
   remove(id: string) {

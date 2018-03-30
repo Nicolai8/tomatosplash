@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import * as fromHome from '../../reducers';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { ItemInOrder, Order, OrderType } from '../../../../../models/order.model';
 import { Subscription } from 'rxjs/Subscription';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Item } from '../../../../../models/item.model';
+import { AddOrder, EditOrder } from '../../actions/order';
 
 @Component({
   selector: 'app-edit-order',
@@ -15,72 +14,91 @@ import { Item } from '../../../../../models/item.model';
   styleUrls: [ 'edit-order.component.scss' ],
 })
 export class EditOrderComponent implements OnInit, OnDestroy {
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
   orderType = OrderType;
   order: Order;
   items: Item[];
-  controlNames: string[];
-  private subscription: Subscription;
+  controlNames: string[] = [];
+  private itemsSubscription: Subscription;
+  private orderSubscription: Subscription;
 
   constructor(
-    private store: Store<fromHome.State>,
-    private route: ActivatedRoute,
-    private cdRef: ChangeDetectorRef
+    private store$: Store<fromHome.State>,
   ) {
   }
 
-  private static getItemFormControlsFromOrder(order: Order): { [key: string]: FormControl } {
-    const controls = {};
+  private getItemFormControlsFromOrder(order: Order): void {
     if (order) {
       if (order.type === OrderType.NEW) {
         order.items.forEach((itemInOrder) => {
-          controls[ itemInOrder.itemId ] = new FormControl(itemInOrder);
+          this.form.addControl(itemInOrder.itemId, new FormControl(itemInOrder));
         });
       } else if (order.type === OrderType.PROCESSED) {
         order.processedOrderItems.forEach((itemInOrderString: string) => {
           const itemInOrder = JSON.parse(itemInOrderString);
-          controls[ itemInOrder.itemId ] = new FormControl(itemInOrder);
+          this.form.addControl(itemInOrder.itemId, new FormControl(itemInOrder));
         });
       }
     }
-
-    return controls;
   }
 
   ngOnInit() {
-    this.subscription = this.route.params
-      .map((params) => params.id)
-      .mergeMap((id: string) => {
-        let order$ = Observable.of(<Order>{});
-        if (id) {
-          order$ = this.store.pipe(select(fromHome.getOrderById(id)));
-        }
-        return Observable.zip(
-          order$,
-          this.store.pipe(select(fromHome.getItems)),
-        );
-      })
-      .subscribe(([ order, items ]) => {
-        this.form = new FormGroup(EditOrderComponent.getItemFormControlsFromOrder(order));
-        this.controlNames = Object.keys(this.form.controls);
-        this.order = order;
+    this.itemsSubscription = this.store$.pipe(select(fromHome.getItems))
+      .subscribe((items: Item[]) => {
         this.items = items;
+      });
+
+    this.orderSubscription = this.store$.pipe(select(fromHome.getSelectedOrder))
+      .subscribe((order: Order) => {
+        Object.keys(this.form.controls).forEach((key) => this.form.removeControl(key));
+        this.getItemFormControlsFromOrder(order);
+        this.controlNames.length = 0;
+        this.controlNames.push(...Object.keys(this.form.controls));
+        this.order = order;
       });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.itemsSubscription.unsubscribe();
+    this.orderSubscription.unsubscribe();
   }
 
   addItemInOrder() {
     this.form.addControl(`item_in_order_${Date.now()}`, new FormControl({}));
-    this.controlNames = Object.keys(this.form.controls);
-    this.cdRef.detectChanges();
+    this.controlNames.length = 0;
+    this.controlNames.push(...Object.keys(this.form.controls));
   }
 
   removeItemInOrder(controlName: string) {
+    this.controlNames.length = 0;
+    this.controlNames.push(...Object.keys(this.form.controls));
     this.form.removeControl(controlName);
-    this.controlNames = Object.keys(this.form.controls);
-    this.cdRef.detectChanges();
+  }
+
+  save() {
+    const items: { [key: string]: ItemInOrder } = {};
+    Object.keys(this.form.controls).forEach((key: string) => {
+      const item: ItemInOrder = this.form.value[ key ];
+      if (items[ item.itemId ]) {
+        // all duplicates will be saved
+        items[ item.itemId ].count += item.count;
+      } else {
+        items[ item.itemId ] = item;
+      }
+    });
+
+    // we shouldn't pass itemId, because there is no such property in Order entity
+    this.order.items = Object.keys(items).map((key: string) => {
+      return {
+        count: items[ key ].count,
+        _item: key,
+      };
+    });
+
+    if (this.order._id) {
+      this.store$.dispatch(new EditOrder(this.order));
+    } else {
+      this.store$.dispatch(new AddOrder(this.order));
+    }
   }
 }

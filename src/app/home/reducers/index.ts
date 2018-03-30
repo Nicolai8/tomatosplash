@@ -41,3 +41,4 @@ export const getOrdersIsSaving = createSelector(getHomeOrderState, fromOrder.get
 export const getOrdersIsSaved = createSelector(getHomeOrderState, fromOrder.getIsSaved);
 export const getOrdersPager = createSelector(getHomeOrderState, fromOrder.getPager);
 export const getOrderById = (id: string) => createSelector(getOrders, fromOrder.getOrderById(id));
+export const getSelectedOrder = createSelector(getHomeOrderState, fromOrder.getSelectedOrder);

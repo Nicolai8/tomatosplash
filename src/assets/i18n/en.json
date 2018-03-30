@@ -8,17 +8,38 @@
       "ITEMS_NAV": "Items",
       "SAVE": "Save",
       "CANCEL": "Cancel",
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "REMOVE": "Remove",
       "ITEM_DIALOG": {
         "NAME_FIELD": "Name",
         "PRICE_FIELD": "Price",
         "TYPE_FIELD": "Type"
+      },
+      "ORDER": {
+        "NO": "#",
+        "TYPE": "Type",
+        "CREATED": "Created",
+        "UPDATED": "Updated",
+        "PROCESSED": "Processed",
+        "VISUALIZE": "Visualize",
+        "PRINT": "Print"
+      },
+      "ITEMS": {
+        "NO": "#",
+        "NAME": "Name",
+        "PRICE": "Price",
+        "TYPE": "Type",
+        "ADD_NEW_ITEM": "Add New Item"
       },
       "EDIT_ORDER": {
         "CREATING_NEW_ORDER": "Creating New Order",
         "EDITING_ORDER": "Editing Order: #",
         "ITEMS_IN_ORDER": "Items in Order",
         "ADD_ITEM_IN_ORDER": "Add Item in Order",
-        "REMOVE_ITEM_IN_ORDER": "Remove Item In Order"
+        "REMOVE_ITEM_IN_ORDER": "Remove Item In Order",
+        "SAVE": "Save Changes",
+        "NO_ITEMS_IN_ORDER": "There is No Items in Order Yet"
       },
       "EDIT_ORDER_ITEM": {
         "ITEM": "Item",

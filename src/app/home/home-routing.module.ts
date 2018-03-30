@@ -28,11 +28,7 @@ import { EditOrderComponent } from './components/edit-order/edit-order.component
             component: OrdersListViewComponent,
           },
           {
-            path: 'order/add',
-            component: EditOrderComponent,
-          },
-          {
-            path: 'order/edit/:id',
+            path: 'order/edit',
             component: EditOrderComponent,
           }
         ]
