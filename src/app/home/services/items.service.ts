@@ -36,6 +36,7 @@ export class ItemsService {
     // add
     this.electronService.ipcRenderer.on(Events.addItemSuccess, (event: Electron.Event, createdItem: Item) => {
       this.store.dispatch(new AddItemSuccess(createdItem));
+      this.notificationService.showNotification('MESSAGES.ADD_ITEM_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.addItemError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new AddItemError());
@@ -44,6 +45,7 @@ export class ItemsService {
     // edit
     this.electronService.ipcRenderer.on(Events.editItemSuccess, (event: Electron.Event, updatedItem: Item) => {
       this.store.dispatch(new EditItemSuccess(updatedItem));
+      this.notificationService.showNotification('MESSAGES.EDIT_ITEM_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.editItemError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new EditItemError());
@@ -52,6 +54,7 @@ export class ItemsService {
     // remove
     this.electronService.ipcRenderer.on(Events.removeItemSuccess, (event: Electron.Event, id: string) => {
       this.store.dispatch(new RemoveItemSuccess(id));
+      this.notificationService.showNotification('MESSAGES.REMOVE_ITEM_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.removeItemError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new RemoveItemError());

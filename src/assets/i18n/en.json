@@ -59,6 +59,12 @@
     "TOOLBAR": "Application Name"
   },
   "MESSAGES": {
-    "EDIT_CONFIG_SUCCESS": "Settings have been saved"
+    "EDIT_CONFIG_SUCCESS": "Settings have been saved",
+    "ADD_ORDER_SUCCESS":"New order has been added",
+    "EDIT_ORDER_SUCCESS":"Order was successfully saved",
+    "REMOVE_ORDER_SUCCESS":"Order was successfully removed",
+    "ADD_ITEM_SUCCESS":"New item has been added",
+    "EDIT_ITEM_SUCCESS":"Item was successfully saved",
+    "REMOVE_ITEM_SUCCESS":"Item was successfully removed"
   }
 }

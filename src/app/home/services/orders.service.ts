@@ -37,6 +37,7 @@ export class OrdersService {
     // add
     this.electronService.ipcRenderer.on(Events.addOrderSuccess, (event: Electron.Event, createdOrder: Order) => {
       this.store.dispatch(new AddOrderSuccess(new Order(createdOrder)));
+      this.notificationService.showNotification('MESSAGES.ADD_ORDER_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.addOrderError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new AddOrderError());
@@ -45,6 +46,7 @@ export class OrdersService {
     // edit
     this.electronService.ipcRenderer.on(Events.editOrderSuccess, (event: Electron.Event, updatedOrder: Order) => {
       this.store.dispatch(new EditOrderSuccess(new Order(updatedOrder)));
+      this.notificationService.showNotification('MESSAGES.EDIT_ORDER_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.editOrderError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new EditOrderError());
@@ -53,6 +55,7 @@ export class OrdersService {
     // remove
     this.electronService.ipcRenderer.on(Events.removeOrderSuccess, (event: Electron.Event, id: string) => {
       this.store.dispatch(new RemoveOrderSuccess(id));
+      this.notificationService.showNotification('MESSAGES.REMOVE_ORDER_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.removeOrderError, (event: Electron.Event, error: string) => {
       this.store.dispatch(new RemoveOrderError());
