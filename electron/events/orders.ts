@@ -35,4 +35,12 @@ export const ordersEvents = (ipcMain: Electron.IpcMain) => {
       event.sender.send(Events.removeOrderError, error);
     });
   });
+
+  ipcMain.on(Events.proceedOrder, (event: Electron.Event, id: string) => {
+    apiCaller('/api/order/proceed/${id}', 'post', { path: { id } }, () => {
+      event.sender.send(Events.proceedOrderSuccess, id);
+    }, (error) => {
+      event.sender.send(Events.proceedOrderError, error);
+    });
+  });
 };

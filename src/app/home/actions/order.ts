@@ -16,6 +16,9 @@ export enum OrderActionTypes {
   RemoveOrderSuccess = '[Order] RemoveOrderSuccess',
   RemoveOrderError = '[Order] RemoveOrderError',
   SelectOrder = '[Order] SelectOrder',
+  ProceedOrder = '[Order] ProceedOrder',
+  ProceedOrderSuccess = '[Order] ProceedOrderSuccess',
+  ProceedOrderError = '[Order] ProceedOrderError',
 }
 
 export class GetOrders implements ExtendedAction {
@@ -95,4 +98,19 @@ export class SelectOrder implements ExtendedAction {
 
   constructor(public order: Order) {
   }
+}
+
+export class ProceedOrder implements ExtendedAction {
+  readonly type = OrderActionTypes.ProceedOrder;
+
+  constructor(public id: string) {
+  }
+}
+
+export class ProceedOrderSuccess implements ExtendedAction {
+  readonly type = OrderActionTypes.ProceedOrderSuccess;
+}
+
+export class ProceedOrderError implements ExtendedAction {
+  readonly type = OrderActionTypes.ProceedOrderError;
 }

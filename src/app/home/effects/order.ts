@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { AddOrder, EditOrder, GetOrders, OrderActionTypes, RemoveOrder } from '../actions/order';
+import { AddOrder, EditOrder, GetOrders, OrderActionTypes, ProceedOrder, RemoveOrder } from '../actions/order';
 import { OrdersService } from '../services/orders.service';
 import { select, Store } from '@ngrx/store';
 import * as fromHome from '../reducers';
@@ -49,6 +49,22 @@ export class OrderEffects {
     .map((action: EditOrder) => {
       this.ordersService.edit(action.order._id, action.order);
       return null;
+    });
+
+  @Effect({ dispatch: false })
+  proceedOrder$ = this.actions$
+    .ofType(OrderActionTypes.ProceedOrder)
+    .map((action: ProceedOrder) => {
+      this.ordersService.proceed(action.id);
+      return null;
+    });
+
+  @Effect()
+  proceedOrderSuccess$ = this.actions$
+    .ofType(OrderActionTypes.ProceedOrderSuccess)
+    .withLatestFrom(this.store$.pipe(select(fromHome.getOrdersPager)))
+    .map(([ action, pagerData ]) => {
+      return new GetOrders(pagerData);
     });
 
   @Effect({ dispatch: false })

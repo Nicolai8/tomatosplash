@@ -4,7 +4,7 @@ import { Order, OrderType } from '../../../../../models/order.model';
 import * as fromHome from '../../reducers';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
-import { GetOrders, RemoveOrder, SelectOrder } from '../../actions/order';
+import { GetOrders, ProceedOrder, RemoveOrder, SelectOrder } from '../../actions/order';
 import { Subscription } from 'rxjs/Subscription';
 import { PagerData } from '../../../../../models/pagination.model';
 
@@ -17,7 +17,7 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public displayedColumns = [ '_id', 'type', 'created', 'updated', 'processed', 'actions' ];
-  public dataSource: MatTableDataSource = new MatTableDataSource<Order>();
+  public dataSource: MatTableDataSource<Order> = new MatTableDataSource<Order>([]);
   public orderType = OrderType;
 
   public isLoadingResults$: Observable<boolean>;
@@ -42,9 +42,9 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.ordersSubscription = this.orders$.subscribe((orders1) => {
+    this.ordersSubscription = this.orders$.subscribe((orders) => {
       this.ngZone.run(() => {
-        this.dataSource.data = orders1;
+        this.dataSource.data = orders;
       });
     });
 
@@ -68,6 +68,10 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
 
   edit(order: Order) {
     this.store$.dispatch(new SelectOrder(order));
+  }
+
+  proceed(order: Order) {
+    this.store$.dispatch(new ProceedOrder(order._id));
   }
 
   remove(id: string) {

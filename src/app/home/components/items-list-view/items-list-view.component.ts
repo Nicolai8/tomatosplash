@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ItemsListViewComponent implements OnInit, OnDestroy {
   public displayedColumns = [ '_id', 'name', 'price', 'type', 'actions' ];
-  public dataSource: MatTableDataSource = new MatTableDataSource<Item>();
+  public dataSource: MatTableDataSource<Item> = new MatTableDataSource<Item>([]);
 
   public isLoadingResults$: Observable<boolean>;
   public items$: Observable<Item[]>;

@@ -51,10 +51,21 @@
         <mat-icon>print</mat-icon>
       </button>
 
-      <button mat-icon-button
-              color=""
-              [matTooltip]="'PAGES.HOME.EDIT' | translate"
-              (click)="edit(element)">
+      <button
+        *ngIf="element.type === orderType.NEW"
+        mat-icon-button
+        color=""
+        [matTooltip]="'PAGES.HOME.ORDER.PROCEED' | translate"
+        (click)="proceed(element)">
+        <mat-icon>lock</mat-icon>
+      </button>
+
+      <button
+        *ngIf="element.type === orderType.NEW"
+        mat-icon-button
+        color=""
+        [matTooltip]="'PAGES.HOME.EDIT' | translate"
+        (click)="edit(element)">
         <mat-icon>edit</mat-icon>
       </button>
 

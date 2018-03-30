@@ -29,6 +29,9 @@ export const Events = {
   removeOrder: 'removeOrder',
   removeOrderSuccess: 'removeOrderSuccess',
   removeOrderError: 'removeOrderError',
+  proceedOrder: 'proceedOrder',
+  proceedOrderError: 'proceedOrderError',
+  proceedOrderSuccess: 'proceedOrderSuccess',
 
   showDevConsole: 'showDevConsole',
 

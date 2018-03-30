@@ -42,45 +42,35 @@ export function reducer(
       return state
         .set('isLoading', false);
 
-    case OrderActionTypes.AddOrder:
-      return state
-        .set('isSaving', true)
-        .set('isSaved', false);
+    case OrderActionTypes.EditOrderSuccess:
     case OrderActionTypes.AddOrderSuccess:
       return state
         .set('isSaving', false)
         .set('isSaved', true)
         .set('selected', action.order);
+
+    case OrderActionTypes.AddOrder:
+    case OrderActionTypes.EditOrder:
+      return state
+        .set('isSaving', true)
+        .set('isSaved', false);
+    case OrderActionTypes.EditOrderError:
     case OrderActionTypes.AddOrderError:
       return state
         .set('isSaving', false)
         .set('isSaved', false);
 
-    case OrderActionTypes.EditOrder:
-      return state
-        .set('isSaving', true)
-        .set('isSaved', false);
-    case OrderActionTypes.EditOrderSuccess: {
-      return state
-        .set('isSaving', false)
-        .set('isSaved', true)
-        .set('selected', action.order);
-    }
-    case OrderActionTypes.EditOrderError:
-      return state
-        .set('isSaving', false)
-        .set('isSaved', false);
-
+    case OrderActionTypes.ProceedOrder:
     case OrderActionTypes.RemoveOrder:
       return state
         .set('isSaving', true);
+    case OrderActionTypes.ProceedOrderError:
+    case OrderActionTypes.ProceedOrderSuccess:
+    case OrderActionTypes.RemoveOrderError:
     case OrderActionTypes.RemoveOrderSuccess: {
       return state
         .set('isSaving', false);
     }
-    case OrderActionTypes.RemoveOrderError:
-      return state
-        .set('isSaving', false);
 
     case OrderActionTypes.SelectOrder:
       return state

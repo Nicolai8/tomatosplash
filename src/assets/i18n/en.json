@@ -23,7 +23,8 @@
         "UPDATED": "Updated",
         "PROCESSED": "Processed",
         "VISUALIZE": "Visualize",
-        "PRINT": "Print"
+        "PRINT": "Print",
+        "PROCEED": "Proceed"
       },
       "ITEMS": {
         "NO": "#",

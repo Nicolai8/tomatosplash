@@ -11,7 +11,7 @@ import {
   EditOrderError,
   EditOrderSuccess,
   GetOrdersError,
-  GetOrdersSuccess,
+  GetOrdersSuccess, ProceedOrderError, ProceedOrderSuccess,
   RemoveOrderError,
   RemoveOrderSuccess
 } from '../actions/order';
@@ -61,6 +61,15 @@ export class OrdersService {
       this.store.dispatch(new RemoveOrderError());
       this.notificationService.showNotification(error, false);
     });
+    // proceed
+    this.electronService.ipcRenderer.on(Events.proceedOrderSuccess, () => {
+      this.store.dispatch(new ProceedOrderSuccess());
+      this.notificationService.showNotification('MESSAGES.PROCEED_ORDER_SUCCESS');
+    });
+    this.electronService.ipcRenderer.on(Events.proceedOrderError, (event: Electron.Event, error: string) => {
+      this.store.dispatch(new ProceedOrderError());
+      this.notificationService.showNotification(error, false);
+    });
   }
 
   public get(page: number, limit: number): void {
@@ -77,5 +86,9 @@ export class OrdersService {
 
   public remove(id: string): void {
     this.electronService.ipcRenderer.send(Events.removeOrder, id);
+  }
+
+  public proceed(id: string): void {
+    this.electronService.ipcRenderer.send(Events.proceedOrder, id);
   }
 }
