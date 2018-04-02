@@ -40,10 +40,10 @@ export class ConfigurationService {
   }
 
   print() {
-    this.electronService.ipcRenderer.sendSync(Events.printToDocx);
+    this.electronService.ipcRenderer.send(Events.printToDocx);
   }
 
   printToPDF() {
-    this.electronService.ipcRenderer.sendSync(Events.printToPDF);
+    this.electronService.ipcRenderer.send(Events.printToPDF);
   }
 }

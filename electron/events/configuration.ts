@@ -37,7 +37,11 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
   });
 
   ipcMain.on(Events.printToPDF, (event: Electron.Event) => {
-    contents.printToPDF({ pageSize: 'A4', marginsType: 1, printBackground: false }, (error, data) => {
+    contents.printToPDF({
+      pageSize: 'A4',
+      marginsType: 1,
+      printBackground: false,
+    }, (error, data) => {
       if (error) {
         event.sender.send(Events.error, error);
         return;
@@ -64,7 +68,5 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
         pdfWindow.loadURL(`file:/${fileUrl}`);
       });
     });
-
-    event.returnValue = true;
   });
 };

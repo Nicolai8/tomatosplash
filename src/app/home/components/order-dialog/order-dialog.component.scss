@@ -87,6 +87,13 @@
       display: none;
     }
 
+    &__content {
+      width: 257mm;
+      transform: scale(.75);
+      position: fixed;
+      top: -70px;
+    }
+
     &__info-list {
       &-item {
         word-break: break-all;
