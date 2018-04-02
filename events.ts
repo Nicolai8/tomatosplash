@@ -38,5 +38,13 @@ export const Events = {
   printToPDF: 'printToPDF',
   printToDocx: 'printToDocx',
 
+  setPrintReceiptDocxTemplate: 'setPrintReceiptDocxTemplate',
+  setPrintReceiptDocxTemplateSuccess: 'setPrintReceiptDocxTemplateSuccess',
+  getPrintReceiptDocxTemplate: 'getPrintReceiptDocxTemplate',
+
+  setPrintReportDocxTemplate: 'setPrintReportDocxTemplate',
+  setPrintReportDocxTemplateSuccess: 'setPrintReportDocxTemplateSuccess',
+  getPrintReportDocxTemplate: 'getPrintReportDocxTemplate',
+
   error: 'error',
 };

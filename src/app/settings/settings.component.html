@@ -1,39 +1,70 @@
 <form *ngIf="form" [formGroup]="form" class="form">
   <mat-form-field>
-    <input matInput
-           [placeholder]="'PAGES.SETTINGS.CASH_MACHINE_ID' | translate"
-           formControlName="cashMachineId"
-           required>
+    <input
+      matInput
+      [placeholder]="'PAGES.SETTINGS.CASH_MACHINE_ID' | translate"
+      formControlName="cashMachineId"
+      required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput
-           [placeholder]="'PAGES.SETTINGS.DB_CONNECTION_STRING' | translate"
-           formControlName="dbConnectionString"
-           required>
+    <input
+      matInput
+      [placeholder]="'PAGES.SETTINGS.DB_CONNECTION_STRING' | translate"
+      formControlName="dbConnectionString"
+      required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput
-           [placeholder]="'PAGES.SETTINGS.DB_USERNAME' | translate"
-           formControlName="dbUserName"
-           required>
+    <input
+      matInput
+      [placeholder]="'PAGES.SETTINGS.DB_USERNAME' | translate"
+      formControlName="dbUserName"
+      required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput
-           [placeholder]="'PAGES.SETTINGS.DB_PASSWORD' | translate"
-           formControlName="dbPassword"
-           required>
+    <input
+      matInput
+      [placeholder]="'PAGES.SETTINGS.DB_PASSWORD' | translate"
+      formControlName="dbPassword"
+      required>
   </mat-form-field>
 </form>
 <div class="actions">
-  <button mat-raised-button
-          [disabled]="form.pristine || form.invalid"
-          (click)="save()"
-          color="primary">
+  <button
+    mat-raised-button
+    [disabled]="form.pristine || form.invalid"
+    (click)="save()"
+    color="primary">
     <mat-icon>save</mat-icon>
     {{'PAGES.SETTINGS.SAVE' | translate}}
   </button>
   <button mat-raised-button [routerLink]="['/']" *ngIf="!isConfigEmpty">
     <mat-icon>cancel</mat-icon>
     {{'PAGES.SETTINGS.CANCEL' | translate}}
+  </button>
+</div>
+<div>
+  <button
+    mat-raised-button
+    (click)="setPrintReceiptDocxTemplate()">
+    <mat-icon>file_upload</mat-icon>
+    {{'PAGES.SETTINGS.SET_RECEIPT_TEMPLATE' | translate}}
+  </button>
+  <button
+    mat-raised-button
+    (click)="getPrintReceiptDocxTemplate()">
+    <mat-icon>file_download</mat-icon>
+    {{'PAGES.SETTINGS.GET_RECEIPT_TEMPLATE' | translate}}
+  </button>
+  <button
+    mat-raised-button
+    (click)="setPrintReportDocxTemplate()">
+    <mat-icon>file_upload</mat-icon>
+    {{'PAGES.SETTINGS.SET_REPORT_TEMPLATE' | translate}}
+  </button>
+  <button
+    mat-raised-button
+    (click)="getPrintReportDocxTemplate()">
+    <mat-icon>file_download</mat-icon>
+    {{'PAGES.SETTINGS.GET__REPORT_TEMPLATE' | translate}}
   </button>
 </div>

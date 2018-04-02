@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 
@@ -8,6 +8,7 @@ import { SetConfigKeys } from '../shared/actions/config';
 import Config from '../../../models/config.model';
 import { Subscription } from 'rxjs/Subscription';
 import { isEmpty } from '../shared/utils';
+import { ConfigurationService } from '../shared/services/configuration.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,20 +21,26 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public isConfigEmpty = true;
   private subscription: Subscription;
 
-  constructor(private store$: Store<fromRoot.State>) {
+  constructor(
+    private store$: Store<fromRoot.State>,
+    private ngZone: NgZone,
+    private configurationService: ConfigurationService,
+  ) {
   }
 
   ngOnInit(): void {
     this.subscription = this.store$.pipe(select(fromConfig.getConfig))
       .subscribe((config: Config) => {
-        this.isConfigEmpty = isEmpty(config);
+        this.ngZone.run(() => {
+          this.isConfigEmpty = isEmpty(config);
 
-        this.form = new FormGroup({
-          cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
-          dbConnectionString: new FormControl(config.dbConnectionString || '',
-            [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
-          dbUserName: new FormControl(config.dbUserName || '', Validators.required),
-          dbPassword: new FormControl(config.dbPassword || '', Validators.required),
+          this.form = new FormGroup({
+            cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
+            dbConnectionString: new FormControl(config.dbConnectionString || '',
+              [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
+            dbUserName: new FormControl(config.dbUserName || '', Validators.required),
+            dbPassword: new FormControl(config.dbPassword || '', Validators.required),
+          });
         });
       });
   }
@@ -44,5 +51,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   save() {
     this.store$.dispatch(new SetConfigKeys(this.form.getRawValue()));
+  }
+
+  setPrintReceiptDocxTemplate() {
+    this.configurationService.setPrintReceiptDocxTemplate();
+  }
+
+  getPrintReceiptDocxTemplate() {
+    this.configurationService.getPrintReceiptDocxTemplate();
+  }
+
+  setPrintReportDocxTemplate() {
+    this.configurationService.setPrintReportDocxTemplate();
+  }
+
+  getPrintReportDocxTemplate() {
+    this.configurationService.getPrintReportDocxTemplate();
   }
 }
