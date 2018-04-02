@@ -25,6 +25,7 @@
         "PROCESSED": "Processed",
         "VISUALIZE": "Visualize",
         "PRINT": "Print",
+        "PRINT_TO_PDF": "Print to PDF",
         "PROCEED": "Proceed"
       },
       "ORDER_DIALOG": {

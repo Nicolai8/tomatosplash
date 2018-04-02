@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, NgZone, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, NgZone, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
@@ -8,6 +8,7 @@ import * as fromHome from '../../reducers';
 import { ItemInOrder, Order, OrderType } from '../../../../../models/order.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Item } from '../../../../../models/item.model';
+import { ConfigurationService } from '../../../shared/services/configuration.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,8 +26,10 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<fromHome.State>,
+    private configurationService: ConfigurationService,
     private dialogRef: MatDialogRef<ItemDialogComponent>,
     private ngZone: NgZone,
+    private cdRef: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) private data: Order,
   ) {
   }
@@ -47,13 +50,20 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
 
         this.total = this.order.items.reduce((total, current: any) => total + current.count * current._item.price, 0);
 
-        this.ngZone.run(() => {
-          this.dataSource.data = this.order.items;
-        });
+        this.dataSource.data = this.order.items;
+        this.cdRef.detectChanges();
       });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  print() {
+    this.configurationService.print();
+  }
+
+  printToPDF() {
+    this.configurationService.printToPDF();
   }
 }

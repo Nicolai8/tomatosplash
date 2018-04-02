@@ -1,25 +1,10 @@
 @import "../../../../../node_modules/@angular/material/theming";
 
 .app-order-dialog {
-  .mat-dialog-container {
-    padding: 0;
-  }
-
-  &__content {
-    display: flex;
-    flex-flow: row nowrap;
-  }
 
   &__info {
-    flex: 4;
-    min-width: 150px;
-    padding: 24px;
-
     display: flex;
     flex-flow: column;
-
-    color: #fff;
-    background: map_get($mat-indigo, 500);
   }
 
   &__info-list {
@@ -35,7 +20,6 @@
       display: flex;
       flex-flow: row nowrap;
       padding: 20px 0;
-      border-top: solid 1px #fff;
 
       &:first-child {
         border-top: 0;
@@ -54,19 +38,67 @@
       line-height: 20px;
       font-weight: 600;
     }
-
-    &-item {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
   }
 
   &__details {
-    flex: 8;
-
     &-total {
       font-weight: 600;
+    }
+  }
+
+  @media screen {
+    .mat-dialog-container {
+      padding: 0;
+    }
+
+    &__content {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    &__info {
+      padding: 24px;
+      min-width: 150px;
+      flex: 3;
+
+      color: #fff;
+      background: map_get($mat-indigo, 500);
+    }
+
+    &__info-list {
+      &-item {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      li {
+        border-top: solid 1px #fff;
+      }
+    }
+
+    &__details {
+      flex: 9;
+    }
+  }
+
+  @media print {
+    .not-for-print {
+      display: none;
+    }
+
+    &__info-list {
+      &-item {
+        word-break: break-all;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        flex: 1;
+      }
+
+      li {
+        border-top: solid 1px #000;
+      }
     }
   }
 }

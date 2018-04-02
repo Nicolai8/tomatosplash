@@ -35,5 +35,8 @@ export const Events = {
 
   showDevConsole: 'showDevConsole',
 
+  printToPDF: 'printToPDF',
+  printToDocx: 'printToDocx',
+
   error: 'error',
 };

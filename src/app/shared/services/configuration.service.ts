@@ -38,4 +38,12 @@ export class ConfigurationService {
   showDevConsole() {
     this.electronService.ipcRenderer.sendSync(Events.showDevConsole);
   }
+
+  print() {
+    this.electronService.ipcRenderer.sendSync(Events.printToDocx);
+  }
+
+  printToPDF() {
+    this.electronService.ipcRenderer.sendSync(Events.printToPDF);
+  }
 }
