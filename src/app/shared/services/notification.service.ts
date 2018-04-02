@@ -13,7 +13,7 @@ export class NotificationService {
     private translate: TranslateService,
     private electronService: ElectronService,
   ) {
-    this.electronService.ipcRenderer.on(Events.error, (error: string) => {
+    this.electronService.ipcRenderer.on(Events.error, (event: Electron.Event, error: string) => {
       this.showNotification(error, false);
     });
   }
