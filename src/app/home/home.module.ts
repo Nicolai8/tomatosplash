@@ -19,6 +19,7 @@ import { OrderEffects } from './effects/order';
 import { OrdersService } from './services/orders.service';
 import { EditOrderItemComponent } from './components/edit-order-item/edit-order-item.component';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
+import { OrderDialogComponent } from './components/order-dialog/order-dialog.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { EditOrderComponent } from './components/edit-order/edit-order.component
     ItemDialogComponent,
     EditOrderItemComponent,
     EditOrderComponent,
+    OrderDialogComponent,
   ],
   providers: [
     ItemsService,
@@ -48,6 +50,7 @@ import { EditOrderComponent } from './components/edit-order/edit-order.component
   ],
   bootstrap: [
     ItemDialogComponent,
+    OrderDialogComponent,
   ]
 })
 export class HomeModule {

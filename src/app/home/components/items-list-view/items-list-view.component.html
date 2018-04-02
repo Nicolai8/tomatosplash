@@ -24,7 +24,7 @@
 
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.PRICE' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.price}}</mat-cell>
+    <mat-cell *matCellDef="let element">{{element.price.toFixed(2)}} {{'CURRENCY' | translate}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="type">

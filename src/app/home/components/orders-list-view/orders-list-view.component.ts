@@ -1,5 +1,5 @@
 import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { Order, OrderType } from '../../../../../models/order.model';
 import * as fromHome from '../../reducers';
 import { Observable } from 'rxjs/Observable';
@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { GetOrders, ProceedOrder, RemoveOrder, SelectOrder } from '../../actions/order';
 import { Subscription } from 'rxjs/Subscription';
 import { PagerData } from '../../../../../models/pagination.model';
+import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 
 @Component({
   selector: 'app-orders-list-view',
@@ -30,6 +31,7 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   constructor(
     private store$: Store<fromHome.State>,
     private ngZone: NgZone,
+    private matDialog: MatDialog,
   ) {
     this.orders$ = this.store$.select(fromHome.getOrders);
     this.isLoadingResults$ = this.store$.pipe(select(fromHome.getOrdersIsLoading));
@@ -76,5 +78,14 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
 
   remove(id: string) {
     this.store$.dispatch(new RemoveOrder(id));
+  }
+
+  visualize(order: Order) {
+    this.matDialog.open(OrderDialogComponent, {
+      panelClass: 'app-order-dialog',
+      minWidth: '800px',
+      maxWidth: '1024px',
+      data: Object.assign({}, order),
+    });
   }
 }

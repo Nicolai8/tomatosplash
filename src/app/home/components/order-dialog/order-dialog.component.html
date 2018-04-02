@@ -1,0 +1,102 @@
+<div class="app-order-dialog__content">
+  <div class="app-order-dialog__info" *ngIf="order">
+    <ul class="app-order-dialog__info-list">
+      <li>
+        <mat-icon>receipt</mat-icon>
+        <div class="app-order-dialog__info-list-item">
+          <h3>{{'PAGES.HOME.ORDER.NO' | translate}}</h3>
+          <span>
+            {{order._id}}
+          </span>
+        </div>
+      </li>
+      <li>
+        <mat-icon>bookmark</mat-icon>
+        <div class="app-order-dialog__info-list-item">
+          <h3>{{'PAGES.HOME.ORDER.TYPE' | translate}}</h3>
+          <span>
+            {{order.type}}
+          </span>
+        </div>
+      </li>
+      <li>
+        <mat-icon>access_time</mat-icon>
+        <div class="app-order-dialog__info-list-item">
+          <h3>{{'PAGES.HOME.ORDER.CREATED' | translate}}</h3>
+          <span>
+        {{order.created | date:'MMMM d, y, HH:mm:ss'}}
+      </span>
+        </div>
+      </li>
+      <li *ngIf="order.processed">
+        <mat-icon>today</mat-icon>
+        <div class="app-order-dialog__info-list-item">
+          <h3>{{'PAGES.HOME.ORDER.PROCESSED' | translate}}</h3>
+          <span>
+            {{order.processed | date:'MMMM d, y, HH:mm:ss'}}
+          </span>
+        </div>
+      </li>
+      <li *ngIf="total >= 0">
+        <mat-icon>payment</mat-icon>
+        <div class="app-order-dialog__info-list-item">
+          <h3>{{'PAGES.HOME.ORDER_DIALOG.TOTAL' | translate}}</h3>
+          <span>
+            {{total.toFixed(2)}} {{'CURRENCY' | translate}}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="app-order-dialog__details" *ngIf="order">
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>
+          {{'PAGES.HOME.ITEMS.NAME' | translate}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element._item.name}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef>
+          {{'PAGES.HOME.ITEMS.TYPE' | translate}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element._item.type}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>
+          {{'PAGES.HOME.ITEMS.PRICE' | translate}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element._item.price.toFixed(2)}} {{'CURRENCY' | translate}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="count">
+        <mat-header-cell *matHeaderCellDef>
+          {{'PAGES.HOME.ORDER.COUNT' | translate}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.count}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <mat-header-cell class="app-order-dialog__details-total" *matHeaderCellDef>
+          {{'PAGES.HOME.ORDER_DIALOG.TOTAL' | translate}}
+        </mat-header-cell>
+        <mat-cell class="app-order-dialog__details-total" *matCellDef="let element">
+          {{(element.count * element._item.price).toFixed(2)}} {{'CURRENCY' | translate}}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

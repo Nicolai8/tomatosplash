@@ -19,7 +19,7 @@ export class ItemDialogComponent implements OnInit {
   public isSaving$: Observable<boolean>;
 
   constructor(
-    private store: Store<fromHome.State>,
+    private store$: Store<fromHome.State>,
     private dialogRef: MatDialogRef<ItemDialogComponent>,
     private ngZone: NgZone,
     @Inject(MAT_DIALOG_DATA) private item: Item,
@@ -27,12 +27,12 @@ export class ItemDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isSaving$ = this.store.pipe(select(fromHome.getItemsIsSaving));
+    this.isSaving$ = this.store$.pipe(select(fromHome.getItemsIsSaving));
 
     this.form = new FormGroup({
       _id: new FormControl(this.item._id || ''),
       name: new FormControl(this.item.name || '', [ Validators.required ]),
-      price: new FormControl(this.item.price || 0, [ Validators.required, Validators.min(0) ]),
+      price: new FormControl(this.item.price || 0, [ Validators.required, Validators.min(0.01) ]),
       type: new FormControl(this.item.type || ''),
     });
   }
@@ -40,9 +40,9 @@ export class ItemDialogComponent implements OnInit {
   save() {
     const formValue: Item = this.form.getRawValue();
     if (formValue._id) {
-      this.store.dispatch(new EditItem(formValue._id, formValue));
+      this.store$.dispatch(new EditItem(formValue._id, formValue));
     } else {
-      this.store.dispatch(new AddItem(formValue));
+      this.store$.dispatch(new AddItem(formValue));
     }
   }
 

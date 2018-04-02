@@ -1,0 +1,72 @@
+@import "../../../../../node_modules/@angular/material/theming";
+
+.app-order-dialog {
+  .mat-dialog-container {
+    padding: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  &__info {
+    flex: 4;
+    min-width: 150px;
+    padding: 24px;
+
+    display: flex;
+    flex-flow: column;
+
+    color: #fff;
+    background: map_get($mat-indigo, 500);
+  }
+
+  &__info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    mat-icon {
+      width: 35px;
+    }
+
+    li {
+      display: flex;
+      flex-flow: row nowrap;
+      padding: 20px 0;
+      border-top: solid 1px #fff;
+
+      &:first-child {
+        border-top: 0;
+      }
+    }
+
+    h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 200;
+    }
+
+    span {
+      font-size: 18px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+
+    &-item {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__details {
+    flex: 8;
+
+    &-total {
+      font-weight: 600;
+    }
+  }
+}
