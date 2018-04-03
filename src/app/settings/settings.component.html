@@ -1,4 +1,5 @@
-<form *ngIf="form" [formGroup]="form" class="form">
+<form *ngIf="form" [formGroup]="form" class="form app-settings__form">
+  <h2>{{'PAGES.SETTINGS.MAIN_SETTINGS' | translate}}</h2>
   <mat-form-field>
     <input
       matInput
@@ -28,7 +29,7 @@
       required>
   </mat-form-field>
 </form>
-<div class="actions">
+<div class="app-settings__actions">
   <button
     mat-raised-button
     [disabled]="form.pristine || form.invalid"
@@ -42,29 +43,33 @@
     {{'PAGES.SETTINGS.CANCEL' | translate}}
   </button>
 </div>
-<div>
-  <button
-    mat-raised-button
-    (click)="setPrintReceiptDocxTemplate()">
-    <mat-icon>file_upload</mat-icon>
-    {{'PAGES.SETTINGS.SET_RECEIPT_TEMPLATE' | translate}}
-  </button>
-  <button
-    mat-raised-button
-    (click)="getPrintReceiptDocxTemplate()">
-    <mat-icon>file_download</mat-icon>
-    {{'PAGES.SETTINGS.GET_RECEIPT_TEMPLATE' | translate}}
-  </button>
-  <button
-    mat-raised-button
-    (click)="setPrintReportDocxTemplate()">
-    <mat-icon>file_upload</mat-icon>
-    {{'PAGES.SETTINGS.SET_REPORT_TEMPLATE' | translate}}
-  </button>
-  <button
-    mat-raised-button
-    (click)="getPrintReportDocxTemplate()">
-    <mat-icon>file_download</mat-icon>
-    {{'PAGES.SETTINGS.GET__REPORT_TEMPLATE' | translate}}
-  </button>
+<div class="app-settings__print">
+  <h2>{{'PAGES.SETTINGS.PRINT_SETTINGS' | translate}}</h2>
+  <div class="app-settings__print-buttons">
+    <button
+      mat-raised-button
+      (click)="setPrintReceiptDocxTemplate()">
+      <mat-icon>file_upload</mat-icon>
+      {{'PAGES.SETTINGS.SET_RECEIPT_TEMPLATE' | translate}}
+    </button>
+    <button
+      mat-raised-button
+      (click)="getPrintReceiptDocxTemplate()">
+      <mat-icon>file_download</mat-icon>
+      {{'PAGES.SETTINGS.GET_RECEIPT_TEMPLATE' | translate}}
+    </button>
+    <mat-divider></mat-divider>
+    <button
+      mat-raised-button
+      (click)="setPrintReportDocxTemplate()">
+      <mat-icon>file_upload</mat-icon>
+      {{'PAGES.SETTINGS.SET_REPORT_TEMPLATE' | translate}}
+    </button>
+    <button
+      mat-raised-button
+      (click)="getPrintReportDocxTemplate()">
+      <mat-icon>file_download</mat-icon>
+      {{'PAGES.SETTINGS.GET_REPORT_TEMPLATE' | translate}}
+    </button>
+  </div>
 </div>
