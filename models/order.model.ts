@@ -10,6 +10,7 @@ export class ItemInOrder {
   itemId?: string;
   // obtained from API: might be an Id or object itself
   _item?: string | Item;
+  total?: string;
 
   constructor(init: any) {
     if (init) {
@@ -40,4 +41,10 @@ export class Order {
       this.items = init.items.map((item) => new ItemInOrder(item));
     }
   }
+}
+
+export interface OrderToPrint {
+  order: Order;
+  total: number;
+  orderProcessedDate: string;
 }

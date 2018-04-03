@@ -5,10 +5,11 @@ import * as _ from 'lodash';
 
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import * as fromHome from '../../reducers';
-import { ItemInOrder, Order, OrderType } from '../../../../../models/order.model';
+import { ItemInOrder, Order, OrderToPrint, OrderType } from '../../../../../models/order.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Item } from '../../../../../models/item.model';
 import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/print';
+import { DatePipe } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +17,7 @@ import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/p
   templateUrl: './order-dialog.component.html',
   styleUrls: [ './order-dialog.component.scss' ],
   encapsulation: ViewEncapsulation.None,
+  providers: [ DatePipe ],
 })
 export class OrderDialogComponent implements OnInit, OnDestroy {
   public order: Order;
@@ -29,6 +31,7 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<ItemDialogComponent>,
     private ngZone: NgZone,
     private cdRef: ChangeDetectorRef,
+    private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) private data: Order,
   ) {
   }
@@ -47,7 +50,12 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
             .map((processedItemInOrder: string) => JSON.parse(processedItemInOrder));
         }
 
-        this.total = this.order.items.reduce((total, current: any) => total + current.count * current._item.price, 0);
+        this.total = 0;
+        this.order.items.forEach((item) => {
+          const totalForItem = item.count * (<Item>item._item).price;
+          item.total = totalForItem.toFixed(2);
+          this.total += totalForItem;
+        });
 
         this.dataSource.data = this.order.items;
         this.cdRef.detectChanges();
@@ -59,7 +67,13 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
   }
 
   printReceiptToDocx() {
-    this.store$.dispatch(new PrintReceiptToDocx(this.order));
+    const orderToPrint: OrderToPrint = {
+      order: this.order,
+      total: this.total,
+      orderProcessedDate: this.datePipe.transform(this.order.processed, 'MMMM d, y, HH:mm'),
+    };
+
+    this.store$.dispatch(new PrintReceiptToDocx(orderToPrint));
   }
 
   printReceiptToPDF() {

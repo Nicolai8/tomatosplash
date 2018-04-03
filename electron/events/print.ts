@@ -1,8 +1,12 @@
 import { Events } from '../../events';
-import { BrowserWindow, dialog } from 'electron';
+import { BrowserWindow, dialog, shell } from 'electron';
 import * as fs from 'fs';
 import * as appRoot from 'app-root-path';
 import * as mkdirp from 'mkdirp';
+import { OrderToPrint } from '../../models/order.model';
+import { createDoc } from '../services/printService';
+
+const settings = require('electron-settings');
 
 export const printPDFDirectory = `${appRoot}/tmp/pdf`;
 export const printDocxDirectory = `${appRoot}/tmp/docx`;
@@ -91,6 +95,31 @@ export const printEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebCon
         pdfWindow.loadURL(`file:/${fileUrl}`);
       });
     });
+  });
+
+  ipcMain.on(Events.printReceiptToDocx, (event: Electron.Event, orderToPrint: OrderToPrint) => {
+    const objectToPrint = {
+      cashMachineNumber: settings.get('cashMachineId'),
+      order: JSON.parse(JSON.stringify(orderToPrint.order)),
+      date: orderToPrint.orderProcessedDate || '',
+      total: orderToPrint.total.toFixed(2),
+    };
+
+    createDoc(docxReceiptTemplatePath, objectToPrint)
+      .then((buffer: Buffer) => {
+        if (!fs.existsSync(printDocxDirectory)) {
+          // noinspection TypeScriptValidateTypes
+          mkdirp.sync(printDocxDirectory);
+        }
+        const fileUrl = `${printDocxDirectory}/receipt_${orderToPrint.order._id}.docx`;
+
+        fs.writeFileSync(fileUrl, buffer);
+        shell.openItem(fileUrl);
+        event.sender.send(Events.printReceiptToDocxSuccess);
+      })
+      .catch((error) => {
+        event.sender.send(Events.error, error && error.message);
+      });
   });
 
   ipcMain.on(Events.setPrintReceiptDocxTemplate, (event: Electron.Event) => {

@@ -1,5 +1,5 @@
 import { ExtendedAction } from './action';
-import { Order } from '../../../../models/order.model';
+import { OrderToPrint } from '../../../../models/order.model';
 
 export enum PrintActionTypes {
   PrintReceiptToDocx = '[Print] PrintReceiptToDocx',
@@ -16,7 +16,7 @@ export enum PrintActionTypes {
 export class PrintReceiptToDocx implements ExtendedAction {
   readonly type = PrintActionTypes.PrintReceiptToDocx;
 
-  constructor(public order: Order) {
+  constructor(public order: OrderToPrint) {
   }
 }
 

@@ -107,7 +107,7 @@
           {{'PAGES.HOME.ORDER_DIALOG.TOTAL' | translate}}
         </mat-header-cell>
         <mat-cell class="app-order-dialog__details-total" *matCellDef="let element">
-          {{(element.count * element._item.price).toFixed(2)}} {{'CURRENCY' | translate}}
+          {{element.total}} {{'CURRENCY' | translate}}
         </mat-cell>
       </ng-container>
 

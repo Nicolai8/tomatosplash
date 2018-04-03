@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Events } from '../../../../events';
 import { ElectronService } from './electron.service';
-import Config from '../../../../models/config.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
-import * as config from '../actions/config';
 import * as layout from '../actions/layout';
-import { Order } from '../../../../models/order.model';
+import { OrderToPrint } from '../../../../models/order.model';
 
 @Injectable()
 export class PrintService {
@@ -28,7 +26,7 @@ export class PrintService {
     });
   }
 
-  printReceiptToDocx(order: Order) {
+  printReceiptToDocx(order: OrderToPrint) {
     this.electronService.ipcRenderer.send(Events.printReceiptToDocx, order);
   }
 

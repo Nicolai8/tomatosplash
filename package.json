@@ -29,8 +29,7 @@
     "pree2e:protractor": "wait-on http-get://localhost:4200/ && protractor ./protractor.conf.js",
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular/animations": "5.2.5",
     "@angular/cdk": "5.2.3",
@@ -61,11 +60,13 @@
     "@types/jasminewd2": "2.0.2",
     "@types/lodash": "4.14.50",
     "@types/node": "7.0.7",
+    "angular-expressions": "^0.3.0",
     "app-root-path": "2.0.1",
     "codelyzer": "4.0.1",
     "copyfiles": "1.2.0",
     "core-js": "2.4.1",
     "cross-env": "5.0.5",
+    "docxtemplater": "^3.6.1",
     "dotenv": "5.0.0",
     "electron": "1.8.2",
     "electron-builder": "20.0.5",
@@ -78,6 +79,7 @@
     "include-media": "1.4.9",
     "jasmine-core": "2.99.1",
     "jasmine-spec-reporter": "4.2.1",
+    "jszip": "2.6.1",
     "karma": "2.0.0",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage-istanbul-reporter": "1.4.1",
