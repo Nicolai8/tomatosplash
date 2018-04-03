@@ -1,7 +1,6 @@
 import { Events } from '../../events';
-import { BrowserWindow, dialog, shell } from 'electron';
+import { BrowserWindow, dialog, shell, app } from 'electron';
 import * as fs from 'fs';
-import * as appRoot from 'app-root-path';
 import * as mkdirp from 'mkdirp';
 import { ItemInOrder, Order, OrderToPrint } from '../../models/order.model';
 import { createDoc } from '../services/printService';
@@ -9,11 +8,6 @@ import { getDailyReport } from './orders';
 import { Item } from '../../models/item.model';
 
 const settings = require('electron-settings');
-
-export const printPDFDirectory = `${appRoot}/tmp/pdf`;
-export const printDocxDirectory = `${appRoot}/tmp/docx`;
-export const docxReceiptTemplatePath = `${appRoot}/receiptTemplate.docx`;
-export const docxReportTemplatePath = `${appRoot}/reportTemplate.docx`;
 
 const setDocxTemplate = (event: Electron.Event, templatePath: string, successEventName: string) => {
   const selectedPath = dialog.showOpenDialog({
@@ -66,6 +60,12 @@ const getDocxTemplate = (event: Electron.Event, templatePath: string) => {
 };
 
 export const printEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebContents) => {
+  const appRoot = app.getPath('userData');
+  const printPDFDirectory = `${appRoot}/tmp/pdf`;
+  const printDocxDirectory = `${appRoot}/tmp/docx`;
+  const docxReceiptTemplatePath = `${appRoot}/receiptTemplate.docx`;
+  const docxReportTemplatePath = `${appRoot}/reportTemplate.docx`;
+
   ipcMain.on(Events.printReceiptToPDF, (event: Electron.Event) => {
     contents.printToPDF({
       pageSize: 'A4',

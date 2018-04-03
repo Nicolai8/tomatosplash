@@ -1,7 +1,7 @@
 import { app, BrowserWindow, screen, ipcMain } from 'electron';
+
 import * as path from 'path';
 import * as url from 'url';
-import * as os from 'os';
 import events from './electron/events';
 import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import { initApiCaller } from './electron/services/apiService';
