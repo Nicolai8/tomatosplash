@@ -9,6 +9,10 @@ import Config from '../../../models/config.model';
 import { Subscription } from 'rxjs/Subscription';
 import { isEmpty } from '../shared/utils';
 import { ConfigurationService } from '../shared/services/configuration.service';
+import {
+  GetPrintReceiptDocxTemplate, GetPrintReportDocxTemplate, SetPrintReceiptDocxTemplate,
+  SetPrintReportDocxTemplate
+} from '../shared/actions/print';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +28,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   constructor(
     private store$: Store<fromRoot.State>,
     private ngZone: NgZone,
-    private configurationService: ConfigurationService,
   ) {
   }
 
@@ -54,18 +57,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   setPrintReceiptDocxTemplate() {
-    this.configurationService.setPrintReceiptDocxTemplate();
+    this.store$.dispatch(new SetPrintReceiptDocxTemplate());
   }
 
   getPrintReceiptDocxTemplate() {
-    this.configurationService.getPrintReceiptDocxTemplate();
+    this.store$.dispatch(new GetPrintReceiptDocxTemplate());
   }
 
   setPrintReportDocxTemplate() {
-    this.configurationService.setPrintReportDocxTemplate();
+    this.store$.dispatch(new SetPrintReportDocxTemplate());
   }
 
   getPrintReportDocxTemplate() {
-    this.configurationService.getPrintReportDocxTemplate();
+    this.store$.dispatch(new GetPrintReportDocxTemplate());
   }
 }

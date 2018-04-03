@@ -71,6 +71,10 @@
     "REMOVE_ORDER_SUCCESS": "Order was successfully removed",
     "ADD_ITEM_SUCCESS": "New item has been added",
     "EDIT_ITEM_SUCCESS": "Item was successfully saved",
-    "REMOVE_ITEM_SUCCESS": "Item was successfully removed"
+    "REMOVE_ITEM_SUCCESS": "Item was successfully removed",
+    "SET_PRINT_RECEIPT_DOCX_TEMPLATE_SUCCESS": "Receipt DOCX template was successfully uploaded",
+    "SET_PRINT_REPORT_DOCX_TEMPLATE_SUCCESS": "Daily Report DOCX template was successfully uploaded",
+    "PRINT_RECEIPT_TO_DOCX_SUCCESS": "Docx Receipt successfully printed",
+    "PRINT_REPORT_TO_DOCX_SUCCESS": "Docx Daily Report successfully printed"
   }
 }

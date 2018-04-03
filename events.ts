@@ -35,8 +35,11 @@ export const Events = {
 
   showDevConsole: 'showDevConsole',
 
-  printToPDF: 'printToPDF',
-  printToDocx: 'printToDocx',
+  printReceiptToPDF: 'printReceiptToPDF',
+  printReceiptToDocx: 'printReceiptToDocx',
+  printReceiptToDocxSuccess: 'printReceiptToDocxSuccess',
+  printReportToDocx: 'printReportToDocx',
+  printReportToDocxSuccess: 'printReportToDocxSuccess',
 
   setPrintReceiptDocxTemplate: 'setPrintReceiptDocxTemplate',
   setPrintReceiptDocxTemplateSuccess: 'setPrintReceiptDocxTemplateSuccess',

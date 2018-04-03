@@ -34,6 +34,7 @@ import { LayoutEffects } from './shared/effects/layout';
 import { ItemEffects } from './home/effects/item';
 import { SettingsModule } from './settings/settings.module';
 import { HomeModule } from './home/home.module';
+import { PrintEffects } from './shared/effects/print';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EffectsModule.forRoot([
       ConfigEffects,
       LayoutEffects,
+      PrintEffects,
     ]),
     AppRoutingModule,
     SharedModule.forRoot(),

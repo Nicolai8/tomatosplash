@@ -27,6 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ElectronService } from './services/electron.service';
 import { NotificationService } from './services/notification.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { PrintService } from './services/print.service';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -96,6 +97,7 @@ export class SharedModule {
         ElectronService,
         ConfigurationService,
         NotificationService,
+        PrintService,
         {
           provide: APP_INITIALIZER,
           useFactory: configurationServiceFactory,

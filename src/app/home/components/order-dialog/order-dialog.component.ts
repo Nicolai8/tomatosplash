@@ -8,7 +8,7 @@ import * as fromHome from '../../reducers';
 import { ItemInOrder, Order, OrderType } from '../../../../../models/order.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Item } from '../../../../../models/item.model';
-import { ConfigurationService } from '../../../shared/services/configuration.service';
+import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/print';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,7 +26,6 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<fromHome.State>,
-    private configurationService: ConfigurationService,
     private dialogRef: MatDialogRef<ItemDialogComponent>,
     private ngZone: NgZone,
     private cdRef: ChangeDetectorRef,
@@ -59,11 +58,11 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  print() {
-    this.configurationService.print();
+  printReceiptToDocx() {
+    this.store$.dispatch(new PrintReceiptToDocx(this.order));
   }
 
-  printToPDF() {
-    this.configurationService.printToPDF();
+  printReceiptToPDF() {
+    this.store$.dispatch(new PrintReceiptToPDF());
   }
 }

@@ -17,12 +17,6 @@ export class ConfigurationService {
       this.store$.dispatch(new config.GetConfigSuccess(newConfig));
       this.store$.dispatch(new layout.ShowNotification('MESSAGES.EDIT_CONFIG_SUCCESS'));
     });
-    this.electronService.ipcRenderer.on(Events.setPrintReceiptDocxTemplateSuccess, () => {
-      this.store$.dispatch(new layout.ShowNotification('MESSAGES.SET_PRINT_RECEIPT_DOCX_TEMPLATE_SUCCESS'));
-    });
-    this.electronService.ipcRenderer.on(Events.setPrintReportDocxTemplateSuccess, () => {
-      this.store$.dispatch(new layout.ShowNotification('MESSAGES.SET_PRINT_REPORT_DOCX_TEMPLATE_SUCCESS'));
-    });
   }
 
   loadConfiguration(): Promise<Config> {
@@ -43,29 +37,5 @@ export class ConfigurationService {
 
   showDevConsole() {
     this.electronService.ipcRenderer.sendSync(Events.showDevConsole);
-  }
-
-  print() {
-    this.electronService.ipcRenderer.send(Events.printToDocx);
-  }
-
-  printToPDF() {
-    this.electronService.ipcRenderer.send(Events.printToPDF);
-  }
-
-  getPrintReceiptDocxTemplate() {
-    this.electronService.ipcRenderer.send(Events.getPrintReceiptDocxTemplate);
-  }
-
-  setPrintReceiptDocxTemplate() {
-    this.electronService.ipcRenderer.send(Events.setPrintReceiptDocxTemplate);
-  }
-
-  getPrintReportDocxTemplate() {
-    this.electronService.ipcRenderer.send(Events.getPrintReportDocxTemplate);
-  }
-
-  setPrintReportDocxTemplate() {
-    this.electronService.ipcRenderer.send(Events.setPrintReportDocxTemplate);
   }
 }
