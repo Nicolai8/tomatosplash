@@ -19,7 +19,9 @@ import {
   MatProgressSpinnerModule,
   MatTableModule,
   MatSortModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfigurationService } from './services/configuration.service';
@@ -59,6 +61,8 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FlexLayoutModule,
   ],
   exports: [
@@ -82,6 +86,8 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FlexLayoutModule,
     SpinnerComponent,
   ],

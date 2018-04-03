@@ -22,6 +22,9 @@ export class PrintReceiptToDocx implements ExtendedAction {
 
 export class PrintReportToDocx implements ExtendedAction {
   readonly type = PrintActionTypes.PrintReportToDocx;
+
+  constructor(public date: Date) {
+  }
 }
 
 export class PrintReceiptToPDF implements ExtendedAction {

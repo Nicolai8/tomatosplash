@@ -20,6 +20,7 @@ import { OrdersService } from './services/orders.service';
 import { EditOrderItemComponent } from './components/edit-order-item/edit-order-item.component';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
 import { OrderDialogComponent } from './components/order-dialog/order-dialog.component';
+import { PrintReportDialogComponent } from './components/print-report-dialog/print-report-dialog.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { OrderDialogComponent } from './components/order-dialog/order-dialog.com
     EditOrderItemComponent,
     EditOrderComponent,
     OrderDialogComponent,
+    PrintReportDialogComponent,
   ],
   providers: [
     ItemsService,
@@ -51,6 +53,7 @@ import { OrderDialogComponent } from './components/order-dialog/order-dialog.com
   bootstrap: [
     ItemDialogComponent,
     OrderDialogComponent,
+    PrintReportDialogComponent,
   ]
 })
 export class HomeModule {

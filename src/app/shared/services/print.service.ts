@@ -30,8 +30,8 @@ export class PrintService {
     this.electronService.ipcRenderer.send(Events.printReceiptToDocx, order);
   }
 
-  printReportToDocx() {
-    this.electronService.ipcRenderer.send(Events.printReportToDocx);
+  printReportToDocx(date: Date) {
+    this.electronService.ipcRenderer.send(Events.printReportToDocx, date);
   }
 
   printReceiptToPDF() {

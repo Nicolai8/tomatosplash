@@ -16,6 +16,10 @@
         "PRICE_FIELD": "Price",
         "TYPE_FIELD": "Type"
       },
+      "PRINT_REPORT_DIALOG": {
+        "CHOOSE_DATE": "Choose date",
+        "PRINT": "Print"
+      },
       "ORDER": {
         "NO": "#",
         "TYPE": "Type",

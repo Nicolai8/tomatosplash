@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { PrintActionTypes, PrintReceiptToDocx } from '../actions/print';
+import { PrintActionTypes, PrintReceiptToDocx, PrintReportToDocx } from '../actions/print';
 import { PrintService } from '../services/print.service';
 
 @Injectable()
@@ -24,8 +24,8 @@ export class PrintEffects {
   @Effect({ dispatch: false })
   printReportToDocx$ = this.actions$
     .ofType(PrintActionTypes.PrintReportToDocx)
-    .map(() => {
-      this.printService.printReportToDocx();
+    .map((action: PrintReportToDocx) => {
+      this.printService.printReportToDocx(action.date);
       return null;
     });
 
