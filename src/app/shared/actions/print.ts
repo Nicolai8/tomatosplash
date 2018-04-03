@@ -23,7 +23,7 @@ export class PrintReceiptToDocx implements ExtendedAction {
 export class PrintReportToDocx implements ExtendedAction {
   readonly type = PrintActionTypes.PrintReportToDocx;
 
-  constructor(public date: Date) {
+  constructor(public date: Date, public formattedDate: string) {
   }
 }
 

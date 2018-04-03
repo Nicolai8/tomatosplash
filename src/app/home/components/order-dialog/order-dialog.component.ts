@@ -17,7 +17,6 @@ import { DatePipe } from '@angular/common';
   templateUrl: './order-dialog.component.html',
   styleUrls: [ './order-dialog.component.scss' ],
   encapsulation: ViewEncapsulation.None,
-  providers: [ DatePipe ],
 })
 export class OrderDialogComponent implements OnInit, OnDestroy {
   public order: Order;

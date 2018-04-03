@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromHome from '../../reducers';
 import { PrintReportToDocx } from '../../../shared/actions/print';
 import { FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,10 +18,11 @@ export class PrintReportDialogComponent {
 
   constructor(
     private store$: Store<fromHome.State>,
+    private datePipe: DatePipe,
   ) {
   }
 
   print(date: Date) {
-    this.store$.dispatch(new PrintReportToDocx(date));
+    this.store$.dispatch(new PrintReportToDocx(date, this.datePipe.transform(date, 'MMMM d, y')));
   }
 }

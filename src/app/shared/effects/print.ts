@@ -25,7 +25,7 @@ export class PrintEffects {
   printReportToDocx$ = this.actions$
     .ofType(PrintActionTypes.PrintReportToDocx)
     .map((action: PrintReportToDocx) => {
-      this.printService.printReportToDocx(action.date);
+      this.printService.printReportToDocx(action.date, action.formattedDate);
       return null;
     });
 

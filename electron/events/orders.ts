@@ -3,6 +3,12 @@ import apiCaller from '../services/apiService';
 import { Order } from '../../models/order.model';
 import { Pagination } from '../../models/pagination.model';
 
+export const getDailyReport = (date: Date) => {
+  return new Promise((resolve, reject) => {
+    apiCaller('/api/order/daily-report', 'post', { data: { date } }, resolve, reject);
+  });
+};
+
 export const ordersEvents = (ipcMain: Electron.IpcMain) => {
   ipcMain.on(Events.getOrders, (event: Electron.Event, page: number, limit: number) => {
     apiCaller(`/api/order/?page=${page + 1}&limit=${limit}`, 'get', {}, (data: Pagination<Order>) => {
