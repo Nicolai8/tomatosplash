@@ -1,7 +1,7 @@
 {
   "name": "tomatosplash",
   "version": "1.0.0",
-  "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
+  "description": "Tomatosplash (Angular 5 with Electron (Typescript + SASS + Hot Reload))",
   "author": {
     "name": "Nicolai8",
     "email": ""
