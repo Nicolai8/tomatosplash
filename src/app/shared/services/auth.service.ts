@@ -34,11 +34,10 @@ export class AuthService implements OnDestroy {
     this.http.post('/api/login', {
       username: config.dbUserName,
       password: config.dbPassword,
-    }).catch((error) => {
-      this.store$.dispatch(new layout.ShowNotification(error && error.message, false));
+    }).catch(() => {
       return Observable.of(false);
     }).subscribe((result) => {
-      if (result) {
+      if (result || typeof result === 'boolean') {
         this.isAuthorized$.next(result);
       }
     });
