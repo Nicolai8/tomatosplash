@@ -23,10 +23,14 @@
   </mat-form-field>
   <mat-form-field>
     <input
+      [type]="hidePassword ? 'password' : 'text'"
       matInput
       [placeholder]="'PAGES.SETTINGS.DB_PASSWORD' | translate"
       formControlName="dbPassword"
       required>
+    <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+      {{hidePassword ? 'visibility' : 'visibility_off'}}
+    </mat-icon>
   </mat-form-field>
 </form>
 <div class="app-settings__actions">

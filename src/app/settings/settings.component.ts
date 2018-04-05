@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 
@@ -22,28 +22,28 @@ import {
 export class SettingsComponent implements OnInit, OnDestroy {
   public form: FormGroup = null;
   public isConfigEmpty = true;
+  public hidePassword = true;
   private subscription: Subscription;
 
   constructor(
     private store$: Store<fromRoot.State>,
-    private ngZone: NgZone,
+    private cdRef: ChangeDetectorRef,
   ) {
   }
 
   ngOnInit(): void {
     this.subscription = this.store$.pipe(select(fromConfig.getConfig))
       .subscribe((config: Config) => {
-        this.ngZone.run(() => {
-          this.isConfigEmpty = isEmpty(config);
+        this.isConfigEmpty = isEmpty(config);
 
-          this.form = new FormGroup({
-            cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
-            dbConnectionString: new FormControl(config.dbConnectionString || '',
-              [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
-            dbUserName: new FormControl(config.dbUserName || '', Validators.required),
-            dbPassword: new FormControl(config.dbPassword || '', Validators.required),
-          });
+        this.form = new FormGroup({
+          cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
+          dbConnectionString: new FormControl(config.dbConnectionString || '',
+            [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
+          dbUserName: new FormControl(config.dbUserName || '', Validators.required),
+          dbPassword: new FormControl(config.dbPassword || '', Validators.required),
         });
+        this.cdRef.detectChanges();
       });
   }
 

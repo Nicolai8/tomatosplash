@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ConfigurationService {
-  config$: BehaviorSubject<Config> = new BehaviorSubject<Config>({});
+  config$: BehaviorSubject<Config> = new BehaviorSubject<Config>(<any>{});
 
   constructor(
     private store$: Store<fromRoot.State>,
@@ -34,12 +34,8 @@ export class ConfigurationService {
     });
   }
 
-  setSetting(key: string, value: any) {
-    this.electronService.ipcRenderer.send(Events.editConfiguration, key, value);
-  }
-
   setSettings(pairs: { [key: string]: any }) {
-    this.electronService.ipcRenderer.send(Events.editMultipleConfiguration, pairs);
+    this.electronService.ipcRenderer.send(Events.editConfiguration, pairs);
   }
 
   showDevConsole() {
