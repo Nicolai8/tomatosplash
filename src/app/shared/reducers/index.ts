@@ -5,7 +5,6 @@ import {
 } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 
-import { AppConfig } from '../../app.config';
 import { RouterStateUrl } from '../utils';
 
 /**
@@ -13,11 +12,12 @@ import { RouterStateUrl } from '../utils';
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
+/*import { storeFreeze } from 'ngrx-store-freeze';*/
 
 import * as fromLayout from './layout';
 import * as fromConfig from './config';
 import * as fromPrint from './print';
+import { environment } from '../../../environments/environment';
 
 export interface State {
   layout: fromLayout.State;
@@ -42,6 +42,6 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
   };
 }
 
-export const metaReducers: MetaReducer<State>[] = !AppConfig.production
-  ? <MetaReducer<State>[]>[ logger, storeFreeze ]
+export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? <MetaReducer<State>[]>[ logger/*, storeFreeze*/ ]
   : [];

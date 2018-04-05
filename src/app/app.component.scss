@@ -25,3 +25,11 @@
 ::ng-deep :focus {
   outline: none !important;
 }
+
+.visually-hidden {
+  opacity: 0;
+
+  &:hover {
+    cursor: default;
+  }
+}
