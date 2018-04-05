@@ -8,7 +8,6 @@ import { SetConfigKeys } from '../shared/actions/config';
 import Config from '../../../models/config.model';
 import { Subscription } from 'rxjs/Subscription';
 import { isEmpty } from '../shared/utils';
-import { ConfigurationService } from '../shared/services/configuration.service';
 import {
   GetPrintReceiptDocxTemplate, GetPrintReportDocxTemplate, SetPrintReceiptDocxTemplate,
   SetPrintReportDocxTemplate

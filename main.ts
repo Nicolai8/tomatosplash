@@ -4,7 +4,6 @@ import * as path from 'path';
 import * as url from 'url';
 import events from './electron/events';
 import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
-import { initApiCaller } from './electron/services/apiService';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -27,7 +26,6 @@ function createWindow() {
   });
   win.maximize();
   win.setMenu(null);
-  initApiCaller(win.webContents);
 
   events.forEach((eventHandler) => eventHandler(ipcMain, win.webContents));
 

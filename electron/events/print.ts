@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
 import { ItemInOrder, Order, OrderToPrint } from '../../models/order.model';
 import { createDoc } from '../services/printService';
-import { getDailyReport } from './orders';
 import { Item } from '../../models/item.model';
 
 const settings = require('electron-settings');
@@ -124,38 +123,35 @@ export const printEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebCon
       });
   });
 
-  ipcMain.on(Events.printReportToDocx, (event: Electron.Event, date: Date, formattedDate: string) => {
-    getDailyReport(date)
-      .then((orders: Order[]) => {
-        let total = 0;
-        const items: { [key: string]: ItemInOrder } = {};
+  ipcMain.on(Events.printReportToDocx, (event: Electron.Event, orders: Order[], date: Date, formattedDate: string) => {
+    let total = 0;
+    const items: { [key: string]: ItemInOrder } = {};
 
-        orders.forEach((order) => {
-          order.processedOrderItems.forEach((processedItemInOrder) => {
-            const itemInOrder: ItemInOrder = JSON.parse(processedItemInOrder);
-            const item: Item = <Item>itemInOrder._item;
+    orders.forEach((order) => {
+      order.processedOrderItems.forEach((processedItemInOrder) => {
+        const itemInOrder: ItemInOrder = JSON.parse(processedItemInOrder);
+        const item: Item = <Item>itemInOrder._item;
 
-            total += itemInOrder.count * item.price;
-            if (items[ item._id ]) {
-              items[ item._id ].count += itemInOrder.count;
-            } else {
-              items[ item._id ] = itemInOrder;
-            }
-          });
-        });
+        total += itemInOrder.count * item.price;
+        if (items[ item._id ]) {
+          items[ item._id ].count += itemInOrder.count;
+        } else {
+          items[ item._id ] = itemInOrder;
+        }
+      });
+    });
 
-        const objectToPrint = {
-          total: total.toFixed(2),
-          items: Object.keys(items).map((key) => {
-            const item = items[ key ];
-            item.total = (item.count * (<Item>item._item).price).toFixed(2);
-            return item;
-          }),
-          date: formattedDate,
-        };
+    const objectToPrint = {
+      total: total.toFixed(2),
+      items: Object.keys(items).map((key) => {
+        const item = items[ key ];
+        item.total = (item.count * (<Item>item._item).price).toFixed(2);
+        return item;
+      }),
+      date: formattedDate,
+    };
 
-        return createDoc(docxReportTemplatePath, objectToPrint);
-      })
+    createDoc(docxReportTemplatePath, objectToPrint)
       .then((buffer: Buffer) => {
         if (!fs.existsSync(printDocxDirectory)) {
           // noinspection TypeScriptValidateTypes

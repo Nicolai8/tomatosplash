@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
+
 import { Events } from '../../../../events';
 import { ElectronService } from './electron.service';
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../reducers';
-import * as layout from '../actions/layout';
-import { OrderToPrint } from '../../../../models/order.model';
+import { Order, OrderToPrint } from '../../../../models/order.model';
+import { OrdersService } from './orders.service';
+import { NotificationService } from './notification.service';
+import { catchError, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class PrintService {
+  private subscription: Subscription;
+
   constructor(
-    private store$: Store<fromRoot.State>,
+    private notificationService: NotificationService,
+    private ordersService: OrdersService,
     private electronService: ElectronService
   ) {
     this.electronService.ipcRenderer.on(Events.setPrintReceiptDocxTemplateSuccess, () => {
-      this.store$.dispatch(new layout.ShowNotification('MESSAGES.SET_PRINT_RECEIPT_DOCX_TEMPLATE_SUCCESS'));
+      this.notificationService.showNotification('MESSAGES.SET_PRINT_RECEIPT_DOCX_TEMPLATE_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.setPrintReportDocxTemplateSuccess, () => {
-      this.store$.dispatch(new layout.ShowNotification('MESSAGES.SET_PRINT_REPORT_DOCX_TEMPLATE_SUCCESS'));
+      this.notificationService.showNotification('MESSAGES.SET_PRINT_REPORT_DOCX_TEMPLATE_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.printReceiptToDocxSuccess, () => {
-      this.store$.dispatch(new layout.ShowNotification('MESSAGES.PRINT_RECEIPT_TO_DOCX_SUCCESS'));
+      this.notificationService.showNotification('MESSAGES.PRINT_RECEIPT_TO_DOCX_SUCCESS');
     });
     this.electronService.ipcRenderer.on(Events.printReportToDocxSuccess, () => {
-      this.store$.dispatch(new layout.ShowNotification('MESSAGES.PRINT_REPORT_TO_DOCX_SUCCESS'));
+      this.notificationService.showNotification('MESSAGES.PRINT_REPORT_TO_DOCX_SUCCESS');
     });
   }
 
@@ -31,7 +36,13 @@ export class PrintService {
   }
 
   printReportToDocx(date: Date, formattedDate: string) {
-    this.electronService.ipcRenderer.send(Events.printReportToDocx, date, formattedDate);
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.subscription = this.ordersService.getDailyReport(date)
+      .subscribe((orders: Order[]) => {
+        this.electronService.ipcRenderer.send(Events.printReportToDocx, orders, date, formattedDate);
+      });
   }
 
   printReceiptToPDF() {

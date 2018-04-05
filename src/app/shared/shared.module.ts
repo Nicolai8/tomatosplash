@@ -30,6 +30,10 @@ import { ElectronService } from './services/electron.service';
 import { NotificationService } from './services/notification.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PrintService } from './services/print.service';
+import { HttpService } from './services/http.service';
+import { AuthService } from './services/auth.service';
+import { ItemsService } from './services/items.service';
+import { OrdersService } from './services/orders.service';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -101,8 +105,12 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         ElectronService,
-        ConfigurationService,
         NotificationService,
+        ConfigurationService,
+        HttpService,
+        AuthService,
+        ItemsService,
+        OrdersService,
         PrintService,
         {
           provide: APP_INITIALIZER,

@@ -1,36 +1,70 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { AddOrder, EditOrder, GetOrders, OrderActionTypes, ProceedOrder, RemoveOrder } from '../actions/order';
-import { OrdersService } from '../services/orders.service';
+import {
+  AddOrder,
+  AddOrderError,
+  AddOrderSuccess,
+  EditOrder,
+  EditOrderError,
+  EditOrderSuccess,
+  GetOrders,
+  GetOrdersError,
+  GetOrdersSuccess,
+  OrderActionTypes,
+  ProceedOrder,
+  ProceedOrderError,
+  ProceedOrderSuccess,
+  RemoveOrder,
+  RemoveOrderError,
+  RemoveOrderSuccess
+} from '../actions/order';
+import { OrdersService } from '../../shared/services/orders.service';
 import { select, Store } from '@ngrx/store';
 import * as fromHome from '../reducers';
 import { Router } from '@angular/router';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { Order } from '../../../../models/order.model';
+import { Pagination } from '../../../../models/pagination.model';
+import { of } from 'rxjs/observable/of';
+import { ShowNotification } from '../../shared/actions/layout';
 
 @Injectable()
 export class OrderEffects {
-  @Effect({ dispatch: false })
+  @Effect()
   getOrders$ = this.actions$
     .ofType(OrderActionTypes.GetOrders)
-    .map((action: GetOrders) => {
-      this.ordersService.get(action.pager.page, action.pager.limit);
-      return null;
-    });
+    .mergeMap((action: GetOrders) =>
+      this.ordersService.get(action.pager.page, action.pager.limit).pipe(
+        map((data: Pagination<Order>) => new GetOrdersSuccess(data.docs.map((doc) => new Order(doc)), data)),
+        catchError(() => of(new GetOrdersError()))
+      )
+    );
 
-  @Effect({ dispatch: false })
+  @Effect()
   addOrder$ = this.actions$
     .ofType(OrderActionTypes.AddOrder)
-    .map((action: AddOrder) => {
-      this.ordersService.add(action.order);
-      return null;
-    });
+    .mergeMap((action: AddOrder) =>
+      this.ordersService.add(action.order).pipe(
+        mergeMap((createdOrder: Order) => [
+          new AddOrderSuccess(new Order(createdOrder)),
+          new ShowNotification('MESSAGES.ADD_ORDER_SUCCESS'),
+        ]),
+        catchError(() => of(new AddOrderError()))
+      )
+    );
 
-  @Effect({ dispatch: false })
+  @Effect()
   removeOrder$ = this.actions$
     .ofType(OrderActionTypes.RemoveOrder)
-    .map((action: RemoveOrder) => {
-      this.ordersService.remove(action.id);
-      return null;
-    });
+    .mergeMap((action: RemoveOrder) =>
+      this.ordersService.remove(action.id).pipe(
+        mergeMap((id: string) => [
+          new RemoveOrderSuccess(id),
+          new ShowNotification('MESSAGES.REMOVE_ORDER_SUCCESS'),
+        ]),
+        catchError(() => of(new RemoveOrderError()))
+      )
+    );
 
   @Effect()
   removeOrderSuccess$ = this.actions$
@@ -43,21 +77,31 @@ export class OrderEffects {
       return new GetOrders(pagerData);
     });
 
-  @Effect({ dispatch: false })
+  @Effect()
   editOrder$ = this.actions$
     .ofType(OrderActionTypes.EditOrder)
-    .map((action: EditOrder) => {
-      this.ordersService.edit(action.order._id, action.order);
-      return null;
-    });
+    .mergeMap((action: EditOrder) =>
+      this.ordersService.edit(action.order._id, action.order).pipe(
+        mergeMap((updatedOrder: Order) => [
+          new EditOrderSuccess(new Order(updatedOrder)),
+          new ShowNotification('MESSAGES.EDIT_ORDER_SUCCESS'),
+        ]),
+        catchError(() => of(new EditOrderError()))
+      )
+    );
 
-  @Effect({ dispatch: false })
+  @Effect()
   proceedOrder$ = this.actions$
     .ofType(OrderActionTypes.ProceedOrder)
-    .map((action: ProceedOrder) => {
-      this.ordersService.proceed(action.id);
-      return null;
-    });
+    .mergeMap((action: ProceedOrder) =>
+      this.ordersService.proceed(action.id).pipe(
+        mergeMap(() => [
+          new ProceedOrderSuccess(),
+          new ShowNotification('MESSAGES.PROCEED_ORDER_SUCCESS'),
+        ]),
+        catchError(() => of(new ProceedOrderError()))
+      )
+    );
 
   @Effect()
   proceedOrderSuccess$ = this.actions$

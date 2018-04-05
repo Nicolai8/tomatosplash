@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { ItemsService } from './services/items.service';
 import { reducers } from './reducers';
 import { ItemEffects } from './effects/item';
 import { CheckForSettingsGuard } from './guards/check-for-settings.guard';
@@ -16,7 +15,6 @@ import { MainActionsComponent } from './components/main-actions/main-actions.com
 import { OrdersListViewComponent } from './components/orders-list-view/orders-list-view.component';
 import { ItemDialogComponent } from './components/item-dialog/item-dialog.component';
 import { OrderEffects } from './effects/order';
-import { OrdersService } from './services/orders.service';
 import { EditOrderItemComponent } from './components/edit-order-item/edit-order-item.component';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
 import { OrderDialogComponent } from './components/order-dialog/order-dialog.component';
@@ -46,8 +44,6 @@ import { PrintReportDialogComponent } from './components/print-report-dialog/pri
     PrintReportDialogComponent,
   ],
   providers: [
-    ItemsService,
-    OrdersService,
     CheckForSettingsGuard,
     DatePipe,
   ],
