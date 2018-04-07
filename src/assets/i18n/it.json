@@ -1,0 +1,97 @@
+{
+  "PAGES": {
+    "HOME": {
+      "CREATE_NEW_ORDER": "Crea nuovo ordine",
+      "DAILY_REPORT": "Report giornaliero per pietanze",
+      "HOME_NAV": "Home",
+      "ORDERS_NAV": "Ordini",
+      "ITEMS_NAV": "Pietanze",
+      "SAVE": "Salva",
+      "CANCEL": "Annulla",
+      "ACTIONS": "Azzioni",
+      "EDIT": "Aggiorna",
+      "REMOVE": "Rimuovi",
+      "ITEM_DIALOG": {
+        "NAME_FIELD": "Nome",
+        "PRICE_FIELD": "Prezzo",
+        "TYPE_FIELD": "Tipo"
+      },
+      "PRINT_REPORT_DIALOG": {
+        "CHOOSE_DATE": "Scegli data",
+        "PRINT": "Stampa"
+      },
+      "ORDER": {
+        "NO": "#",
+        "TYPE": "Tipo",
+        "COUNT": "Quantita",
+        "CREATED": "Create",
+        "UPDATED": "Aggiornato",
+        "PROCESSED": "Processed",
+        "VISUALIZE": "Visializza",
+        "PRINT": "Stampa",
+        "PRINT_TO_PDF": "Spamta in PDF",
+        "PROCEED": "Proceed"
+      },
+      "ORDER_DIALOG": {
+        "TOTAL": "Totale"
+      },
+      "ITEMS": {
+        "NO": "#",
+        "NAME": "Nome",
+        "PRICE": "Prezzo",
+        "TYPE": "Tipo",
+        "ADD_NEW_ITEM": "Crea nuova pietanza"
+      },
+      "EDIT_ORDER": {
+        "CREATING_NEW_ORDER": "Crea nuovo ordine",
+        "EDITING_ORDER": "Aggiornamento: #",
+        "ITEMS_IN_ORDER": "Pietanze in ordine",
+        "ADD_ITEM_IN_ORDER": "Aggiungi nuova pietanza in ordine",
+        "REMOVE_ITEM_IN_ORDER": "Rimuovi pietanza dal ordine",
+        "SAVE": "Salva",
+        "NO_ITEMS_IN_ORDER": "There is no items in order yet"
+      },
+      "EDIT_ORDER_ITEM": {
+        "ITEM": "Pietanza"
+      }
+    },
+    "SETTINGS": {
+      "CASH_MACHINE_ID": "Lettera Cassa",
+      "DB_CONNECTION_STRING": "DB connection string",
+      "DB_USERNAME": "DB Username",
+      "DB_PASSWORD": "DB Password",
+      "CANCEL": "Annulla",
+      "SAVE": "Salva",
+      "MAIN_SETTINGS": "Main settings",
+      "PRINT_SETTINGS": "Print settings",
+      "SET_RECEIPT_TEMPLATE": "Set receipt template",
+      "GET_RECEIPT_TEMPLATE": "Get receipt template",
+      "SET_REPORT_TEMPLATE": "Set report template",
+      "GET_REPORT_TEMPLATE": "Get report template",
+      "LANGUAGE": "Lingua"
+    }
+  },
+  "CURRENCY": "€",
+  "MAIN": {
+    "TOOLBAR": "Tomatosplash"
+  },
+  "MESSAGES": {
+    "EDIT_CONFIG_SUCCESS": "Settings have been saved",
+    "ADD_ORDER_SUCCESS": "New order has been added",
+    "EDIT_ORDER_SUCCESS": "Order was successfully saved",
+    "REMOVE_ORDER_SUCCESS": "Order was successfully removed",
+    "ADD_ITEM_SUCCESS": "New item has been added",
+    "EDIT_ITEM_SUCCESS": "Item was successfully saved",
+    "REMOVE_ITEM_SUCCESS": "Item was successfully removed",
+    "SET_PRINT_RECEIPT_DOCX_TEMPLATE_SUCCESS": "Receipt DOCX template was successfully uploaded",
+    "SET_PRINT_REPORT_DOCX_TEMPLATE_SUCCESS": "Daily Report DOCX template was successfully uploaded",
+    "PRINT_RECEIPT_TO_DOCX_SUCCESS": "Docx Receipt successfully printed",
+    "PRINT_REPORT_TO_DOCX_SUCCESS": "Docx Daily Report successfully printed",
+    "CONFIRMATION_DIALOG_DEFAULT": "Are your sure?",
+    "PROCEED_ORDER_CONFIRMATION": "Are you sure? After process order there will be no possibility to change its items"
+  },
+  "CONFIRMATION_DIALOG": {
+    "OK": "Ok",
+    "CANCEL": "Annulla"
+  }
+}

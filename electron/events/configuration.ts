@@ -8,6 +8,10 @@ const serviceName = 'Tomatosplash';
 export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebContents) => {
   ipcMain.on(Events.getConfiguration, (event: Electron.Event) => {
     const result: Config = settings.getAll();
+    if(!result.dbUserName) {
+      event.returnValue = result;
+      return;
+    }
     keytar.getPassword(serviceName, result.dbUserName)
       .then((password) => {
         result.dbPassword = password;
@@ -22,7 +26,11 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
   ipcMain.on(Events.editConfiguration, (event: Electron.Event, newConfig: Config) => {
     const currentConfig: Config = settings.getAll();
 
-    keytar.deletePassword(serviceName, currentConfig.dbUserName)
+    let promise = Promise.resolve();
+    if(currentConfig.dbUserName) {
+      promise = keytar.deletePassword(serviceName, currentConfig.dbUserName)
+    }
+    promise
       .then(() => {
         return keytar.setPassword(serviceName, newConfig.dbUserName, newConfig.dbPassword);
       })
