@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { select, Store } from '@ngrx/store';
 
 import * as fromHome from '../../reducers';
 import { Item } from '../../../../../models/item.model';
 import { RemoveItem } from '../../actions/item';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
-import { Subscription } from 'rxjs/Subscription';
+import { ConfirmService } from '../../../shared/services/confirm.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,7 @@ export class ItemsListViewComponent implements OnInit, OnDestroy {
     private store$: Store<fromHome.State>,
     private matDialog: MatDialog,
     private ngZone: NgZone,
+    private confirm: ConfirmService,
   ) {
     this.items$ = this.store$.pipe(select(fromHome.getItems));
     this.isLoadingResults$ = this.store$.pipe(select(fromHome.getItemsIsLoading));
@@ -73,6 +75,10 @@ export class ItemsListViewComponent implements OnInit, OnDestroy {
   }
 
   remove(id: string) {
-    this.store$.dispatch(new RemoveItem(id));
+    this.confirm.showDialog().take(1).subscribe((result) => {
+      if (result) {
+        this.store$.dispatch(new RemoveItem(id));
+      }
+    });
   }
 }

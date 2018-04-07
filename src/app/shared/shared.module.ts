@@ -34,6 +34,9 @@ import { HttpService } from './services/http.service';
 import { AuthService } from './services/auth.service';
 import { ItemsService } from './services/items.service';
 import { OrdersService } from './services/orders.service';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ConfirmService } from './services/confirm.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -68,6 +71,7 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     MatDatepickerModule,
     MatNativeDateModule,
     FlexLayoutModule,
+    TranslateModule,
   ],
   exports: [
     ReactiveFormsModule,
@@ -97,7 +101,9 @@ export function configurationServiceFactory(configurationService: ConfigurationS
   ],
   declarations: [
     SpinnerComponent,
-  ]
+    ConfirmDialogComponent,
+  ],
+  bootstrap: [ ConfirmDialogComponent ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -112,6 +118,7 @@ export class SharedModule {
         ItemsService,
         OrdersService,
         PrintService,
+        ConfirmService,
         {
           provide: APP_INITIALIZER,
           useFactory: configurationServiceFactory,

@@ -1,0 +1,21 @@
+<div class="app-confirm-dialog__message" matDialogContent>
+  {{(message ? message : 'MESSAGES.CONFIRMATION_DIALOG_DEFAULT') | translate}}
+</div>
+<div class="app-confirm-dialog__actions" matDialogActions>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onOk()"
+  >
+    <mat-icon>check</mat-icon>
+    {{'CONFIRMATION_DIALOG.OK' | translate}}
+  </button>
+  <button
+    mat-raised-button
+    color
+    (click)="onCancel()"
+  >
+    <mat-icon>cancel</mat-icon>
+    {{'CONFIRMATION_DIALOG.CANCEL' | translate}}
+  </button>
+</div>

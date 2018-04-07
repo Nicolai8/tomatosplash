@@ -8,6 +8,7 @@ import { GetOrders, ProceedOrder, RemoveOrder, SelectOrder } from '../../actions
 import { Subscription } from 'rxjs/Subscription';
 import { PagerData } from '../../../../../models/pagination.model';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
+import { ConfirmService } from '../../../shared/services/confirm.service';
 
 @Component({
   selector: 'app-orders-list-view',
@@ -32,6 +33,7 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
     private store$: Store<fromHome.State>,
     private ngZone: NgZone,
     private matDialog: MatDialog,
+    private confirm: ConfirmService,
   ) {
     this.orders$ = this.store$.select(fromHome.getOrders);
     this.isLoadingResults$ = this.store$.pipe(select(fromHome.getOrdersIsLoading));
@@ -73,11 +75,19 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   }
 
   proceed(order: Order) {
-    this.store$.dispatch(new ProceedOrder(order._id));
+    this.confirm.showDialog('MESSAGES.PROCEED_ORDER_CONFIRMATION').take(1).subscribe((result) => {
+      if (result) {
+        this.store$.dispatch(new ProceedOrder(order._id));
+      }
+    });
   }
 
   remove(id: string) {
-    this.store$.dispatch(new RemoveOrder(id));
+    this.confirm.showDialog().take(1).subscribe((result) => {
+      if (result) {
+        this.store$.dispatch(new RemoveOrder(id));
+      }
+    });
   }
 
   visualize(order: Order) {

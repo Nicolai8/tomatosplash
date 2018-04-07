@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, NgZone, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
+import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import * as fromHome from '../../reducers';
 import { ItemInOrder, Order, OrderToPrint, OrderType } from '../../../../../models/order.model';
-import { Subscription } from 'rxjs/Subscription';
 import { Item } from '../../../../../models/item.model';
 import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/print';
-import { DatePipe } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
