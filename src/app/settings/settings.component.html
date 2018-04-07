@@ -32,6 +32,14 @@
       {{hidePassword ? 'visibility' : 'visibility_off'}}
     </mat-icon>
   </mat-form-field>
+  <mat-form-field>
+    <mat-select [placeholder]="'PAGES.SETTINGS.LANGUAGE' | translate"
+                formControlName="language">
+      <mat-option *ngFor="let lang of availableLanguages" [value]="lang.id">
+        {{ lang.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
 <div class="app-settings__actions">
   <button

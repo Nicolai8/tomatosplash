@@ -67,7 +67,8 @@
       "SET_RECEIPT_TEMPLATE": "Set receipt template",
       "GET_RECEIPT_TEMPLATE": "Get receipt template",
       "SET_REPORT_TEMPLATE": "Set report template",
-      "GET_REPORT_TEMPLATE": "Get report template"
+      "GET_REPORT_TEMPLATE": "Get report template",
+      "LANGUAGE": "Language"
     }
   },
   "CURRENCY": "€",

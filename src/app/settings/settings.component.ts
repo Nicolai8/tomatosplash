@@ -12,6 +12,7 @@ import {
   GetPrintReceiptDocxTemplate, GetPrintReportDocxTemplate, SetPrintReceiptDocxTemplate,
   SetPrintReportDocxTemplate
 } from '../shared/actions/print';
+import { environment } from '../../environments/environment';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +24,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public form: FormGroup = null;
   public isConfigEmpty = true;
   public hidePassword = true;
+  public availableLanguages = environment.availableLanguages;
   private subscription: Subscription;
 
   constructor(
@@ -42,6 +44,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
             [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
           dbUserName: new FormControl(config.dbUserName || '', Validators.required),
           dbPassword: new FormControl(config.dbPassword || '', Validators.required),
+          language: new FormControl(config.language || ''),
         });
         this.cdRef.detectChanges();
       });
