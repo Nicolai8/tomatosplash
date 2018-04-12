@@ -13,6 +13,7 @@ import {
   SetPrintReportDocxTemplate
 } from '../shared/actions/print';
 import { environment } from '../../environments/environment';
+import { ToggleHomeButton, ToggleSettingsButton, ToggleSidenavButton } from '../shared/actions/layout';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +32,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private store$: Store<fromRoot.State>,
     private cdRef: ChangeDetectorRef,
   ) {
+    this.store$.dispatch(new ToggleSidenavButton(false));
+    this.store$.dispatch(new ToggleSettingsButton(false));
+    this.store$.dispatch(new ToggleHomeButton(true));
   }
 
   ngOnInit(): void {

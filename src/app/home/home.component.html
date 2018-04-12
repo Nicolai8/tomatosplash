@@ -1,5 +1,5 @@
 <mat-sidenav-container class="side-nav-container">
-  <mat-sidenav opened="true" mode="side">
+  <mat-sidenav [mode]="sidenavMode$ | async" [opened]="showSidenav$ | async" (closedStart)="onClosedStart()">
     <mat-list>
       <mat-list-item matRipple routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         {{'PAGES.HOME.HOME_NAV' | translate}}
@@ -12,7 +12,7 @@
       </mat-list-item>
     </mat-list>
   </mat-sidenav>
-  <div class="main-container" >
+  <div class="main-container">
     <router-outlet></router-outlet>
   </div>
 </mat-sidenav-container>

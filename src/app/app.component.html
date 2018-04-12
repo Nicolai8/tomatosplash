@@ -1,16 +1,31 @@
 <header class="header">
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>{{'MAIN.TOOLBAR' | translate}}</span>
-    <span class="spacer"></span>
-    <button mat-icon-button (click)="showDevTools()" [class.visually-hidden]="!showDevToolsButton">
-      <mat-icon>developer_mode</mat-icon>
-    </button>
-    <button mat-icon-button [routerLink]="['/settings']">
-      <mat-icon>settings</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="toggleSidenav()"
+        *ngIf="(sidenavMode$ | async) === 'over' && (showSidenavButton$ | async)">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>{{'MAIN.TOOLBAR' | translate}}</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="showDevTools()" [class.visually-hidden]="!showDevToolsButton">
+        <mat-icon>developer_mode</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        *ngIf="showSettingsButton$ | async"
+        [routerLink]="['/settings']">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        *ngIf="showHomeButton$ | async"
+        [routerLink]="['/']">
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </header>
 <div class="main">
   <router-outlet></router-outlet>
