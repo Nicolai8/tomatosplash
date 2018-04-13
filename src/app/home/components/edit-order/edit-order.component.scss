@@ -1,6 +1,8 @@
 @import "../../../mixin";
 
 :host {
+  display: flex;
+  flex-flow: column;
   flex: 1;
   padding: 0 8px;
 }
@@ -13,6 +15,7 @@
 
   &__items {
     overflow: auto;
+    flex: 1;
   }
 
   &__actions {
