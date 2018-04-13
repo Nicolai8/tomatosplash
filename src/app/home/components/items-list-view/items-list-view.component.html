@@ -1,7 +1,7 @@
 <mat-toolbar>
   <mat-toolbar-row>
     <button mat-button
-            [matTooltip]="'PAGES.HOME.CREATE_NEW_ITEM' | translate"
+            [matTooltip]="'PAGES.HOME.ITEMS.ADD_NEW_ITEM' | translate"
             (click)="addNew()">
       <mat-icon>add_box</mat-icon>
       {{'PAGES.HOME.ITEMS.ADD_NEW_ITEM' | translate}}
@@ -14,22 +14,42 @@
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="_id">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.NO' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element._id}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">
+        {{'PAGES.HOME.ITEMS.NO' | translate}}
+      </span>
+      {{element._id}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.NAME' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">
+        {{'PAGES.HOME.ITEMS.NAME' | translate}}
+      </span>
+      {{element.name}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.PRICE' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.price.toFixed(2)}} {{'CURRENCY' | translate}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">
+        {{'PAGES.HOME.ITEMS.PRICE' | translate}}
+      </span>
+      {{element.price.toFixed(2)}} {{'CURRENCY' | translate}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ITEMS.TYPE' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">
+        {{'PAGES.HOME.ITEMS.TYPE' | translate}}
+      </span>
+      {{element.type}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="actions">

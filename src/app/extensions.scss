@@ -1,8 +1,62 @@
 @import "variables";
+@import "mixin";
+@import '~@angular/material/theming';
 
 %sticky-mat-table-header {
   position: sticky;
   top: 0;
   background: #fff;
   z-index: 1;
+}
+
+%responsive-mat-table {
+  overflow: auto;
+  flex: 1;
+
+  .mat-header-row {
+    @extend %sticky-mat-table-header;
+  }
+
+  .mobile-label {
+    font-weight: 600;
+    min-width: 80px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include media("<small") {
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row {
+      flex-direction: column;
+      align-items: start;
+      padding: 0;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .mat-cell {
+      display: flex;
+      flex-flow: row nowrap;
+      padding: 8px 24px;
+    }
+
+    .table-actions {
+      width: calc(100% - 24px * 2);
+      border-bottom: solid 1px rgba(0, 0, 0, .10);
+      background: rgba(0, 0, 0, .04);
+    }
+  }
+
+  @include media(">=small") {
+    .mobile-label {
+      display: none;
+    }
+  }
 }

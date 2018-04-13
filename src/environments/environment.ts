@@ -10,5 +10,5 @@ export const environment = {
       name: 'Italiano'
     }
   ],
-  toggleSidebarViewport: 768,
+  toggleSidebarViewport: 1024,
 };

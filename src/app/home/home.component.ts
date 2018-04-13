@@ -33,9 +33,9 @@ export class HomeComponent implements OnInit {
       this.store$.dispatch(new ToggleSidenavButton(true));
       this.store$.dispatch(new ToggleSettingsButton(true));
       this.store$.dispatch(new ToggleHomeButton(false));
-    }, 10);
 
-    this.onResize();
+      this.onResize();
+    }, 10);
   }
 
   @HostListener('window:resize', [ '$event' ])

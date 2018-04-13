@@ -1,4 +1,5 @@
 @import "../variables";
+@import "../mixin";
 
 .side-nav-container {
   height: 100%;
@@ -12,8 +13,11 @@ mat-sidenav {
 
 .main-container {
   display: flex;
-  padding: 15px $gutter;
   flex: 1;
+
+  @include media(">=small") {
+    padding: 15px $gutter;
+  }
 }
 
 .mat-list-item {

@@ -12,12 +12,16 @@
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="_id">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.NO' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element._id}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">{{'PAGES.HOME.ORDER.NO' | translate}}</span>
+      {{element._id}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.TYPE' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let element">
+      <span class="mobile-label">{{'PAGES.HOME.ORDER.TYPE' | translate}}</span>
       <mat-icon *ngIf="element.type === orderType.NEW">check_box_outline_blank</mat-icon>
       <mat-icon *ngIf="element.type === orderType.PROCESSED">check_box</mat-icon>
     </mat-cell>
@@ -25,17 +29,26 @@
 
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.CREATED' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.created | date:'HH:mm:ss, MMMM d, y'}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">{{'PAGES.HOME.ORDER.CREATED' | translate}}</span>
+      {{element.created | date:'HH:mm:ss, MMMM d, y'}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="updated">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.UPDATED' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.updated | date:'HH:mm:ss, MMMM d, y'}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">{{'PAGES.HOME.ORDER.UPDATED' | translate}}</span>
+      {{element.updated | date:'HH:mm:ss, MMMM d, y'}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="processed">
     <mat-header-cell *matHeaderCellDef>{{'PAGES.HOME.ORDER.PROCESSED' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.processed | date:'HH:mm:ss, MMMM d, y'}}</mat-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="mobile-label">{{'PAGES.HOME.ORDER.PROCESSED' | translate}}</span>
+      {{element.processed | date:'HH:mm:ss, MMMM d, y'}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="actions">
