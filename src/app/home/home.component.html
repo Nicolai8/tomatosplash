@@ -1,5 +1,9 @@
 <mat-sidenav-container class="side-nav-container">
-  <mat-sidenav [mode]="sidenavMode$ | async" [opened]="showSidenav$ | async" (closedStart)="onClosedStart()">
+  <mat-sidenav
+    #sidenav
+    [mode]="sidenavMode$ | async"
+    [opened]="showSidenav$ | async"
+    (closedStart)="onClosedStart()">
     <mat-list>
       <mat-list-item matRipple routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         {{'PAGES.HOME.HOME_NAV' | translate}}

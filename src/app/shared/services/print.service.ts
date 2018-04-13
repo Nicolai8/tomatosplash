@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Events } from '../../../../events';
 import { ElectronService } from './electron.service';
 import { Order, OrderToPrint } from '../../../../models/order.model';
 import { OrdersService } from './orders.service';
 import { NotificationService } from './notification.service';
-import { catchError, map } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class PrintService {

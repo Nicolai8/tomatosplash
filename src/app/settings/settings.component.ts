@@ -1,19 +1,28 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../shared/reducers';
 import * as fromConfig from '../shared/reducers/config';
 import { SetConfigKeys } from '../shared/actions/config';
 import Config from '../../../models/config.model';
-import { Subscription } from 'rxjs/Subscription';
 import { isEmpty } from '../shared/utils';
 import {
-  GetPrintReceiptDocxTemplate, GetPrintReportDocxTemplate, SetPrintReceiptDocxTemplate,
+  GetPrintReceiptDocxTemplate,
+  GetPrintReportDocxTemplate,
+  SetPrintReceiptDocxTemplate,
   SetPrintReportDocxTemplate
 } from '../shared/actions/print';
 import { environment } from '../../environments/environment';
-import { ToggleHomeButton, ToggleSettingsButton, ToggleSidenavButton } from '../shared/actions/layout';
+import {
+  ToggleHomeButton,
+  ToggleSettingsButton,
+  ToggleSidenavButton
+} from '../shared/actions/layout';
+import { requiredIfRelativeChangedValidator } from '../shared/validators/required-if-relative-changed.validator';
+
+
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,32 +35,37 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public isConfigEmpty = true;
   public hidePassword = true;
   public availableLanguages = environment.availableLanguages;
+  public config: Config;
   private subscription: Subscription;
 
   constructor(
     private store$: Store<fromRoot.State>,
     private cdRef: ChangeDetectorRef,
   ) {
-    this.store$.dispatch(new ToggleSidenavButton(false));
-    this.store$.dispatch(new ToggleSettingsButton(false));
-    this.store$.dispatch(new ToggleHomeButton(true));
   }
 
   ngOnInit(): void {
-    this.subscription = this.store$.pipe(select(fromConfig.getConfig))
+    this.subscription = this.store$.select(fromConfig.getConfig)
       .subscribe((config: Config) => {
         this.isConfigEmpty = isEmpty(config);
+        this.config = config;
 
         this.form = new FormGroup({
           cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
           dbConnectionString: new FormControl(config.dbConnectionString || '',
             [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
           dbUserName: new FormControl(config.dbUserName || '', Validators.required),
-          dbPassword: new FormControl(config.dbPassword || '', Validators.required),
+          dbPassword: new FormControl(config.dbPassword || '', [ requiredIfRelativeChangedValidator('dbUserName', config.dbUserName) ]),
           language: new FormControl(config.language || ''),
         });
         this.cdRef.detectChanges();
       });
+
+    setTimeout(() => {
+      this.store$.dispatch(new ToggleSidenavButton(false));
+      this.store$.dispatch(new ToggleSettingsButton(false));
+      this.store$.dispatch(new ToggleHomeButton(true));
+    });
   }
 
   ngOnDestroy() {

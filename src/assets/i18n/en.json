@@ -88,7 +88,9 @@
     "PRINT_RECEIPT_TO_DOCX_SUCCESS": "Docx Receipt successfully printed",
     "PRINT_REPORT_TO_DOCX_SUCCESS": "Docx Daily Report successfully printed",
     "CONFIRMATION_DIALOG_DEFAULT": "Are your sure?",
-    "PROCEED_ORDER_CONFIRMATION": "Are you sure? After process order there will be no possibility to change its items"
+    "PROCEED_ORDER_CONFIRMATION": "Are you sure? After process order there will be no possibility to change its items",
+    "AUTHORIZATION_FAILED": "Incorrect username or password",
+    "AUTHORIZATION_FAILED_NOT_SAVED": "Incorrect username or password. They won't be saved"
   },
   "CONFIRMATION_DIALOG": {
     "OK": "Ok",

@@ -18,10 +18,9 @@
   }
 
   &__print {
-
     &-buttons {
       display: flex;
-      flex-flow: row;
+      flex-flow: row wrap;
       align-items: flex-start;
 
       > * {

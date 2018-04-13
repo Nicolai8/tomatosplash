@@ -21,13 +21,13 @@
       formControlName="dbUserName"
       required>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field *ngIf="config.dbUserName !== form.controls.dbUserName.value">
     <input
       [type]="hidePassword ? 'password' : 'text'"
       matInput
       [placeholder]="'PAGES.SETTINGS.DB_PASSWORD' | translate"
       formControlName="dbPassword"
-      required>
+      [required]="config.dbUserName !== form.controls.dbUserName.value">
     <mat-icon matSuffix (click)="hidePassword = !hidePassword">
       {{hidePassword ? 'visibility' : 'visibility_off'}}
     </mat-icon>

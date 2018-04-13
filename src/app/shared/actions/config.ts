@@ -22,7 +22,7 @@ export class GetConfigSuccess implements ExtendedAction {
 export class SetConfigKeys implements ExtendedAction {
   readonly type = ConfigActionTypes.SetConfigKeys;
 
-  constructor(public pairs: { [ key: string ]: any }) {
+  constructor(public config: Config) {
   }
 }
 

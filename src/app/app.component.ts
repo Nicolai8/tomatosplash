@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
@@ -32,15 +32,15 @@ export class AppComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
   ) {
     translate.setDefaultLang('en');
-  }
 
-  ngOnInit(): void {
     this.sidenavMode$ = this.store$.select(fromLayout.getSidenavMode);
     this.showSidenavButton$ = this.store$.select(fromLayout.getShowSidenavButton);
     this.showSettingsButton$ = this.store$.select(fromLayout.getShowSettingsButton);
     this.showHomeButton$ = this.store$.select(fromLayout.getShowHomeButton);
+  }
 
-    this.subscription = this.store$.pipe(select(fromConfig.getConfig))
+  ngOnInit(): void {
+    this.subscription = this.store$.select(fromConfig.getConfig)
       .subscribe((config: Config) => {
         this.translate.use(config.language);
       });

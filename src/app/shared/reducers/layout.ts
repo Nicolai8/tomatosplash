@@ -1,15 +1,9 @@
 import { ExtendedAction } from '../actions/action';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { LayoutActionTypes } from '../actions/layout';
 
-export interface State {
-  showSidenav: boolean;
-  sidenavMode: 'over' | 'push' | 'side';
-  showSidenavButton: boolean;
-  showSettingsButton: boolean;
-  showHomeButton: boolean;
-}
+export type State = Map<string, any>;
 
 const initialState: State = fromJS({
   showSidenav: true,

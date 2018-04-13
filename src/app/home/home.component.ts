@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import * as fromHome from './reducers';
 import * as fromLayout from '../shared/reducers/layout';
@@ -21,16 +21,19 @@ export class HomeComponent implements OnInit {
   private mode: string;
 
   constructor(private store$: Store<fromHome.State>) {
+    this.isItemSaving$ = this.store$.select(fromHome.getItemsIsSaving);
+    this.showSidenav$ = this.store$.select(fromLayout.getShowSidenav);
+    this.sidenavMode$ = this.store$.select(fromLayout.getSidenavMode);
   }
 
   ngOnInit() {
     this.store$.dispatch(new GetItems());
-    this.store$.dispatch(new ToggleSidenavButton(true));
-    this.store$.dispatch(new ToggleSettingsButton(true));
-    this.store$.dispatch(new ToggleHomeButton(false));
-    this.isItemSaving$ = this.store$.pipe(select(fromHome.getItemsIsSaving));
-    this.showSidenav$ = this.store$.select(fromLayout.getShowSidenav);
-    this.sidenavMode$ = this.store$.select(fromLayout.getSidenavMode);
+
+    setTimeout(() => {
+      this.store$.dispatch(new ToggleSidenavButton(true));
+      this.store$.dispatch(new ToggleSettingsButton(true));
+      this.store$.dispatch(new ToggleHomeButton(false));
+    }, 10);
 
     this.onResize();
   }
