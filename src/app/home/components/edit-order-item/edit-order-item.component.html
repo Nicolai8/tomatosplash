@@ -1,5 +1,5 @@
 <form *ngIf="form" [formGroup]="form" class="app-edit-order-item">
-  <mat-form-field>
+  <mat-form-field class="app-edit-order-item__item">
     <mat-select [placeholder]="'PAGES.HOME.EDIT_ORDER_ITEM.ITEM' | translate"
                 formControlName="itemId">
       <mat-option [value]=""></mat-option>
@@ -8,7 +8,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="app-edit-order-item__count">
     <input matInput
            type="number"
            formControlName="count"

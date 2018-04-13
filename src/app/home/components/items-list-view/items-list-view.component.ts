@@ -58,7 +58,6 @@ export class ItemsListViewComponent implements OnInit, OnDestroy {
 
   addNew() {
     this.dialogRef = this.matDialog.open(ItemDialogComponent, {
-      minWidth: '400px',
       maxWidth: '800px',
       data: {},
       disableClose: true,
@@ -67,7 +66,6 @@ export class ItemsListViewComponent implements OnInit, OnDestroy {
 
   edit(item: Item) {
     this.dialogRef = this.matDialog.open(ItemDialogComponent, {
-      minWidth: '400px',
       maxWidth: '800px',
       data: Object.assign({}, item),
       disableClose: true,

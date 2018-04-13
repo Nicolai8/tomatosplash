@@ -2,13 +2,11 @@
 
 :host {
   flex: 1;
-  display: flex;
-  flex-flow: column;
+  padding: 0 8px;
 }
 
 .app-edit-order {
   &__item {
-    flex: 1;
     display: flex;
     flex-flow: row nowrap;
   }
@@ -19,8 +17,25 @@
 
   &__actions {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: column-reverse;
+
+    > * {
+      margin: 0 0 5px;
+    }
+  }
+
+  @include media(">small") {
+    &__actions {
+      flex-flow: row nowrap;
+
+      > * {
+        margin: 0;
+
+        &:first-child {
+          margin: 0 10px 0 0;
+        }
+      }
+    }
   }
 
   @include media(">=medium") {
