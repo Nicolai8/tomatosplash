@@ -3,10 +3,8 @@ import 'reflect-metadata';
 import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import {
-  HttpClientModule,
   HttpClient
 } from '@angular/common/http';
 
@@ -26,7 +24,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { ConfigEffects } from './shared/effects/config';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutEffects } from './shared/effects/layout';
 import { SettingsModule } from './settings/settings.module';
 import { HomeModule } from './home/home.module';
@@ -43,9 +40,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',

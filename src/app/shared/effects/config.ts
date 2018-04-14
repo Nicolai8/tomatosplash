@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
+import { Observable } from 'rxjs/Observable';
+
 import { ConfigActionTypes, SetConfigKeys } from '../actions/config';
 import { ConfigurationService } from '../services/configuration.service';
 import { AuthService } from '../services/auth.service';
 import * as fromRoot from '../reducers';
 import * as fromConfig from '../reducers/config';
 import { NotificationService } from '../services/notification.service';
-import { Observable } from 'rxjs/Observable';
 import Config from '../../../../models/config.model';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ConfigEffects {

@@ -48,21 +48,20 @@ export class AuthService implements OnDestroy {
     if (!this._isAuthorized$) {
       this._isAuthorized$ = new ReplaySubject<boolean>(1);
 
-      this.subscription = this.isAuthorized()
-        .mergeMap((isAuthorized: boolean) => {
+      this.subscription = this.configurationService.config$.mergeMap((config: Config) => {
+        if (isEmpty(config)) {
+          return Observable.of(false);
+        }
+
+        return this.isAuthorized().mergeMap((isAuthorized: boolean) => {
           if (isAuthorized) {
             return Observable.of(true);
           }
-          return this.configurationService.config$.mergeMap((config: Config) => {
-            if (isEmpty(config)) {
-              return Observable.of(false);
-            }
-            return this.authorize(config);
-          });
-        })
-        .subscribe((result: boolean) => {
-          this._isAuthorized$.next(result);
+          return this.authorize(config);
         });
+      }).subscribe((result: boolean) => {
+        this._isAuthorized$.next(result);
+      });
     }
 
     return this._isAuthorized$.asObservable();

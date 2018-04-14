@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 
 import { ConfigurationService } from './configuration.service';
-import { NotificationService } from './notification.service';
+import * as fromRoot from '../reducers';
+import { ShowNotification } from '../actions/layout';
 
 @Injectable()
 export class HttpService {
@@ -15,7 +17,7 @@ export class HttpService {
   constructor(
     private http: HttpClient,
     private configurationService: ConfigurationService,
-    private notificationService: NotificationService,
+    private store$: Store<fromRoot.State>,
   ) {
   }
 
@@ -55,7 +57,7 @@ export class HttpService {
   private errorHandler(error: any) {
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    this.notificationService.showNotification(errMsg, false);
+    this.store$.dispatch(new ShowNotification(errMsg, false));
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }

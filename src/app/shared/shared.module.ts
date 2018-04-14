@@ -37,6 +37,9 @@ import { OrdersService } from './services/orders.service';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ConfirmService } from './services/confirm.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { CheckForSettingsGuard } from './guards/check-for-settings.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // AoT requires an exported function for factories
 export function configurationServiceFactory(configurationService: ConfigurationService) {
@@ -47,8 +50,10 @@ export function configurationServiceFactory(configurationService: ConfigurationS
 
 @NgModule({
   imports: [
+    HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
@@ -74,7 +79,9 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     TranslateModule,
   ],
   exports: [
+    HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
@@ -125,6 +132,7 @@ export class SharedModule {
           deps: [ ConfigurationService ],
           multi: true
         },
+        CheckForSettingsGuard,
       ]
     };
   }

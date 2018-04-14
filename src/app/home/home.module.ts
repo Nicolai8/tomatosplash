@@ -8,7 +8,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { reducers } from './reducers';
 import { ItemEffects } from './effects/item';
-import { CheckForSettingsGuard } from './guards/check-for-settings.guard';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ItemsListViewComponent } from './components/items-list-view/items-list-view.component';
 import { MainActionsComponent } from './components/main-actions/main-actions.component';
@@ -44,7 +43,6 @@ import { PrintReportDialogComponent } from './components/print-report-dialog/pri
     PrintReportDialogComponent,
   ],
   providers: [
-    CheckForSettingsGuard,
     DatePipe,
   ],
   bootstrap: [

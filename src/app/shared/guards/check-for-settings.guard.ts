@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../../shared/services/auth.service';
+import { Observable } from 'rxjs/Observable'
+
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class CheckForSettingsGuard implements CanActivate {

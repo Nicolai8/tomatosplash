@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.form = new FormGroup({
           cashMachineId: new FormControl(config.cashMachineId || '', Validators.required),
           dbConnectionString: new FormControl(config.dbConnectionString || '',
-            [ Validators.required, Validators.pattern(/https?:\/\/.+/) ]),
+            [ Validators.required, Validators.pattern(/https?:\/\/.+[^\/]$/) ]),
           dbUserName: new FormControl(config.dbUserName || '', Validators.required),
           dbPassword: new FormControl(config.dbPassword || '', [ requiredIfRelativeChangedValidator('dbUserName', config.dbUserName) ]),
           language: new FormControl(config.language || ''),
