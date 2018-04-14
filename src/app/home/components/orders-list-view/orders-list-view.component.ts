@@ -93,7 +93,6 @@ export class OrdersListViewComponent implements OnInit, OnDestroy {
   visualize(order: Order) {
     this.matDialog.open(OrderDialogComponent, {
       panelClass: 'app-order-dialog',
-      minWidth: '1024px',
       data: Object.assign({}, order),
     });
   }

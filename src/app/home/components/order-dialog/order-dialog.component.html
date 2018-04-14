@@ -2,7 +2,7 @@
   <div class="app-order-dialog__info" *ngIf="order">
     <ul class="app-order-dialog__info-list">
       <li>
-        <mat-icon class="not-for-print">receipt</mat-icon>
+        <mat-icon>receipt</mat-icon>
         <div class="app-order-dialog__info-list-item">
           <h3>{{'PAGES.HOME.ORDER.NO' | translate}}</h3>
           <span>
@@ -11,7 +11,7 @@
         </div>
       </li>
       <li>
-        <mat-icon class="not-for-print">bookmark</mat-icon>
+        <mat-icon>bookmark</mat-icon>
         <div class="app-order-dialog__info-list-item">
           <h3>{{'PAGES.HOME.ORDER.TYPE' | translate}}</h3>
           <span>
@@ -20,7 +20,7 @@
         </div>
       </li>
       <li>
-        <mat-icon class="not-for-print">access_time</mat-icon>
+        <mat-icon>access_time</mat-icon>
         <div class="app-order-dialog__info-list-item">
           <h3>{{'PAGES.HOME.ORDER.CREATED' | translate}}</h3>
           <span>
@@ -29,7 +29,7 @@
         </div>
       </li>
       <li *ngIf="order.processed">
-        <mat-icon class="not-for-print">today</mat-icon>
+        <mat-icon>today</mat-icon>
         <div class="app-order-dialog__info-list-item">
           <h3>{{'PAGES.HOME.ORDER.PROCESSED' | translate}}</h3>
           <span>
@@ -38,7 +38,7 @@
         </div>
       </li>
       <li *ngIf="total >= 0">
-        <mat-icon class="not-for-print">payment</mat-icon>
+        <mat-icon>payment</mat-icon>
         <div class="app-order-dialog__info-list-item">
           <h3>{{'PAGES.HOME.ORDER_DIALOG.TOTAL' | translate}}</h3>
           <span>
@@ -49,19 +49,13 @@
     </ul>
   </div>
   <div class="app-order-dialog__details" *ngIf="order">
-    <mat-toolbar class="not-for-print">
+    <mat-toolbar>
       <mat-toolbar-row>
         <button
           (click)="printReceiptToDocx()"
           mat-icon-button
           [matTooltip]="'PAGES.HOME.ORDER.PRINT' | translate">
           <mat-icon>print</mat-icon>
-        </button>
-        <button
-          (click)="printReceiptToPDF()"
-          mat-icon-button
-          [matTooltip]="'PAGES.HOME.ORDER.PRINT_TO_PDF' | translate">
-          <mat-icon>picture_as_pdf</mat-icon>
         </button>
       </mat-toolbar-row>
     </mat-toolbar>

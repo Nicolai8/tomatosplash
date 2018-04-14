@@ -7,6 +7,11 @@
   flex-flow: column;
 }
 
+::ng-deep .mat-dialog-container {
+  max-height: 100vh;
+  overflow: auto;
+}
+
 .mat-table {
   @extend %responsive-mat-table;
 }
@@ -33,7 +38,16 @@
   }
 }
 
+::ng-deep .app-order-dialog {
+  max-width: none !important;
+  min-width: 80vw;
+}
+
 @include media("<small") {
+  ::ng-deep .app-order-dialog {
+    width: 100vw;
+  }
+
   .mat-paginator {
     ::ng-deep .mat-paginator-container {
       padding: 0;
@@ -44,5 +58,12 @@
     ::ng-deep .mat-paginator-range-label {
       margin: 0 0 0 8px
     }
+  }
+}
+
+@include media(">=medium") {
+  ::ng-deep .app-order-dialog {
+    max-width: 1024px !important;
+    min-width: 960px;
   }
 }
