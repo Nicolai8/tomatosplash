@@ -55,7 +55,7 @@
     {{'PAGES.SETTINGS.CANCEL' | translate}}
   </button>
 </div>
-<div class="app-settings__print">
+<div class="app-settings__print" *ngIf="isElectron">
   <h2>{{'PAGES.SETTINGS.PRINT_SETTINGS' | translate}}</h2>
   <div class="app-settings__print-buttons">
     <button

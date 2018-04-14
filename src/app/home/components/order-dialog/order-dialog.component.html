@@ -49,7 +49,7 @@
     </ul>
   </div>
   <div class="app-order-dialog__details" *ngIf="order">
-    <mat-toolbar>
+    <mat-toolbar *ngIf="isElectron">
       <mat-toolbar-row>
         <button
           (click)="printReceiptToDocx()"

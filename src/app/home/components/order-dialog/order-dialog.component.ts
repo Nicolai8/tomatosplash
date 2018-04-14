@@ -10,6 +10,7 @@ import * as fromHome from '../../reducers';
 import { ItemInOrder, Order, OrderToPrint, OrderType } from '../../../../../models/order.model';
 import { Item } from '../../../../../models/item.model';
 import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/print';
+import { ElectronService } from '../../../shared/services/electron.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,6 +22,7 @@ import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/p
 export class OrderDialogComponent implements OnInit, OnDestroy {
   public order: Order;
   public total: number;
+  public isElectron: boolean;
   public displayedColumns = [ 'name', 'type', 'price', 'count', 'total' ];
   public dataSource: MatTableDataSource<ItemInOrder> = new MatTableDataSource<ItemInOrder>([]);
   private subscription: Subscription;
@@ -31,8 +33,10 @@ export class OrderDialogComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private cdRef: ChangeDetectorRef,
     private datePipe: DatePipe,
+    private electronService: ElectronService,
     @Inject(MAT_DIALOG_DATA) private data: Order,
   ) {
+    this.isElectron = this.electronService.isElectron();
   }
 
   ngOnInit(): void {

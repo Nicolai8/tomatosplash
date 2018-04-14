@@ -11,6 +11,7 @@ import * as fromRoot from './shared/reducers';
 import { environment } from '../environments/environment';
 import Config from '../../models/config.model';
 import * as fromLayout from './shared/reducers/layout';
+import { ElectronService } from './shared/services/electron.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import * as fromLayout from './shared/reducers/layout';
 export class AppComponent implements OnInit, OnDestroy {
   private clicksCount = 0;
   private subscription: Subscription;
+  isElectron: boolean;
 
   sidenavMode$: Observable<boolean>;
   showSidenavButton$: Observable<boolean>;
@@ -29,9 +31,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<fromRoot.State>,
+    private electronService: ElectronService,
     private translate: TranslateService,
   ) {
     translate.setDefaultLang('en');
+    this.isElectron = this.electronService.isElectron();
 
     this.sidenavMode$ = this.store$.select(fromLayout.getSidenavMode);
     this.showSidenavButton$ = this.store$.select(fromLayout.getShowSidenavButton);

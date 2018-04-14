@@ -2,7 +2,7 @@
   <mat-icon>note_add</mat-icon>
   {{'PAGES.HOME.CREATE_NEW_ORDER' | translate}}
 </button>
-<button mat-button (click)="printDailyReport()">
+<button mat-button (click)="printDailyReport()" *ngIf="isElectron">
   <mat-icon>receipt</mat-icon>
   {{'PAGES.HOME.DAILY_REPORT' | translate}}
 </button>

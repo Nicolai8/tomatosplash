@@ -21,6 +21,7 @@ import {
   ToggleSidenavButton
 } from '../shared/actions/layout';
 import { requiredIfRelativeChangedValidator } from '../shared/validators/required-if-relative-changed.validator';
+import { ElectronService } from '../shared/services/electron.service';
 
 
 
@@ -36,12 +37,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public hidePassword = true;
   public availableLanguages = environment.availableLanguages;
   public config: Config;
+  public isElectron: boolean;
   private subscription: Subscription;
 
   constructor(
     private store$: Store<fromRoot.State>,
     private cdRef: ChangeDetectorRef,
+    private electronService: ElectronService,
   ) {
+    this.isElectron = this.electronService.isElectron();
   }
 
   ngOnInit(): void {

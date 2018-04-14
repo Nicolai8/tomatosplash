@@ -6,6 +6,7 @@ import { SelectOrder } from '../../actions/order';
 import { Order } from '../../../../../models/order.model';
 import { PrintReportDialogComponent } from '../print-report-dialog/print-report-dialog.component';
 import { MatDialog } from '@angular/material';
+import { ElectronService } from '../../../shared/services/electron.service';
 
 @Component({
   selector: 'app-main-actions',
@@ -13,10 +14,14 @@ import { MatDialog } from '@angular/material';
   styleUrls: [ 'main-actions.component.scss' ]
 })
 export class MainActionsComponent {
+  isElectron: boolean;
+
   constructor(
     private store$: Store<fromHome.State>,
     private matDialog: MatDialog,
+    private electronService: ElectronService,
   ) {
+    this.isElectron = this.electronService.isElectron();
   }
 
   addOrder() {
