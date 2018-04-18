@@ -1,66 +1,14 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
-
-import * as path from 'path';
-import * as url from 'url';
-import events from './electron/events';
-import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
-
-let win, serve;
-const args = process.argv.slice(1);
-serve = args.some(val => val === '--serve');
-try {
-  require('dotenv').config();
-} catch {
-  console.log('asar');
-}
-
-function createWindow() {
-  const size = screen.getPrimaryDisplay().workAreaSize;
-
-  // Create the browser window.
-  win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height
-  });
-  win.maximize();
-  win.setMenu(null);
-
-  events.forEach((eventHandler) => eventHandler(ipcMain, win.webContents));
-
-  if (serve) {
-    require('electron-reload')(__dirname, {});
-    win.loadURL('http://localhost:4200');
-  } else {
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, 'dist/index.html'),
-      protocol: 'file:',
-      slashes: true
-    }));
-  }
-
-  if (serve) {
-    win.webContents.openDevTools();
-    installExtension(REDUX_DEVTOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
-  }
-
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store window
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null;
-  });
-}
+import { app } from 'electron';
+import { createMainWindow } from './electron/mainWindow';
 
 try {
+  let mainWindow: Electron.BrowserWindow;
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', () => {
+    mainWindow = createMainWindow();
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
@@ -71,12 +19,16 @@ try {
     }
   });
 
+  app.on('before-quit', () => {
+    mainWindow.removeAllListeners('close');
+    mainWindow.close();
+  });
 
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (win === null) {
-      createWindow();
+    if (mainWindow === null) {
+      mainWindow = createMainWindow();
     }
   });
 
