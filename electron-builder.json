@@ -22,6 +22,9 @@
       "portable"
     ]
   },
+  "msi": {
+    "warningsAsErrors": false
+  },
   "mac": {
     "icon": "dist/favicon",
     "target": [

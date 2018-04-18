@@ -5,6 +5,7 @@ import * as mkdirp from 'mkdirp';
 import { ItemInOrder, Order, OrderToPrint } from '../../models/order.model';
 import { createDoc } from '../services/printService';
 import { Item } from '../../models/item.model';
+import * as log from 'electron-log';
 
 const settings = require('electron-settings');
 
@@ -32,6 +33,7 @@ const setDocxTemplate = (event: Electron.Event, templatePath: string, successEve
       event.sender.send(successEventName);
     })
     .catch((error) => {
+      log.warn(JSON.stringify(error));
       event.sender.send(Events.error, error && error.message);
     });
 };
@@ -54,6 +56,7 @@ const getDocxTemplate = (event: Electron.Event, templatePath: string) => {
     readStream.pipe(writeStream);
   })
     .catch((error) => {
+      log.warn(JSON.stringify(error));
       event.sender.send(Events.error, error && error.message);
     });
 };
@@ -82,6 +85,7 @@ export const printEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebCon
       const fileUrl = `${printPDFDirectory}/receipt_${Date.now()}.pdf`;
       fs.writeFile(fileUrl, data, (error) => {
         if (error) {
+          log.warn(JSON.stringify(error));
           event.sender.send(Events.error, error.message);
           return;
         }
@@ -119,6 +123,7 @@ export const printEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebCon
         event.sender.send(Events.printReceiptToDocxSuccess);
       })
       .catch((error) => {
+        log.warn(JSON.stringify(error));
         event.sender.send(Events.error, error && error.message);
       });
   });
@@ -164,6 +169,7 @@ export const printEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebCon
         event.sender.send(Events.printReceiptToDocxSuccess);
       })
       .catch((error) => {
+        log.warn(JSON.stringify(error));
         event.sender.send(Events.error, error && error.message);
       });
   });

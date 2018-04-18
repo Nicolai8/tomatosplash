@@ -1,5 +1,6 @@
 import { app } from 'electron';
 import { createMainWindow } from './electron/mainWindow';
+import * as log from 'electron-log';
 
 try {
   let mainWindow: Electron.BrowserWindow;
@@ -33,6 +34,7 @@ try {
   });
 
 } catch (e) {
+  log.error(JSON.stringify(e));
   // Catch Error
   // throw e;
 }

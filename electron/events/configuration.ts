@@ -1,14 +1,16 @@
+import { app } from 'electron';
 import { Events } from '../../events';
 import Config from '../../models/config.model';
+import * as log from 'electron-log';
 
 const settings = require('electron-settings');
 const keytar = require('keytar');
-const serviceName = 'Tomatosplash';
+const serviceName = app.getName();
 
 export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electron.WebContents) => {
   ipcMain.on(Events.getConfiguration, (event: Electron.Event) => {
     const result: Config = settings.getAll();
-    if(!result.dbUserName) {
+    if (!result.dbUserName) {
       event.returnValue = result;
       return;
     }
@@ -18,6 +20,7 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
         event.returnValue = result;
       })
       .catch((error) => {
+        log.warn(JSON.stringify(error));
         event.sender.send(Events.error, error && error.message);
         event.returnValue = {};
       });
@@ -27,8 +30,8 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
     const currentConfig: Config = settings.getAll();
 
     let promise = Promise.resolve();
-    if(currentConfig.dbUserName) {
-      promise = keytar.deletePassword(serviceName, currentConfig.dbUserName)
+    if (currentConfig.dbUserName) {
+      promise = keytar.deletePassword(serviceName, currentConfig.dbUserName);
     }
     promise
       .then(() => {
@@ -41,6 +44,7 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
         event.sender.send(Events.editConfigurationSuccess, result);
       })
       .catch((error) => {
+        log.warn(JSON.stringify(error));
         event.sender.send(Events.error, error && error.message);
       });
   });
