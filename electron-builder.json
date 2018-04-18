@@ -1,5 +1,18 @@
 {
+  "appId": "com.herokuapp.tomatosplash",
   "productName": "Tomatosplash",
+  "files": [
+    "!**/*.ts",
+    "!**/*.docx",
+    "!src",
+    "!.angular-cli.json",
+    "!tsconfig.json",
+    "!tslint.json",
+    "!readme.md",
+    "!karma.conf.js",
+    "!postcss.config.js",
+    "!protractor.conf.js"
+  ],
   "directories": {
     "output": "app-builds"
   },
