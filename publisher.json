@@ -1,8 +1,0 @@
-{
-  "transport": {
-    "module": "local",
-    "remoteUrl": "http://192.168.12.11:4321/updates",
-    "outPath": "app-builds/updates"
-  },
-  "path": "app-builds"
-}

@@ -8,7 +8,6 @@
     "!.angular-cli.json",
     "!tsconfig.json",
     "!tslint.json",
-    "!updates.json",
     "!readme.md",
     "!karma.conf.js",
     "!postcss.config.js",
@@ -26,8 +25,17 @@
   "nsis": {
     "perMachine": false
   },
-  "msi": {
-    "warningsAsErrors": false
+  "mac": {
+    "icon": "dist/favicon",
+    "target": [
+      "dmg"
+    ]
+  },
+  "linux": {
+    "icon": "dist",
+    "target": [
+      "AppImage"
+    ]
   },
   "publish": [
     {
