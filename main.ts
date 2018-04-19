@@ -2,8 +2,7 @@ import { app } from 'electron';
 import { createMainWindow } from './electron/mainWindow';
 import * as log from 'electron-log';
 
-log.info('Start the app');
-
+// log.transports.file.level = 'info';
 try {
   let mainWindow: Electron.BrowserWindow;
   // This method will be called when Electron has finished
@@ -23,6 +22,7 @@ try {
   });
 
   app.on('before-quit', () => {
+    app.removeAllListeners('window-all-closed');
     mainWindow.removeAllListeners('close');
     mainWindow.close();
   });
@@ -36,7 +36,7 @@ try {
   });
 
 } catch (e) {
-  log.error(JSON.stringify(e));
+  log.error(e && e.message);
   // Catch Error
   // throw e;
 }
