@@ -29,7 +29,7 @@ export const createTray = (mainWindow: Electron.BrowserWindow, isServing: boolea
       click: () => {
         dialog.showMessageBox({
           type: 'info',
-          message: app.getVersion().toString(),
+          message: `${app.getName()} v${app.getVersion().toString()}`,
           title: 'About'
         });
       }

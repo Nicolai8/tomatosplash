@@ -24,10 +24,10 @@ export class AuthService implements OnDestroy {
 
   public authorize(config): Observable<boolean> {
     return this.http
-      .post('/api/login', {
+      .post(`${config.dbConnectionString}/api/login`, {
         username: config.dbUserName,
         password: config.dbPassword,
-      })
+      }, <any>{}, true)
       .catch(() => {
         return Observable.of(false);
       })

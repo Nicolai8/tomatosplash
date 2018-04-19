@@ -20,7 +20,7 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
         event.returnValue = result;
       })
       .catch((error) => {
-        log.warn(JSON.stringify(error));
+        log.warn(error && error.message);
         event.sender.send(Events.error, error && error.message);
         event.returnValue = {};
       });
@@ -44,7 +44,7 @@ export const configurationEvents = (ipcMain: Electron.IpcMain, contents: Electro
         event.sender.send(Events.editConfigurationSuccess, result);
       })
       .catch((error) => {
-        log.warn(JSON.stringify(error));
+        log.warn(error && error.message);
         event.sender.send(Events.error, error && error.message);
       });
   });

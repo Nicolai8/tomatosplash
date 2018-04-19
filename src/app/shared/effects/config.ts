@@ -10,6 +10,7 @@ import * as fromRoot from '../reducers';
 import * as fromConfig from '../reducers/config';
 import { NotificationService } from '../services/notification.service';
 import Config from '../../../../models/config.model';
+import { isEmpty } from '../utils';
 
 @Injectable()
 export class ConfigEffects {
@@ -26,7 +27,9 @@ export class ConfigEffects {
     })
     .map(([ authResult, oldConfig, config ]: [ boolean, Config, Config ]) => {
       if (!authResult) {
-        config.dbUserName = oldConfig.dbUserName;
+        if (!isEmpty(oldConfig)) {
+          config.dbUserName = oldConfig.dbUserName;
+        }
         this.notificationService.showNotification('MESSAGES.AUTHORIZATION_FAILED_NOT_SAVED');
       }
 

@@ -26,8 +26,8 @@ export class HttpService {
     return config.dbConnectionString;
   }
 
-  post(url: string, data: any, headers?: HttpHeaders) {
-    return this.http.post(`${this.apiUrl}${url}`, JSON.stringify(data), {
+  post(url: string, data: any, headers?: HttpHeaders, isAbsoluteUrl: boolean = false) {
+    return this.http.post(`${isAbsoluteUrl ? '' : this.apiUrl}${url}`, JSON.stringify(data), {
       headers: headers || this.headers,
       withCredentials: true,
     }).catch(this.errorHandler);

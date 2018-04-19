@@ -44,14 +44,9 @@ autoUpdater.on('update-not-available', () => {
 autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox({
     title: 'Install Updates',
-    message: 'Updates downloaded. Would you like to install them now?',
-    buttons: [ 'Yes', 'No' ]
-  }, (buttonIndex) => {
-    if (buttonIndex === 0) {
-      setImmediate(() => autoUpdater.quitAndInstall());
-    } else {
-      resetUpdater();
-    }
+    message: 'Updates downloaded. The app will be restarted now.'
+  }, () => {
+    setImmediate(() => autoUpdater.quitAndInstall());
   });
 });
 
