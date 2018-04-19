@@ -2,6 +2,8 @@ import { app } from 'electron';
 import { createMainWindow } from './electron/mainWindow';
 import * as log from 'electron-log';
 
+log.info('Start the app');
+
 try {
   let mainWindow: Electron.BrowserWindow;
   // This method will be called when Electron has finished

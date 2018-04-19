@@ -16,6 +16,8 @@
     "build": "ng build && npm run electron:tsc",
     "build:prod": "ng build --prod && npm run electron:tsc",
     "ng:serve": "ng serve",
+    "publish": "npx publish",
+    "publish2": "npx electron-builder -p never",
     "electron:tsc": "tsc main.ts",
     "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
     "electron:debug": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve --inspect=21012",
@@ -37,6 +39,7 @@
     "electron-log": "^2.2.14",
     "electron-reload": "1.2.2",
     "electron-settings": "3.1.4",
+    "electron-simple-updater": "^1.2.3",
     "electron-updater": "^2.21.8",
     "jszip": "2.6.1",
     "keytar": "^4.2.1",
@@ -81,6 +84,7 @@
     "electron-builder": "20.0.5",
     "electron-builder-squirrel-windows": "^20.9.0",
     "electron-rebuild": "^1.7.3",
+    "electron-simple-publisher": "^0.4.9",
     "enhanced-resolve": "3.3.0",
     "fs-extra": "5.0.0",
     "immutable": "3.8.2",
@@ -105,5 +109,8 @@
     "wait-on": "^2.1.0",
     "webdriver-manager": "12.0.6",
     "zone.js": "0.8.19"
+  },
+  "updater": {
+    "url": "http://192.168.12.11:4321/updates/updates.json"
   }
 }

@@ -1,5 +1,6 @@
-import { app, Menu, Tray } from 'electron';
+import { app, Menu, Tray, dialog } from 'electron';
 import * as path from 'path';
+import { checkForUpdates } from './autoUpdater';
 
 let trayIcon: Electron.Tray;
 const iconPath = path.join(__dirname, '../assets/icon.png');
@@ -21,6 +22,21 @@ export const createTray = (mainWindow: Electron.BrowserWindow, isServing: boolea
         mainWindow.show();
         mainWindow.webContents.toggleDevTools();
       }
+    },
+    {
+      label: 'About',
+      role: 'about',
+      click: () => {
+        dialog.showMessageBox({
+          type: 'info',
+          message: app.getVersion().toString(),
+          title: 'About'
+        });
+      }
+    },
+    {
+      label: 'Check for updates...',
+      click: checkForUpdates
     },
     {
       label: 'Quit',
