@@ -5,13 +5,13 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 import './operators';
-import { ShowDevConsole, ToggleSidenav } from './shared/actions/layout';
-import * as fromConfig from './shared/reducers/config';
-import * as fromRoot from './shared/reducers';
+import { ShowDevConsole, ToggleSidenav } from './core/actions/layout';
+import * as fromConfig from './core/reducers/config';
+import * as fromRoot from './core/reducers';
 import { environment } from '../environments/environment';
 import Config from '../../models/config.model';
-import * as fromLayout from './shared/reducers/layout';
-import { ElectronService } from './shared/services/electron.service';
+import * as fromLayout from './core/reducers/layout';
+import { ElectronService } from './core/services/electron.service';
 
 @Component({
   selector: 'app-root',

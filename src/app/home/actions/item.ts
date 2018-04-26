@@ -1,5 +1,5 @@
 import { Item } from '../../../../models/item.model';
-import { ExtendedAction } from '../../shared/actions/action';
+import { ExtendedAction } from '../../core/actions/action';
 
 export enum ItemActionTypes {
   GetItems = '[Item] GetItems',

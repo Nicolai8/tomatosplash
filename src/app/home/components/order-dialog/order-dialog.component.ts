@@ -9,8 +9,8 @@ import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import * as fromHome from '../../reducers';
 import { ItemInOrder, Order, OrderToPrint, OrderType } from '../../../../../models/order.model';
 import { Item } from '../../../../../models/item.model';
-import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../shared/actions/print';
-import { ElectronService } from '../../../shared/services/electron.service';
+import { PrintReceiptToDocx, PrintReceiptToPDF } from '../../../core/actions/print';
+import { ElectronService } from '../../../core/services/electron.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,29 +1,27 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
-import * as fromRoot from '../shared/reducers';
-import * as fromConfig from '../shared/reducers/config';
-import { SetConfigKeys } from '../shared/actions/config';
+import * as fromRoot from '../core/reducers';
+import * as fromConfig from '../core/reducers/config';
+import { SetConfigKeys } from '../core/actions/config';
 import Config from '../../../models/config.model';
-import { isEmpty } from '../shared/utils';
+import { isEmpty } from '../core/utils';
 import {
   GetPrintReceiptDocxTemplate,
   GetPrintReportDocxTemplate,
   SetPrintReceiptDocxTemplate,
   SetPrintReportDocxTemplate
-} from '../shared/actions/print';
+} from '../core/actions/print';
 import { environment } from '../../environments/environment';
 import {
   ToggleHomeButton,
   ToggleSettingsButton,
   ToggleSidenavButton
-} from '../shared/actions/layout';
-import { requiredIfRelativeChangedValidator } from '../shared/validators/required-if-relative-changed.validator';
-import { ElectronService } from '../shared/services/electron.service';
-
-
+} from '../core/actions/layout';
+import { requiredIfRelativeChangedValidator } from '../core/validators/required-if-relative-changed.validator';
+import { ElectronService } from '../core/services/electron.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

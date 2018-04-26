@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { Store } from '@ngrx/store';
 
 import * as fromHome from '../../reducers';
-import { PrintReportToDocx } from '../../../shared/actions/print';
+import { PrintReportToDocx } from '../../../core/actions/print';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 

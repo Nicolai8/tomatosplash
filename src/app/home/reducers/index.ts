@@ -3,7 +3,7 @@ import {
 } from '@ngrx/store';
 import * as fromItem from './item';
 import * as fromOrder from './order';
-import * as fromRoot from '../../shared/reducers';
+import * as fromRoot from '../../core/reducers';
 
 export interface HomeState {
   item: fromItem.State;

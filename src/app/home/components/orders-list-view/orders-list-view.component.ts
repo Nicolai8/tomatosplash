@@ -8,7 +8,7 @@ import { GetOrders, ProceedOrder, RemoveOrder, SelectOrder } from '../../actions
 import { Subscription } from 'rxjs/Subscription';
 import { PagerData } from '../../../../../models/pagination.model';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
-import { ConfirmService } from '../../../shared/services/confirm.service';
+import { ConfirmService } from '../../../core/services/confirm.service';
 
 @Component({
   selector: 'app-orders-list-view',

@@ -18,7 +18,7 @@ import {
   RemoveOrderError,
   RemoveOrderSuccess
 } from '../actions/order';
-import { OrdersService } from '../../shared/services/orders.service';
+import { OrdersService } from '../../core/services/orders.service';
 import { select, Store } from '@ngrx/store';
 import * as fromHome from '../reducers';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Order } from '../../../../models/order.model';
 import { Pagination } from '../../../../models/pagination.model';
 import { of } from 'rxjs/observable/of';
-import { ShowNotification } from '../../shared/actions/layout';
+import { ShowNotification } from '../../core/actions/layout';
 
 @Injectable()
 export class OrderEffects {

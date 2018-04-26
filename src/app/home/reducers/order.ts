@@ -1,5 +1,5 @@
 import { OrderActionTypes } from '../actions/order';
-import { ExtendedAction } from '../../shared/actions/action';
+import { ExtendedAction } from '../../core/actions/action';
 import * as _ from 'lodash';
 import { fromJS, Map } from 'immutable';
 import { Order } from '../../../../models/order.model';

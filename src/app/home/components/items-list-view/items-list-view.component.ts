@@ -8,7 +8,7 @@ import * as fromHome from '../../reducers';
 import { Item } from '../../../../../models/item.model';
 import { RemoveItem } from '../../actions/item';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
-import { ConfirmService } from '../../../shared/services/confirm.service';
+import { ConfirmService } from '../../../core/services/confirm.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

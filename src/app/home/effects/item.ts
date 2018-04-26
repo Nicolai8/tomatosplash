@@ -9,11 +9,11 @@ import {
   ItemActionTypes,
   RemoveItem, RemoveItemError, RemoveItemSuccess
 } from '../actions/item';
-import { ItemsService } from '../../shared/services/items.service';
+import { ItemsService } from '../../core/services/items.service';
 import { Item } from '../../../../models/item.model';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { ShowNotification } from '../../shared/actions/layout';
+import { ShowNotification } from '../../core/actions/layout';
 
 @Injectable()
 export class ItemEffects {

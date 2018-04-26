@@ -1,5 +1,4 @@
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
   MatIconModule,
@@ -23,37 +22,19 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
 } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ConfigurationService } from './services/configuration.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ElectronService } from './services/electron.service';
-import { NotificationService } from './services/notification.service';
-import { SpinnerComponent } from './components/spinner/spinner.component';
-import { PrintService } from './services/print.service';
-import { HttpService } from './services/http.service';
-import { AuthService } from './services/auth.service';
-import { ItemsService } from './services/items.service';
-import { OrdersService } from './services/orders.service';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { ConfirmService } from './services/confirm.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { CheckForSettingsGuard } from './guards/check-for-settings.guard';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
-// AoT requires an exported function for factories
-export function configurationServiceFactory(configurationService: ConfigurationService) {
-  return function () {
-    return configurationService.loadConfiguration();
-  };
-}
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
-    HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    TranslateModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
@@ -79,9 +60,9 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     TranslateModule,
   ],
   exports: [
-    HttpClientModule,
+    CommonModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    TranslateModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
@@ -105,35 +86,15 @@ export function configurationServiceFactory(configurationService: ConfigurationS
     MatNativeDateModule,
     FlexLayoutModule,
     SpinnerComponent,
+    ConfirmDialogComponent,
   ],
   declarations: [
     SpinnerComponent,
     ConfirmDialogComponent,
   ],
-  bootstrap: [ ConfirmDialogComponent ]
+  bootstrap: [
+    ConfirmDialogComponent
+  ]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ElectronService,
-        NotificationService,
-        ConfigurationService,
-        HttpService,
-        AuthService,
-        ItemsService,
-        OrdersService,
-        PrintService,
-        ConfirmService,
-        {
-          provide: APP_INITIALIZER,
-          useFactory: configurationServiceFactory,
-          deps: [ ConfigurationService ],
-          multi: true
-        },
-        CheckForSettingsGuard,
-      ]
-    };
-  }
 }

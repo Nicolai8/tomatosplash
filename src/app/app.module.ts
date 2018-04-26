@@ -18,16 +18,18 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 // NGRX
-import { metaReducers, reducers } from './shared/reducers';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { ConfigEffects } from './shared/effects/config';
-import { LayoutEffects } from './shared/effects/layout';
 import { SettingsModule } from './settings/settings.module';
 import { HomeModule } from './home/home.module';
-import { PrintEffects } from './shared/effects/print';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core.module';
+import { LayoutEffects } from './core/effects/layout';
+import { PrintEffects } from './core/effects/print';
+import { ConfigEffects } from './core/effects/config';
+import { metaReducers, reducers } from './core/reducers';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
@@ -54,7 +57,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       PrintEffects,
     ]),
     AppRoutingModule,
-    SharedModule.forRoot(),
+    CoreModule.forRoot(),
+    SharedModule,
     SettingsModule,
     HomeModule,
     TranslateModule.forRoot({

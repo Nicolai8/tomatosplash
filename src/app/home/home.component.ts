@@ -3,10 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import * as fromHome from './reducers';
-import * as fromLayout from '../shared/reducers/layout';
+import * as fromLayout from '../core/reducers/layout';
 import { GetItems } from './actions/item';
 import { environment } from '../../environments/environment';
-import { SetSidenavMode, ToggleHomeButton, ToggleSettingsButton, ToggleSidenav, ToggleSidenavButton } from '../shared/actions/layout';
+import { SetSidenavMode, ToggleHomeButton, ToggleSettingsButton, ToggleSidenav, ToggleSidenavButton } from '../core/actions/layout';
 
 @Component({
   selector: 'app-home',

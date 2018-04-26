@@ -1,5 +1,5 @@
 import { Order } from '../../../../models/order.model';
-import { ExtendedAction } from '../../shared/actions/action';
+import { ExtendedAction } from '../../core/actions/action';
 import { PagerData } from '../../../../models/pagination.model';
 
 export enum OrderActionTypes {

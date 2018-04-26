@@ -6,7 +6,7 @@ import { SelectOrder } from '../../actions/order';
 import { Order } from '../../../../../models/order.model';
 import { PrintReportDialogComponent } from '../print-report-dialog/print-report-dialog.component';
 import { MatDialog } from '@angular/material';
-import { ElectronService } from '../../../shared/services/electron.service';
+import { ElectronService } from '../../../core/services/electron.service';
 
 @Component({
   selector: 'app-main-actions',

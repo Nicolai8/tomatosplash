@@ -1,7 +1,7 @@
 import { ItemActionTypes } from '../actions/item';
-import { ExtendedAction } from '../../shared/actions/action';
+import { ExtendedAction } from '../../core/actions/action';
 import * as _ from 'lodash';
-import { updateArray } from '../../shared/utils';
+import { updateArray } from '../../core/utils';
 import { fromJS, Map } from 'immutable';
 
 export type State = Map<string, any>;
